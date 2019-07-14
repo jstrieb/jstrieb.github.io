@@ -1,0 +1,569 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; } /* Keyword */
+code > span.dt { color: #800000; } /* DataType */
+code > span.dv { color: #0000ff; } /* DecVal */
+code > span.bn { color: #0000ff; } /* BaseN */
+code > span.fl { color: #800080; } /* Float */
+code > span.ch { color: #ff00ff; } /* Char */
+code > span.st { color: #dd0000; } /* String */
+code > span.co { color: #808080; font-style: italic; } /* Comment */
+code > span.al { color: #00ff00; font-weight: bold; } /* Alert */
+code > span.fu { color: #000080; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #ff0000; font-weight: bold; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #ff00ff; } /* SpecialChar */
+code > span.vs { color: #dd0000; } /* VerbatimString */
+code > span.ss { color: #dd0000; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #808080; font-style: italic; } /* Documentation */
+code > span.an { color: #808080; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #808080; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css" />
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/projects/">Projects</a></li>
+<li><a href="/posts/">Posts</a></li>
+</ul>
+<hr />
+</div>
+<h1 id="chatbots">Chatbots</h1>
+<h2 id="optional-lecture">15-112 Optional Lecture</h2>
+<p>By: <a href="http://jstrieb.github.io">Jacob Strieb</a> and <a href="https://www.zuhayer.me/">Zuhayer Quazi</a></p>
+<p>Published on November 6, 2018</p>
+<h2 id="sections">Sections</h2>
+<ol style="list-style-type: decimal">
+<li><a href="#json">JSON</a></li>
+<li><a href="#apis">APIs</a></li>
+<li><a href="#groupme-bot-api">GroupMe Bot API</a></li>
+<li><a href="#facebook-messenger-bot-api">Facebook Messenger Bot API</a></li>
+<li><a href="#running-code-on-a-server">Running Code on a Server</a></li>
+<li><a href="#ideas">Ideas</a></li>
+</ol>
+<h2 id="code-downloads">Code downloads</h2>
+<ol style="list-style-type: decimal">
+<li><a href="GroupMe.py" class="uri">GroupMe.py</a></li>
+</ol>
+<hr />
+<h1 id="json">JSON</h1>
+<p>&quot;JSON&quot; is an acronym used to describe JavaScript Object Notation. This is essentially a format for transmitting data in the form of &quot;objects&quot; (think object-oriented programming). The notation is very similar to Python's syntax for dictionaries. Generally, JSON objects can be thought of as a text form of dictionaries.</p>
+<p>Here is an example of a JSON object:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;firstName&quot;</span><span class="fu">:</span> <span class="st">&quot;John&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;lastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;isAlive&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+  <span class="dt">&quot;age&quot;</span><span class="fu">:</span> <span class="dv">27</span><span class="fu">,</span>
+  <span class="dt">&quot;address&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;streetAddress&quot;</span><span class="fu">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;city&quot;</span><span class="fu">:</span> <span class="st">&quot;New York&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;state&quot;</span><span class="fu">:</span> <span class="st">&quot;NY&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;postalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;10021-3100&quot;</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;phoneNumbers&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;home&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;212 555-1234&quot;</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;office&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;646 555-4567&quot;</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;mobile&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;123 456-7890&quot;</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;children&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span>
+  <span class="dt">&quot;spouse&quot;</span><span class="fu">:</span> <span class="kw">null</span>
+<span class="fu">}</span> </code></pre></div>
+<p>Parsing text formatted as JSON objects is very easy in Python. Using the <code>json</code> library, and calling the <code>json.loads</code> method on a properly-formatted string will return a regular Python dictionary.</p>
+<p>Assuming that the above text is stored as <code>jsonString</code>, we can do the following to turn it into a dictionary in Python:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> json
+
+jsonDict <span class="op">=</span> json.loads(jsonString)
+
+<span class="co"># Prints: 27</span>
+<span class="bu">print</span>(jsonDict[<span class="st">&quot;age&quot;</span>])
+
+<span class="co"># Prints: 3</span>
+<span class="bu">print</span>(<span class="bu">len</span>(jsonDict[<span class="st">&quot;phoneNumbers&quot;</span>]))
+
+<span class="co"># Prints: dict</span>
+<span class="bu">print</span>(<span class="bu">type</span>(jsonDict[<span class="st">&quot;address&quot;</span>]))</code></pre></div>
+<p>In order to create JSON text strings from Python dictionaries, we can use the <code>json.dumps</code> method. Calling this method will return a properly-formatted JSON string assuming that each item in the dictionary is well-formed. If you are working with custom objects, you will need to tell the <code>json</code> library how to turn those objects in to <code>json</code> strings.</p>
+<p>Additionally, the <code>indent</code> optional parameter to the <code>json.dumps</code> method is very useful for printing and debugging JSON strings. This allows the output string to be formatted nicely. The <code>indent</code> parameter is an integer representing the number of spaces to indent each successive nested layer of the dictionary. Typical values are 2 or 4.</p>
+<p>Here is an example of modifying some values from the JSON string above and returning the modified JSON string:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> json
+
+jsonDict <span class="op">=</span> json.loads(jsonString)
+
+<span class="co"># Change the age</span>
+jsonDict[<span class="st">&quot;age&quot;</span>] <span class="op">=</span> <span class="dv">69</span>
+
+<span class="co"># Add children</span>
+jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Kiddo1&quot;</span>)
+jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Little Boi&quot;</span>)
+
+<span class="co"># Add a field</span>
+jsonDict[<span class="st">&quot;favNumber&quot;</span>] <span class="op">=</span> <span class="dv">420</span>
+
+<span class="co"># Modify the address</span>
+jsonDict[<span class="st">&quot;address&quot;</span>][<span class="st">&quot;postalCode&quot;</span>] <span class="op">=</span> <span class="st">&quot;15213&quot;</span>
+
+<span class="co"># Get a nicely formatted JSON string</span>
+newJsonString <span class="op">=</span> json.dumps(jsonDict, indent<span class="op">=</span><span class="dv">2</span>)
+<span class="bu">print</span>(newJsonString)</code></pre></div>
+<p>Running this code prints the following:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;firstName&quot;</span><span class="fu">:</span> <span class="st">&quot;John&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;lastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;isAlive&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+  <span class="dt">&quot;age&quot;</span><span class="fu">:</span> <span class="dv">69</span><span class="fu">,</span>
+  <span class="dt">&quot;address&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;streetAddress&quot;</span><span class="fu">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;city&quot;</span><span class="fu">:</span> <span class="st">&quot;New York&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;state&quot;</span><span class="fu">:</span> <span class="st">&quot;NY&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;postalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;15213&quot;</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;phoneNumbers&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;home&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;212 555-1234&quot;</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;office&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;646 555-4567&quot;</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;mobile&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;123 456-7890&quot;</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;children&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="st">&quot;Kiddo1&quot;</span><span class="ot">,</span>
+    <span class="st">&quot;Little Boi&quot;</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;spouse&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span>
+  <span class="dt">&quot;favNumber&quot;</span><span class="fu">:</span> <span class="dv">420</span>
+<span class="fu">}</span></code></pre></div>
+<p>More information about JSON can be found at the following links:</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/json.html">Python JSON Documentation</a></li>
+<li><a href="https://www.json.org/">Official JSON Standard Website</a></li>
+<li><a href="https://en.wikipedia.org/wiki/JSON">JSON Wikipedia Page</a></li>
+</ul>
+<h1 id="apis">APIs</h1>
+<p>&quot;API&quot; is an acronym that stands for Application Programming Interface. APIs are designed to allow programs to interact with other programs as easily as possible. Many modern Internet-based APIs use JSON to transfer data between servers and client software. This is typically done using network requests.</p>
+<p>In simple terms, network requests are when data is sent to a particular URL. Network requests come in one of two forms: <code>GET</code> or <code>POST</code>. So-called <code>GET</code> requests pass parameters to the destination page via the URL. A typical <code>GET</code> request URL might look like the following:</p>
+<pre><code>http://jstrieb.github.io/some_page?variable1=value1&amp;varable2=value2&amp;variable3=value3</code></pre>
+<p>Unlike <code>GET</code> requests, <code>POST</code> requests send data to the destination URL within the body of the request. When reading API documentation, pay attention to whether or not the requests must take the form of <code>GET</code> or <code>POST</code> requests and write your code accordingly.</p>
+<p>Requests to URLs can be made using Python very easily using the <code>requests</code> library. These requests both send data to the destination URL and receive a response back. We will write an example that uses the GIPHY API to get certain types of GIF images.</p>
+<p>When trying to write code using a particular API, the first step is to locate the API documentation, which will guide how we write our code. In this case, the GIPHY API documentation can be found <a href="https://developers.giphy.com/docs/">here</a>. Many websites strongly encourage the use of their services via the API and have associated tutorials in various languages teaching how to use them. Many APIs also require that the software using them is registered with the service and has an &quot;API key&quot; which is just a special string passed along with the request made to the API so that the service can track who is using it.</p>
+<p>To get started with the GIPHY API, we must first register our app using their online form. We do this by going to the <a href="https://developers.giphy.com/">GIPHY developer page</a> and registering, then hitting the &quot;Create an App&quot; button and following the instructions given. Once registered, we will get an API key that looks like the following:</p>
+<pre><code>exiOXgECL7g582dV2Mt85vYZoSs1Kb0m</code></pre>
+<p>Generally, it is a good idea to keep API keys secret and safe. This is because anything that could be done with a user account on a website could also be done with the API key.</p>
+<p>Now that we have our API key, we can make requests to the GIPHY API. The API Docs say that we can get GIFs using the Search Endpoint. More information about this endpoint can be found <a href="operation--gifs-search-get">here</a>. The Docs specify that we need to make a <code>GET</code> request to the following URL: <code>http://api.giphy.com/v1/gifs/search</code> with the following parameters:</p>
+<ul>
+<li><code>api_key</code> which will be our API key</li>
+<li><code>q</code> which will be the term we want to search for</li>
+<li><code>offset</code> which offsets the results (which we can use to get a random result of a specific type)</li>
+<li>A number of other optional parameters that we don't care about at the moment</li>
+</ul>
+<p>The Docs for the API also specify what the response will look like, but for now we will just make some requests and see what we can extract from the response. For this example, we will get a random cat GIF and print the link to the screen.</p>
+<p>In the following example, we import the <code>requests</code> library, assemble the data we want to send in a <code>data</code> dictionary, and make a <code>GET</code> request. Then we print the JSON output to the screen:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> requests
+<span class="im">import</span> random
+
+data <span class="op">=</span> {
+         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,
+         <span class="co">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,
+         <span class="co">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)
+       }
+
+r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)
+
+<span class="bu">print</span>(r.text)</code></pre></div>
+<p>The example above searches GIPHY for &quot;cat&quot; and randomly offsets the search results. The code will print a bunch of JSON data with the returned GIFs. Now, we want to parse this data and extract meaningful information. In our case, we want the URL of the first GIF.</p>
+<p>Alternatively, it is also possible to make <code>GET</code> requests using the browser by manually encoding our parameters in the URL and then navigating there. For example, by entering the following URL into our browser, we can see the same output that the code above returns:</p>
+<pre><code>http://api.giphy.com/v1/gifs/search?api_key=exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&amp;q=cat</code></pre>
+<p>By manually inspecting the output of the above code, we see that within the <code>data</code> attribute each element has a <code>bitly_gif_url</code> attribute that has a shortened link to the GIF. The following code extracts this URL and prints it to the screen:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> requests
+<span class="im">import</span> random
+
+data <span class="op">=</span> {
+         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,
+         <span class="co">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,
+         <span class="co">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)
+       }
+
+r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)
+url <span class="op">=</span> r.json()[<span class="st">&quot;data&quot;</span>][<span class="dv">0</span>][<span class="st">&quot;bitly_gif_url&quot;</span>]
+<span class="bu">print</span>(url)</code></pre></div>
+<p>Note that the above code uses the JSON parser built natively into the <code>requests</code> library. When run the first time, this code linked to the following fun cat GIF:</p>
+<div class="figure">
+<img src="http://i.imgur.com/0Y1xISa.gif" title="Lit Cat GIF" />
+
+</div>
+<h1 id="groupme-bot-api">GroupMe Bot API</h1>
+<p>Now that we know how to use APIs in general, we can begin to build a chatbot for the GroupMe messaging platform that will send messages in a group chat when we run the code. Doing this is largely the same as the procedure we went through in order to get GIFs from the GIPHY API.</p>
+<p>First, we must register a bot with a group. This can be done at <a href="https://dev.groupme.com/bots/new">this page</a>. Once the bot is registered, as with the GIPHY API, we will be given an access token that should be kept secret and safe. Then, sending a message is as easy as using the requests library as before:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> requests
+
+data <span class="op">=</span> {
+         <span class="st">&quot;bot_id&quot;</span> : <span class="st">&quot;b52841049bfccdfe5217512b63&quot;</span>,
+         <span class="co">&quot;text&quot;</span> : <span class="st">&quot;This is a test&quot;</span>
+       }
+
+r <span class="op">=</span> requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</code></pre></div>
+<p>Notice that this time, when we send the message, we make a <code>POST</code> request as opposed to a <code>GET</code> request. Also note that we use the optional parameter <code>data</code> instead of <code>params</code>.</p>
+<p>More information on creating bots can be found at the official <a href="https://dev.groupme.com/tutorials/bots">GroupMe Bots documentation here</a>.</p>
+<p>Simply sending messages is very useful; if you need to leave code running for a long time it can be helpful to get a notification on your phone when it has completed. Likewise, if you run code on a server, it can be helpful to have diagnostic information sent back to your phone.</p>
+<p>Now that we know how to send messages, we will make our bot respond to messages. There are two ways to do this. One way involves running your code locally on your computer, the other involves setting it up on a server that will remain running all of the time. Running it on your computer is useful for testing bot functionality, but when actually deploying a bot it is best to let it run on a server. See the <a href="#running-code-on-a-server">Servers</a> section for more information.</p>
+<p>The reason that doing this is more complex than having the bot simply send messages is that we need to regularly check whether or not new messages have been sent in the group. The strategy that we will use here involves regularly checking the GroupMe server that will let us know if there are new messages. Doing this requires an access token in addition to a Bot token (they are different for GroupMe). An access token can be obtained by clicking the &quot;Access Token&quot; button in the top right corner of the page where you registered your GroupMe Bot. It may be necessary to also register the bot as an <a href="https://dev.groupme.com/applications">application</a></p>
+<p>To poll the server for new messages, we will use the GroupMe push service. In order to use this service, our code must first get a clientId, and then must &quot;subscribe&quot; to a channel before being able to poll it for new messages. The following code does all of these steps before entering the main loop of the function where it polls for new messages. After seeing new messages, it makes sure it is responding to messages in the correct group, and makes sure that the bot isn't responding to itself (which could result in an infinite loop).</p>
+<p>This simple bot merely repeats whatever is sent in its group:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> requests
+<span class="im">import</span> time
+<span class="im">import</span> json
+
+<span class="co">#*******************************************************************************</span>
+<span class="co">################################################################################</span>
+<span class="co"># </span>
+<span class="co"># Created by Jacob Strieb for the Chatbots optional lecture given as part of</span>
+<span class="co"># the 15-112 Fall 2018 semester at Carnegie Mellon University</span>
+<span class="co"># </span>
+<span class="co">################################################################################</span>
+<span class="co">#*******************************************************************************</span>
+
+<span class="co">##################################################</span>
+<span class="co"># Global Variables</span>
+<span class="co">##################################################</span>
+
+<span class="co"># All of these can be found on the bot registration page here:</span>
+<span class="co"># https://dev.groupme.com/bots/</span>
+accessToken <span class="op">=</span> <span class="st">&quot;&lt;your API key here&gt;&quot;</span>
+botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span>
+groupId <span class="op">=</span> <span class="st">&quot;&lt;your bot&#39;s group ID here&gt;&quot;</span>
+
+<span class="co">##################################################</span>
+<span class="co"># GroupMe API Helper Functions</span>
+<span class="co">##################################################</span>
+
+<span class="co"># Send a message as the bot</span>
+<span class="kw">def</span> send(text):
+    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }
+    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)
+
+<span class="co"># Get my user ID for later API calls</span>
+<span class="kw">def</span> getUserId(accessToken):
+    data <span class="op">=</span> { <span class="st">&quot;access_token&quot;</span> : accessToken }
+    r <span class="op">=</span> requests.get(<span class="st">&quot;https://api.groupme.com/v3/users/me&quot;</span>, params<span class="op">=</span>data)
+    <span class="cf">return</span> r.json()[<span class="st">&quot;response&quot;</span>][<span class="st">&quot;user_id&quot;</span>]
+
+<span class="co"># Get a client ID to use for this session</span>
+<span class="kw">def</span> getClientId():
+    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span>
+    data <span class="op">=</span> [ {
+               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/handshake&quot;</span>,
+               <span class="co">&quot;version&quot;</span> : <span class="st">&quot;1.0&quot;</span>,
+               <span class="co">&quot;supportedConnectionTypes&quot;</span> : [<span class="st">&quot;long-polling&quot;</span>],
+               <span class="co">&quot;id&quot;</span> : <span class="st">&quot;1&quot;</span>
+             } ]
+    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)
+    <span class="cf">return</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;clientId&quot;</span>]
+
+<span class="co"># Subscribe to the group channel -- bind the client ID to the user ID</span>
+<span class="kw">def</span> subscribe(accessToken, clientId):
+    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span>
+    data <span class="op">=</span> [ {
+               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/subscribe&quot;</span>,
+               <span class="co">&quot;clientId&quot;</span> : clientId,
+               <span class="co">&quot;subscription&quot;</span> : <span class="st">&quot;/user/</span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> getUserId(accessToken),
+               <span class="co">&quot;id&quot;</span> : <span class="st">&quot;2&quot;</span>,
+               <span class="co">&quot;ext&quot;</span> : {
+                         <span class="st">&quot;access_token&quot;</span> : accessToken,
+                         <span class="co">&quot;timestamp&quot;</span> : <span class="bu">int</span>(time.time())
+                       }
+             } ]
+    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)
+    <span class="cf">if</span> <span class="op">not</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;successful&quot;</span>]: <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Subscription failed&quot;</span>)
+
+<span class="co"># Get new messages from the server</span>
+<span class="kw">def</span> getNew(clientId, numCalls):
+    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span>
+    data <span class="op">=</span> [ {
+               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/connect&quot;</span>,
+               <span class="co">&quot;clientId&quot;</span> : clientId,
+               <span class="co">&quot;connectionType&quot;</span> : <span class="st">&quot;in-process&quot;</span>,
+               <span class="co">&quot;id&quot;</span> : <span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span> <span class="op">%</span> numCalls
+             } ]
+    <span class="cf">try</span>:
+        r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data, stream<span class="op">=</span><span class="va">True</span>)
+    <span class="cf">except</span>:
+        <span class="bu">print</span>(<span class="st">&quot;There was a problem getting the next messages.&quot;</span>)
+        <span class="cf">return</span>
+    <span class="cf">for</span> line <span class="op">in</span> r.iter_lines():
+        preProcess(line.decode(<span class="st">&quot;utf-8&quot;</span>))
+
+<span class="co"># Ensure each message sent to the right group and not from the bot</span>
+<span class="kw">def</span> preProcess(line):
+    data <span class="op">=</span> json.loads(line)
+    <span class="cf">for</span> response <span class="op">in</span> data:
+        <span class="co"># Make sure it is a message type</span>
+        <span class="cf">if</span> <span class="st">&quot;data&quot;</span> <span class="op">not</span> <span class="op">in</span> response: <span class="cf">continue</span>
+        <span class="cf">if</span> <span class="st">&quot;type&quot;</span> <span class="op">not</span> <span class="op">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span>
+        <span class="cf">if</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;line.create&quot;</span>: <span class="cf">continue</span>
+        <span class="cf">if</span> <span class="st">&quot;subject&quot;</span> <span class="op">not</span> <span class="op">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span>
+
+        <span class="co"># Make sure it was sent to the correct group and not from the bot</span>
+        msg <span class="op">=</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;subject&quot;</span>]
+        <span class="cf">if</span> msg[<span class="st">&quot;group_id&quot;</span>] <span class="op">!=</span> groupId: <span class="cf">continue</span>
+        <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">==</span> <span class="st">&quot;bot&quot;</span>: <span class="cf">continue</span>
+
+        <span class="co"># If none of the above skipped, actually process the message</span>
+        process(msg)
+
+<span class="co">##################################################</span>
+<span class="co"># Bot functionality</span>
+<span class="co">##################################################</span>
+
+<span class="co"># Process the msg dictionary containing sender and message information</span>
+<span class="kw">def</span> process(msg):
+    send(msg[<span class="st">&quot;text&quot;</span>])
+
+    <span class="co"># Uncomment the following line to print the whole message dict</span>
+    <span class="co"># print(json.dumps(msg, indent=2))</span>
+
+<span class="co">##################################################</span>
+<span class="co"># Main Function</span>
+<span class="co">##################################################</span>
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:
+    <span class="co"># Try subscribing</span>
+    clientId <span class="op">=</span> <span class="st">&quot;&quot;</span>
+    <span class="cf">try</span>:
+        clientId <span class="op">=</span> getClientId()
+        subscribe(accessToken, clientId)
+    <span class="cf">except</span>:
+        <span class="bu">print</span>(<span class="st">&quot;There was a problem while trying to subscribe to the message&quot;</span>
+              <span class="co">&quot;feed.&quot;</span>)
+        exit()
+
+    <span class="co"># Poll the server for new messages</span>
+    numCalls <span class="op">=</span> <span class="dv">3</span>
+    <span class="cf">while</span> <span class="va">True</span>:
+        getNew(clientId, numCalls)
+        numCalls <span class="op">+=</span> <span class="dv">1</span></code></pre></div>
+<p>Note that the code above has a space for you to enter your bot's details. Also note that the only part of the code that actually processes messages is the <code>process</code> function near the bottom of the code file. The rest is responsible for handling the connection to the GroupMe API.</p>
+<p>For your convenience, the code above can be downloaded from <a href="GroupMe.py">here</a>.</p>
+<p>The code above should not be used for complete projects, but should only be used for testing bot functionality before deploying on a server. Likewise for large projects, the code above should be imported as a module and separated from the <code>process</code> function to make the code more readable.</p>
+<p>More information about GroupMe APIs can be found here:</p>
+<ul>
+<li><a href="https://dev.groupme.com/bots">Register Bots</a></li>
+<li><a href="https://dev.groupme.com/">Main Documentation Link</a></li>
+<li><a href="https://dev.groupme.com/tutorials/bots">Bots Tutorial</a></li>
+<li><a href="https://dev.groupme.com/tutorials/push">Tutorial for Push Connections</a></li>
+<li><a href="GroupMe.py">Download the Code Above</a></li>
+</ul>
+<h1 id="facebook-messenger-bot-api">Facebook Messenger Bot API</h1>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li>Flask <code>pip install flask</code></li>
+<li>pymessenger <code>pip install pymessenger</code></li>
+<li>ngrok (hosting service)</li>
+</ul>
+<h3 id="flask-application">Flask Application</h3>
+<p>Flask is a service (written in python) that runs an application (in this case, the application is our Lil Pump Facebook Page Messenger). In our Flask application we will be handling <em>all</em> of the following:</p>
+<ul>
+<li>Receiving messages</li>
+<li>Verifying authenticity through tokens</li>
+<li>Get user information</li>
+<li>Send message to user</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#Python libraries that we need to import for our bot</span>
+<span class="im">import</span> random
+<span class="im">from</span> flask <span class="im">import</span> Flask, request
+<span class="im">from</span> pymessenger.bot <span class="im">import</span> Bot
+
+app <span class="op">=</span> Flask(<span class="va">__name__</span>)
+ACCESS_TOKEN <span class="op">=</span> <span class="st">&#39;fdskafndsfjslafdsakjfdsaklfsaldf&#39;</span> <span class="co">#my token! :)</span>
+VERIFY_TOKEN <span class="op">=</span> <span class="st">&#39;esketit&#39;</span> <span class="co">#some random verify token</span>
+bot <span class="op">=</span> Bot(ACCESS_TOKEN)
+
+<span class="co">#We will receive messages that Facebook sends our bot at this endpoint </span>
+<span class="at">@app.route</span>(<span class="st">&quot;/&quot;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])
+<span class="kw">def</span> receive_message():
+    <span class="cf">if</span> request.method <span class="op">==</span> <span class="st">&#39;GET&#39;</span>:
+        <span class="co">&quot;&quot;&quot;Before allowing people to message your bot, Facebook has implemented a verify token</span>
+<span class="co">        that confirms all requests that your bot receives came from Facebook.&quot;&quot;&quot;</span> 
+        token_sent <span class="op">=</span> request.args.get(<span class="st">&quot;hub.verify_token&quot;</span>)
+        <span class="cf">return</span> verify_fb_token(token_sent)
+    <span class="co">#if the request was not get, it must be POST and we can just proceed with sending a message back to user</span>
+    <span class="cf">else</span>:
+        <span class="co"># get whatever message a user sent the bot</span>
+       output <span class="op">=</span> request.get_json()
+       <span class="cf">for</span> event <span class="op">in</span> output[<span class="st">&#39;entry&#39;</span>]:
+          messaging <span class="op">=</span> event[<span class="st">&#39;messaging&#39;</span>]
+          <span class="cf">for</span> message <span class="op">in</span> messaging:
+            <span class="cf">if</span> message.get(<span class="st">&#39;message&#39;</span>):
+                <span class="co">#Facebook Messenger ID for user so we know where to send response back to</span>
+                recipient_id <span class="op">=</span> message[<span class="st">&#39;sender&#39;</span>][<span class="st">&#39;id&#39;</span>]
+                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;text&#39;</span>):
+                    response_sent_text <span class="op">=</span> get_message()
+                    send_message(recipient_id, response_sent_text)
+                <span class="co">#if user sends us a GIF, photo,video, or any other non-text item</span>
+                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;attachments&#39;</span>):
+                    response_sent_nontext <span class="op">=</span> get_message()
+                    send_message(recipient_id, response_sent_nontext)
+    <span class="cf">return</span> <span class="st">&quot;Message Processed&quot;</span>
+
+
+<span class="kw">def</span> verify_fb_token(token_sent):
+    <span class="co">#take token sent by facebook and verify it matches the verify token you sent</span>
+    <span class="co">#if they match, allow the request, else return an error </span>
+    <span class="cf">if</span> token_sent <span class="op">==</span> VERIFY_TOKEN:
+        <span class="cf">return</span> request.args.get(<span class="st">&quot;hub.challenge&quot;</span>)
+    <span class="cf">return</span> <span class="st">&#39;Invalid verification token&#39;</span>
+
+
+<span class="co">#chooses a random message to send to the user</span>
+<span class="kw">def</span> get_message():
+    sample_responses <span class="op">=</span> [<span class="st">&quot;ESKETITTTTTT&quot;</span>, <span class="st">&quot;100 on my wrist, 80 on a brick, Lil Pump never spend money on a b**ch&quot;</span>, <span class="st">&quot;Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang&quot;</span>, <span class="st">&quot;I sold crack on PayPal&quot;</span>,
+              <span class="co">&quot;LIL PUMP IN THE WHITE HOUSE, MADE WHITE HOUSE TURN TO A TRAP HOUSE&quot;</span>, <span class="st">&quot;Took 4 xans now I&#39;m feeling like a hero.. And my auntie on P.O.&quot;</span>]
+    <span class="co"># return selected item to the user</span>
+    <span class="cf">return</span> random.choice(sample_responses)
+
+<span class="co">#uses PyMessenger to send response to user</span>
+<span class="kw">def</span> send_message(recipient_id, response):
+    <span class="co">#sends user the text message provided via input response parameter</span>
+    bot.send_text_message(recipient_id, response)
+    <span class="cf">return</span> <span class="st">&quot;success&quot;</span>
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:
+    app.run()</code></pre></div>
+<h3 id="how-to-set-up-your-bot">How to Set Up Your Bot</h3>
+<ul>
+<li>Create Facebook Page (literally anything!)</li>
+<li>Link your facebook account to FB Developers</li>
+<li>Create Messenger App</li>
+<li>Get API token from the dashboard (link your fb page)</li>
+<li>Integrate Webhook using <strong>ngrok</strong> link.</li>
+</ul>
+<h3 id="how-to-host-it">How to Host it</h3>
+<ul>
+<li><code>python app.py</code> will run your Flask App and return something like this: <code>* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</code></li>
+<li><code>ngrok http 5000</code> will give you a link like <code>https://813123d.ngrok.io</code></li>
+<li>Paste that into the Webhook above, subscribe your page.</li>
+</ul>
+<h1 id="running-code-on-a-server">Running Code on a Server</h1>
+<p>Once your code to process and send messages has been written and tested locally, you can upload it to a server so that it can run while your computer is off. We will include a brief tutorial below for setting up the code you have written on the cloud platform Heroku.</p>
+<p>Most of the following setup steps were taken from <a href="http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/">this tutorial</a>. Feel free to follow it instead.</p>
+<p>Note: putting code on Heroku requires the use of <code>git</code> in addition to installing the <code>heroku</code> command-line interface from <a href="https://devcenter.heroku.com/articles/heroku-cli">here</a>. Please make sure you can use the <code>git</code> and <code>heroku</code> commands before proceeding.</p>
+<p>First, create a new folder and initialize a new <code>git</code> repository. Then create a new <code>heroku</code> app in the folder with the repository. To do this, run the following commands in <code>cmd</code>/Terminal/<code>bash</code> depeding on whether you are on Windows, Mac, or Linux (respectively):</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> bot
+<span class="kw">cd</span> bot
+<span class="kw">git</span> init .
+<span class="kw">heroku</span> apps:create bot
+<span class="kw">git</span> remote</code></pre></div>
+<p>Once the repository has been created, you will need to add a <code>Procfile</code>, <code>runtime.txt</code> and <code>requirements.txt</code> file to the repo so that Heroku knows how to set up your environment. Put the following things in each of the files:</p>
+<h4 id="procfile"><code>Procfile</code></h4>
+<pre><code>web: gunicorn app:app --log-file=-</code></pre>
+<h4 id="runtime.txt"><code>runtime.txt</code></h4>
+<pre><code>python-3.6.0</code></pre>
+<h4 id="requirements.txt"><code>requirements.txt</code></h4>
+<pre><code>Flask==0.12
+gunicorn==19.6.0</code></pre>
+<p>Once the above files have been added to the repository, the last step is to add your code and tell Heroku to run it. In order to add your code, insert it into a file called <code>app.py</code> formatted as the code below is:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> json
+<span class="im">import</span> requests
+<span class="im">from</span> flask <span class="im">import</span> Flask, request
+
+app <span class="op">=</span> Flask(<span class="va">__name__</span>)
+botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span>
+
+<span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])
+<span class="kw">def</span> webhook():
+    msg <span class="op">=</span> request.get_json()
+
+    <span class="co"># Ignore messages sent by the bot</span>
+    <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;bot&quot;</span>:
+        process(msg)
+
+<span class="co"># Insert any helper functions used by the process() function here</span>
+<span class="co"># For example, the send() function:</span>
+<span class="kw">def</span> send(text):
+    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }
+    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)
+
+<span class="kw">def</span> process(msg):
+    <span class="co"># Insert your process() function that you wrote as with the test code above</span>
+    <span class="cf">pass</span></code></pre></div>
+<p>Once <code>app.py</code> has been created, it is time to send the code to Heroku to be run. To do this, run the following commands:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add .
+<span class="kw">git</span> commit -am <span class="st">&#39;updated code&#39;</span>
+<span class="kw">git</span> push heroku master</code></pre></div>
+<p>The last step when that has been done is to get the address of your Heroku project and set it as the &quot;Callback URL&quot; on the GroupMe Bots page <a href="https://dev.groupme.com/bots">here</a>.</p>
+<p>More information about running a GroupMe Bot (and other code) on Heroku can be found here:</p>
+<ul>
+<li><a href="http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/">GroupMe Bot Heroku Tutorial</a></li>
+<li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Heroku</a></li>
+<li><a href="https://scotch.io/tutorials/getting-started-with-flask-a-python-microframework">Getting Started with Flask</a></li>
+</ul>
+<h1 id="ideas">Ideas</h1>
+<p>Now that you have the means to make a chatbot, what can you do with it? Below is a list of some chatbot features that I have personally implemented (or one day hope to add to my chatbots):</p>
+<ul>
+<li>Check the weather</li>
+<li>Define terms</li>
+<li>Look terms up on Urban Dictionary</li>
+<li>Caption images</li>
+<li>Insult members of the group chat</li>
+<li>Compile a to-do list</li>
+<li>Do simple math</li>
+<li>Add songs to a Spotify playlist</li>
+<li>Tell jokes</li>
+<li>Say &quot;that's what she said&quot;</li>
+<li>Play 20 questions</li>
+<li>Set reminders</li>
+<li>Send GIFs</li>
+<li>Get posts from social media</li>
+</ul>
+<p>Basically any API that exists can be integrated with a chatbot opening a world of possibilities for making group chats more interesting.</p>
+<p>Here is a brief list of some advanced chatbots:</p>
+<ul>
+<li><a href="http://wiki.xkcd.com/irc/Bucket">Bucket</a> built by the creator of <a href="https://xkcd.com/">XKCD</a></li>
+<li><a href="https://www.hello.vote/">Hello Vote</a> to help and remind people to vote</li>
+<li><a href="http://bfy.tw/KiHX">Literally Thousands of Others</a></li>
+</ul>
+<footer>
+<hr />
+Copyright &copy 2019 Jacob Strieb. All right reserved.
+</footer>
+</body>
+</html>
