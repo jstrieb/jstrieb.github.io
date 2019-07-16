@@ -34,46 +34,43 @@ pre.numberSource a.sourceLine::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    background-color: #ffffff;
-    color: #a0a0a0;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { color: #1f1c1b; background-color: #ffffff; }
+  {  }
 @media screen {
 a.sourceLine::before { text-decoration: underline; }
 }
-code span. { color: #1f1c1b; } /* Normal */
-code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
-code span.an { color: #ca60ca; } /* Annotation */
-code span.at { color: #0057ae; } /* Attribute */
-code span.bn { color: #b08000; } /* BaseN */
-code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
-code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #924c9d; } /* Char */
-code span.cn { color: #aa5500; } /* Constant */
-code span.co { color: #898887; } /* Comment */
-code span.cv { color: #0095ff; } /* CommentVar */
-code span.do { color: #607880; } /* Documentation */
-code span.dt { color: #0057ae; } /* DataType */
-code span.dv { color: #b08000; } /* DecVal */
-code span.er { color: #bf0303; text-decoration: underline; } /* Error */
-code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
-code span.fl { color: #b08000; } /* Float */
-code span.fu { color: #644a9b; } /* Function */
-code span.im { color: #ff5500; } /* Import */
-code span.in { color: #b08000; } /* Information */
-code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
-code span.op { color: #1f1c1b; } /* Operator */
-code span.ot { color: #006e28; } /* Other */
-code span.pp { color: #006e28; } /* Preprocessor */
-code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
-code span.sc { color: #3daee9; } /* SpecialChar */
-code span.ss { color: #ff5500; } /* SpecialString */
-code span.st { color: #bf0303; } /* String */
-code span.va { color: #0057ae; } /* Variable */
-code span.vs { color: #bf0303; } /* VerbatimString */
-code span.wa { color: #bf0303; } /* Warning */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
@@ -108,34 +105,34 @@ code span.wa { color: #bf0303; } /* Warning */
 <h1 id="json">JSON</h1>
 <p>“JSON” is an acronym used to describe JavaScript Object Notation. This is essentially a format for transmitting data in the form of “objects” (think object-oriented programming). The notation is very similar to Python’s syntax for dictionaries. Generally, JSON objects can be thought of as a text form of dictionaries.</p>
 <p>Here is an example of a JSON object:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb1-2" title="2">  <span class="dt">&quot;firstName&quot;</span><span class="fu">:</span> <span class="st">&quot;John&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-3" title="3">  <span class="dt">&quot;lastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-4" title="4">  <span class="dt">&quot;isAlive&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-5" title="5">  <span class="dt">&quot;age&quot;</span><span class="fu">:</span> <span class="dv">27</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-6" title="6">  <span class="dt">&quot;address&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb1-7" title="7">    <span class="dt">&quot;streetAddress&quot;</span><span class="fu">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-8" title="8">    <span class="dt">&quot;city&quot;</span><span class="fu">:</span> <span class="st">&quot;New York&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-9" title="9">    <span class="dt">&quot;state&quot;</span><span class="fu">:</span> <span class="st">&quot;NY&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-10" title="10">    <span class="dt">&quot;postalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;10021-3100&quot;</span></a>
-<a class="sourceLine" id="cb1-11" title="11">  <span class="fu">},</span></a>
-<a class="sourceLine" id="cb1-12" title="12">  <span class="dt">&quot;phoneNumbers&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb1-13" title="13">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb1-14" title="14">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;home&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-15" title="15">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;212 555-1234&quot;</span></a>
-<a class="sourceLine" id="cb1-16" title="16">    <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb1-17" title="17">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb1-18" title="18">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;office&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-19" title="19">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;646 555-4567&quot;</span></a>
-<a class="sourceLine" id="cb1-20" title="20">    <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb1-21" title="21">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb1-22" title="22">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;mobile&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-23" title="23">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;123 456-7890&quot;</span></a>
-<a class="sourceLine" id="cb1-24" title="24">    <span class="fu">}</span></a>
-<a class="sourceLine" id="cb1-25" title="25">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-26" title="26">  <span class="dt">&quot;children&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb1-27" title="27">  <span class="dt">&quot;spouse&quot;</span><span class="fu">:</span> <span class="kw">null</span></a>
-<a class="sourceLine" id="cb1-28" title="28"><span class="fu">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">27</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="st">&quot;address&quot;</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;10021-3100&quot;</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-12" title="12">  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-14" title="14">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-15" title="15">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></a>
+<a class="sourceLine" id="cb1-16" title="16">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-17" title="17">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-18" title="18">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-19" title="19">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></a>
+<a class="sourceLine" id="cb1-20" title="20">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-21" title="21">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-22" title="22">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-23" title="23">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></a>
+<a class="sourceLine" id="cb1-24" title="24">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-25" title="25">  ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-26" title="26">  <span class="st">&quot;children&quot;</span><span class="op">:</span> []<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-27" title="27">  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="op">}</span></a></code></pre></div>
 <p>Parsing text formatted as JSON objects is very easy in Python. Using the <code>json</code> library, and calling the <code>json.loads</code> method on a properly-formatted string will return a regular Python dictionary.</p>
 <p>Assuming that the above text is stored as <code>jsonString</code>, we can do the following to turn it into a dictionary in Python:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="im">import</span> json</a>
@@ -174,38 +171,38 @@ code span.wa { color: #bf0303; } /* Warning */
 <a class="sourceLine" id="cb3-19" title="19">newJsonString <span class="op">=</span> json.dumps(jsonDict, indent<span class="op">=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb3-20" title="20"><span class="bu">print</span>(newJsonString)</a></code></pre></div>
 <p>Running this code prints the following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb4-2" title="2">  <span class="dt">&quot;firstName&quot;</span><span class="fu">:</span> <span class="st">&quot;John&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-3" title="3">  <span class="dt">&quot;lastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-4" title="4">  <span class="dt">&quot;isAlive&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-5" title="5">  <span class="dt">&quot;age&quot;</span><span class="fu">:</span> <span class="dv">69</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">&quot;address&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb4-7" title="7">    <span class="dt">&quot;streetAddress&quot;</span><span class="fu">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-8" title="8">    <span class="dt">&quot;city&quot;</span><span class="fu">:</span> <span class="st">&quot;New York&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-9" title="9">    <span class="dt">&quot;state&quot;</span><span class="fu">:</span> <span class="st">&quot;NY&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-10" title="10">    <span class="dt">&quot;postalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;15213&quot;</span></a>
-<a class="sourceLine" id="cb4-11" title="11">  <span class="fu">},</span></a>
-<a class="sourceLine" id="cb4-12" title="12">  <span class="dt">&quot;phoneNumbers&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb4-13" title="13">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb4-14" title="14">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;home&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-15" title="15">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;212 555-1234&quot;</span></a>
-<a class="sourceLine" id="cb4-16" title="16">    <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb4-17" title="17">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb4-18" title="18">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;office&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-19" title="19">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;646 555-4567&quot;</span></a>
-<a class="sourceLine" id="cb4-20" title="20">    <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb4-21" title="21">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb4-22" title="22">      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;mobile&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-23" title="23">      <span class="dt">&quot;number&quot;</span><span class="fu">:</span> <span class="st">&quot;123 456-7890&quot;</span></a>
-<a class="sourceLine" id="cb4-24" title="24">    <span class="fu">}</span></a>
-<a class="sourceLine" id="cb4-25" title="25">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-26" title="26">  <span class="dt">&quot;children&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb4-27" title="27">    <span class="st">&quot;Kiddo1&quot;</span><span class="ot">,</span></a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">69</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="st">&quot;address&quot;</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;15213&quot;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-14" title="14">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-15" title="15">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-18" title="18">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-19" title="19">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></a>
+<a class="sourceLine" id="cb4-20" title="20">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-21" title="21">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-22" title="22">      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-23" title="23">      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-25" title="25">  ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-26" title="26">  <span class="st">&quot;children&quot;</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb4-27" title="27">    <span class="st">&quot;Kiddo1&quot;</span><span class="op">,</span></a>
 <a class="sourceLine" id="cb4-28" title="28">    <span class="st">&quot;Little Boi&quot;</span></a>
-<a class="sourceLine" id="cb4-29" title="29">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-30" title="30">  <span class="dt">&quot;spouse&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb4-31" title="31">  <span class="dt">&quot;favNumber&quot;</span><span class="fu">:</span> <span class="dv">420</span></a>
-<a class="sourceLine" id="cb4-32" title="32"><span class="fu">}</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-29" title="29">  ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-30" title="30">  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-31" title="31">  <span class="st">&quot;favNumber&quot;</span><span class="op">:</span> <span class="dv">420</span></a>
+<a class="sourceLine" id="cb4-32" title="32"><span class="op">}</span></a></code></pre></div>
 <p>More information about JSON can be found at the following links:</p>
 <ul>
 <li><a href="https://docs.python.org/3/library/json.html">Python JSON Documentation</a></li>
@@ -423,8 +420,14 @@ code span.wa { color: #bf0303; } /* Warning */
 <li><a href="GroupMe.py">Download the Code Above</a></li>
 </ul>
 <h1 id="facebook-messenger-bot-api">Facebook Messenger Bot API</h1>
-<p>###Dependencies - Flask <code>pip install flask</code> - pymessenger <code>pip install pymessenger</code> - ngrok (hosting service)</p>
-<p>###Flask Application Flask is a service (written in python) that runs an application (in this case, the application is our Lil Pump Facebook Page Messenger). In our Flask application we will be handling <em>all</em> of the following:</p>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li>Flask <code>pip install flask</code></li>
+<li>pymessenger <code>pip install pymessenger</code></li>
+<li>ngrok (hosting service)</li>
+</ul>
+<h3 id="flask-application">Flask Application</h3>
+<p>Flask is a service (written in python) that runs an application (in this case, the application is our Lil Pump Facebook Page Messenger). In our Flask application we will be handling <em>all</em> of the following:</p>
 <ul>
 <li>Receiving messages</li>
 <li>Verifying authenticity through tokens</li>
@@ -492,8 +495,20 @@ code span.wa { color: #bf0303; } /* Warning */
 <a class="sourceLine" id="cb12-59" title="59"></a>
 <a class="sourceLine" id="cb12-60" title="60"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</a>
 <a class="sourceLine" id="cb12-61" title="61">    app.run()</a></code></pre></div>
-<p>###How to Set Up Your Bot - Create Facebook Page (literally anything!) - Link your facebook account to FB Developers - Create Messenger App - Get API token from the dashboard (link your fb page) - Integrate Webhook using <strong>ngrok</strong> link.</p>
-<p>###How to Host it - <code>python app.py</code> will run your Flask App and return something like this: <code>* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</code> - <code>ngrok http 5000</code> will give you a link like <code>https://813123d.ngrok.io</code> - Paste that into the Webhook above, subscribe your page.</p>
+<h3 id="how-to-set-up-your-bot">How to Set Up Your Bot</h3>
+<ul>
+<li>Create Facebook Page (literally anything!)</li>
+<li>Link your facebook account to FB Developers</li>
+<li>Create Messenger App</li>
+<li>Get API token from the dashboard (link your fb page)</li>
+<li>Integrate Webhook using <strong>ngrok</strong> link.</li>
+</ul>
+<h3 id="how-to-host-it">How to Host it</h3>
+<ul>
+<li><code>python app.py</code> will run your Flask App and return something like this: <code>* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</code></li>
+<li><code>ngrok http 5000</code> will give you a link like <code>https://813123d.ngrok.io</code></li>
+<li>Paste that into the Webhook above, subscribe your page.</li>
+</ul>
 <h1 id="running-code-on-a-server">Running Code on a Server</h1>
 <p>Once your code to process and send messages has been written and tested locally, you can upload it to a server so that it can run while your computer is off. We will include a brief tutorial below for setting up the code you have written on the cloud platform Heroku.</p>
 <p>Most of the following setup steps were taken from <a href="http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/">this tutorial</a>. Feel free to follow it instead.</p>
