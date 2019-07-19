@@ -5,12 +5,11 @@ html {
 }
 
 body {
-  max-width: 80ch;
+  max-width: 70ch;
   display: block;
   margin: auto;
   padding: 50px;
   padding-top: 0px;
-  text-align: justify;
 }
 
 a {
@@ -31,6 +30,17 @@ pre {
   page-break-inside: avoid;
 }
 
+p {
+  text-align: justify;
+}
+
+blockquote {
+  padding: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-left: 3px solid;
+}
+
 p > code {
   background: #383838;
   padding: 3px;
@@ -41,6 +51,10 @@ p > code {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: courier;
+}
+
+h2 {
+  margin-top: 1em;
 }
 
 
