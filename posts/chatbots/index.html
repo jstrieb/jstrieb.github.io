@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb9-11" title="11">url <span class="op">=</span> r.json()[<span class="st">&quot;data&quot;</span>][<span class="dv">0</span>][<span class="st">&quot;bitly_gif_url&quot;</span>]</a>
 <a class="sourceLine" id="cb9-12" title="12"><span class="bu">print</span>(url)</a></code></pre></div>
 <p>Note that the above code uses the JSON parser built natively into the <code>requests</code> library. When run the first time, this code linked to the following fun cat GIF:</p>
-<p><img src="http://i.imgur.com/0Y1xISa.gif" title="Lit Cat GIF" /></p>
+<p><img src="cat.gif" title="Lit Cat GIF" /></p>
 <h1 id="groupme-bot-api">GroupMe Bot API</h1>
 <p>Now that we know how to use APIs in general, we can begin to build a chatbot for the GroupMe messaging platform that will send messages in a group chat when we run the code. Doing this is largely the same as the procedure we went through in order to get GIFs from the GIPHY API.</p>
 <p>First, we must register a bot with a group. This can be done at <a href="https://dev.groupme.com/bots/new">this page</a>. Once the bot is registered, as with the GIPHY API, we will be given an access token that should be kept secret and safe. Then, sending a message is as easy as using the requests library as before:</p>

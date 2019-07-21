@@ -35,6 +35,11 @@ p {
   font-family: serif;
 }
 
+img {
+  max-width: 70ch;
+  display: inline-block;
+}
+
 blockquote {
   padding: 10px;
   padding-top: 0;
