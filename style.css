@@ -143,3 +143,37 @@ footer hr {
   border: 3px solid;
   border-radius: 155px;
 }
+
+.contact-form {
+  max-width: 80ch;
+  height: 20ch;
+  display: block;
+  margin: auto;
+  padding-bottom: 2em;
+}
+
+.contact-form form {
+  width: inherit;
+  height: inherit;
+}
+
+.contact-form textarea {
+  width: 100%;
+  height: 100%;
+  padding: 0.5em;
+  background: black;
+  color: limegreen;
+  border: 1px solid limegreen;
+  border-radius: 0.25em;
+  margin-bottom: 1em;
+}
+
+.contact-form button {
+  background: black;
+  color: limegreen;
+  padding: 0.25em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 1px solid limegreen;
+  border-radius: 0.25em;
+}
