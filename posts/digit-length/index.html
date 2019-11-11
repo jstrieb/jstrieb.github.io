@@ -102,7 +102,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Besides recursion, my favorite topic to teach in small groups was finding digit length. This deceptively simple task actually provides a surprising number of opportunities to explore deep ideas. The problem is stated as follows.</p>
 <h3 id="problem">Problem</h3>
 <blockquote>
-<p>Write a function <code>digitLength(n)</code> that takes a natural number as input (<em>i.e.</em>, <span class="math inline">0, 1, 2, …</span>) and returns as output the number of digits the input has.</p>
+<p>Write a function <code>digitLength(n)</code> that takes a natural number as input (<em>i.e.</em>, <span class="math inline">0, 1, 2, …</span> – a nonnegative integer) and returns as output the number of digits the input has.</p>
 <p>For example: <code>digitLength(69420) == 5</code> and <code>digitLength(1337) == 4</code></p>
 </blockquote>
 <p>When this problem is assigned, students have learned about arithmetic operators, variables, conditional statments, and loops. For the vast majority of students (who lack prior programming experience), this can be a particularly difficult time in the course. The first few weeks go quickly, and students are expected to solve problems using multiple programming concepts shortly after learning them. This task is ideal for helping students build confidence, practice basic topics, and learn skills that will be critical for their success in the rest of the course.</p>
@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="testing">Testing</h2>
 <p>Recounting my anecdote about getting full credit for an incorrect <code>digitLength</code> solution demonstrates the utility of <em>good</em> test cases, since I may have caught the bug earlier had the tests been more comprehensive. I additionally share my experience to emphasize that unit testing is never sufficient to guarantee a function works correctly in all cases. I hope to illustrate by example that unit testing saves time in the long-run, but is not a panacea for guaranteeing code correctness.</p>
 <p>Reviewing the deceptive, almost-correct solutions teach that it is insufficient for a program to <em>seem</em> to work; truly correct code requires stronger guarantees. This mindset prepares students to learn about contracts and formal methods, topics taught in 15-122 and 15-150 (the following courses in the Carnegie Mellon introductory computer science series).</p>
-<p>Furthermore, the examples teach that when developing test cases, it is beneificial to include suspected edge case inputs like <code>0</code>.</p>
+<p>Furthermore, the examples teach that when developing test cases, it is beneficial to include suspected edge case inputs like <code>0</code>.</p>
 <h2 id="specification-clarity">Specification Clarity</h2>
 <p>Initial solutions that fail on input <code>n = 0</code> are ideal for highlighting the importance of well-developed specifications. Students are likely to be more focused on solving problem sets correctly than on software engineering best-practices. Thus, they may not consider that the formulation of the problem has important consequences for which solutions are correct.</p>
 <p>Specifically, it may not be apparent that the inclusion of 0 in the definition of natural numbers from the problem statement is critical for a correct solution.</p>
