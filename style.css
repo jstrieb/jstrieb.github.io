@@ -140,8 +140,8 @@ footer hr {
 .avatar {
   display: block;
   margin: auto;
-  border: 3px solid;
-  border-radius: 155px;
+  border: 5px solid;
+  border-radius: 168px;
 }
 
 .contact-form {
