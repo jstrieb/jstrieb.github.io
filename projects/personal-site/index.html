@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -9,14 +10,14 @@
   <meta name="date" content="2019-07-13" />
   <meta name="dcterms.date" content="2019-07-13" />
   <meta name="description" content="Personal website designed by hand in HTML, CSS, and Javascript, and compiled from markdown using a custom bash script." />
-
   <title>Personal Website - Jacob Strieb Projects</title>
-
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
@@ -37,24 +38,24 @@
 </ul>
 <h2 id="history">History</h2>
 <p>Maintaining an Internet presence is important, and having a personal website affords me fine-grained control over mine. As the Internet becomes an increasingly integral component of modern society, controlling my own space for exploring and sharing important ideas feels like a rite of passage. Additionally, publishing on my own platform is an opportunity to exercise my opposition to centralized social media organizations’ near-monopoly on Internet-based self-expression.</p>
-<p>But having a personal website is also a matter of tradition: I made my first websites when I was in second grade, after my family upgraded from dial-up to broadband Internet. At the time, my younger sister played with Barbie dolls, even though all of my friends and I agreed that “Barbies stink.” She was not dissuaded, so I took my case to the Web,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> surprised that the issue was not already being discussed.</p>
+<p>But having a personal website is also a matter of tradition: I made my first websites when I was in second grade, after my family upgraded from dial-up to broadband Internet. At the time, my younger sister played with Barbie dolls, even though all of my friends and I agreed that “Barbies stink.” She was not dissuaded, so I took my case to the Web,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> surprised that the issue was not already being discussed.</p>
 <p>Without knowing how to create a site from scratch, I was relegated to using drag-and-drop creators, but quickly became frustrated that they couldn’t do exactly what I wanted. Ever since then, my history of website creation has been tempered by frustration with tooling: I have never been able to achieve a desirable balance between ease of publication and low-level control over layout, until now.</p>
 <h2 id="static-site-generator">Static Site Generator</h2>
 <p>Currently, it is popular to use static site generators like <a href="http://gohugo.io">Hugo</a> and <a href="https://jekyllrb.com">Jekyll</a> to publish websites. These programs compile <code>markdown</code> to <code>HTML</code> using a pre-defined theme, and they make blogging on services like <a href="http://pages.github.com">GitHub Pages</a> much easier than composing websites from scratch.</p>
 <p>Inspired by my previous use of Hugo, writing pages in <code>markdown</code> has become my preferred method of authoring content for the Web, so I initially sought to make my personal site using Hugo. However, I wanted to completely customize the underlying theme, and making a theme from scratch was more trouble than creating the website entirely in <code>HTML</code>.</p>
 <p>Intending to instead use something simpler and more lightweight, I next tried using <a href="http://pandoc.org">Pandoc</a> with <code>make</code>. But writing targets for each new page was inconvenient, and recursively indexing the source directory never quite worked right. Since all the work of finding source files was done by shell commands in the <code>Makefile</code>, I finally resolved to write a shell script for copying and converting the files using <code>pandoc</code>.</p>
-<p>Since writing the first version of the script, I have been using it to great success both on Linux, and Windows Subsystem for Linux.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The code for the shell script and the <code>markdown</code> source files can be found <a href="http://github.com/jstrieb/personal-site">here</a>.</p>
+<p>Since writing the first version of the script, I have been using it to great success both on Linux, and Windows Subsystem for Linux.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The code for the shell script and the <code>markdown</code> source files can be found <a href="http://github.com/jstrieb/personal-site">here</a>.</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>The script uses the <code>find</code> program to index the source directory and locate all <code>markdown</code> files to be converted. It then loops over all of the files, converting them in-turn using <code>pandoc</code>. Before converting a given file, it uses <code>sed</code> to extract the base directory of the file to be converted. This directory name is used to create the parent folder if it does not yet exist.</p>
 <p>The script also ensures that <code>pandoc</code> conversion only happens when the resulting <code>HTML</code> output actually needs to be updated. This occurs when the destination output doesn’t exist, the source file has been more recently updated than the destination output file, or when anything in the <code>resources</code> folder has been more recently updated than the destination output.</p>
-<p>The <code>pandoc</code> command is run to convert from <code>markdown</code> to “standalone” <code>HTML</code>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> This means that <code>pandoc</code> generates a full page with a <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> rather than just converting to literal <code>HTML</code> tags. It also runs with options to include a custom stylesheet, to highlight code with a specific style, and to include a menu bar and footer in every page (based on files provided in the <code>resources</code> folder). The output page is formatted according to a template, also provided in the <code>resources</code> folder.</p>
+<p>The <code>pandoc</code> command is run to convert from <code>markdown</code> to “standalone” <code>HTML</code>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This means that <code>pandoc</code> generates a full page with a <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> rather than just converting to literal <code>HTML</code> tags. It also runs with options to include a custom stylesheet, to highlight code with a specific style, and to include a menu bar and footer in every page (based on files provided in the <code>resources</code> folder). The output page is formatted according to a template, also provided in the <code>resources</code> folder.</p>
 <p>Finally, the script copies over all files that it doesn’t convert, preserving directory structure. This is useful for copying images or other media that could be associated with a post. It is also useful for copying pre-written <code>HTML</code> that the script does not generate. For example, on this site, I wrote the home page by hand in <code>HTML</code>, and copy it directly rather than converting it from <code>markdown</code>.</p>
-<section class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The last surviving barbiesstink site can be found <a href="https://barbiesstink.webnode.com">here</a>. It’s still up after more than a decade, and it looks exactly as I remember it, embarrassing edited pictures made with MS Paint included. I have not been able to find archived versions of the others.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>There are sometimes slight differences between versions compiled using WSL due to it having a different version of <code>pandoc</code> installed<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>See the Pandoc docs section on <a href="https://pandoc.org/MANUAL.html#templates">templates</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>The last surviving barbiesstink site can be found <a href="https://barbiesstink.webnode.com">here</a>. It’s still up after more than a decade, and it looks exactly as I remember it, embarrassing edited pictures made with MS Paint included. I have not been able to find archived versions of the others.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>There are sometimes slight differences between versions compiled using WSL due to it having a different version of <code>pandoc</code> installed<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>See the Pandoc docs section on <a href="https://pandoc.org/MANUAL.html#templates">templates</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>

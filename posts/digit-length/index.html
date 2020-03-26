@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -9,77 +10,76 @@
   <meta name="date" content="2019-11-10" />
   <meta name="dcterms.date" content="2019-11-10" />
   <meta name="description" content="A function to return the number of digits in an input (natural) number provides many learning opportunities for a new programmer" />
-
   <title>My Favorite Programming Problem to Teach: Digit Length - Jacob Strieb</title>
-
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-		a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
@@ -109,24 +109,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When this problem is assigned, students have learned about arithmetic operators, variables, conditional statments, and loops. For the vast majority of students (who lack prior programming experience), this can be a particularly difficult time in the course. The first few weeks go quickly, and students are expected to solve problems using multiple programming concepts shortly after learning them. This task is ideal for helping students build confidence, practice basic topics, and learn skills that will be critical for their success in the rest of the course.</p>
 <h1 id="naive-solution">Naive Solution</h1>
 <p>The first solution students come up with typically looks like the following.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">def</span> digitLengthNaive(n):</a>
-<a class="sourceLine" id="cb1-2" title="2">    count <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb1-3" title="3">    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:   <span class="co"># or while n &gt; 0</span></a>
-<a class="sourceLine" id="cb1-4" title="4">        n <span class="op">//=</span> <span class="dv">10</span>    <span class="co"># or n = n // 10</span></a>
-<a class="sourceLine" id="cb1-5" title="5">        count <span class="op">+=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-6" title="6">    <span class="cf">return</span> count</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> digitLengthNaive(n):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:   <span class="co"># or while n &gt; 0</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>        n <span class="op">//=</span> <span class="dv">10</span>    <span class="co"># or n = n // 10</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">return</span> count</span></code></pre></div>
 <p>After correcting errors, reviewing functionally-equivalent alternatives, and congratulating students on their understanding of loops, functions, variables, and arithmetic, I ask them: does this function always work?</p>
-<p>The simple<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> answer: this solution fails on <code>n = 0</code>, returning <code>0</code> instead of <code>1</code> because it never enters the loop body and thus never increments <code>count</code>. Addressing this minor problem provides a good opportunity to review conditionals. It also prompts a discussion about handling edge cases, and the mechanics and merits of returning early. We are left with a valid solution that looks like the following.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">def</span> digitLengthNaive2(n):</a>
-<a class="sourceLine" id="cb2-2" title="2">    <span class="co"># Handle n == 0 edge case</span></a>
-<a class="sourceLine" id="cb2-3" title="3">    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</a>
-<a class="sourceLine" id="cb2-4" title="4">        <span class="cf">return</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb2-5" title="5"></a>
-<a class="sourceLine" id="cb2-6" title="6">    count <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb2-7" title="7">    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:</a>
-<a class="sourceLine" id="cb2-8" title="8">        n <span class="op">//=</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb2-9" title="9">        count <span class="op">+=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb2-10" title="10">    <span class="cf">return</span> count</a></code></pre></div>
+<p>The simple<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> answer: this solution fails on <code>n = 0</code>, returning <code>0</code> instead of <code>1</code> because it never enters the loop body and thus never increments <code>count</code>. Addressing this minor problem provides a good opportunity to review conditionals. It also prompts a discussion about handling edge cases, and the mechanics and merits of returning early. We are left with a valid solution that looks like the following.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> digitLengthNaive2(n):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="co"># Handle n == 0 edge case</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        n <span class="op">//=</span> <span class="dv">10</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">return</span> count</span></code></pre></div>
 <h1 id="constrained-solution">Constrained Solution</h1>
 <p>Expecting to move on, most students are surprised when I pose the problem again, but with a constraint: don’t use any loops.</p>
 <p>If the task is framed as a “counting” problem, it seems best accomplished with loops, so I encourage conceptualizing it differently. The first hint is to develop a solution using a composition of functions and operations, rather than a series of instructions given to the computer. The subsequent big hint is to work with a <em>mathematical</em> definition of “digit length in base 10.”</p>
@@ -134,20 +134,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Discussing <code>math.log10</code> presents a good opportunity to review the concept of types, and to discuss different methods of conversion between <code>float</code> and <code>int</code> with consideration given to the method of rounding used for each. Python’s default <code>round</code> function behaves unintuitively, so it is important to ensure students understand how to use it properly.</p>
 <p>The process of solving this problem is also a chance to emphasize the utility of exploring concepts by doing examples and planning on the chalkboard before beginning to write code.</p>
 <p>At this point, students may develop a solution like the following.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="im">import</span> math</a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw">def</span> digitLengthClever(n):</a>
-<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> math.ceil(math.log10(n))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> math</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">def</span> digitLengthClever(n):</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">return</span> math.ceil(math.log10(n))</span></code></pre></div>
 <p>As before, after congratulating students on arriving at a clever, unintuitive solution to a difficult problem, I ask: does this function always work?</p>
-<p>Once again, the function fails on <code>n = 0</code>. This time, rather than returning an incorrect solution, there is an error. This is because <code>math.log10(0)</code> raises a <code>ValueError</code> exception since 0 is not in the domain of the <span class="math inline">log<sub>10</sub></span> function.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Once again, the function fails on <code>n = 0</code>. This time, rather than returning an incorrect solution, there is an error. This is because <code>math.log10(0)</code> raises a <code>ValueError</code> exception since 0 is not in the domain of the <span class="math inline">log<sub>10</sub></span> function.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>When I had this problem for homework as a student, I submitted a variant of <code>digitLengthClever</code>. It passed all test cases, and I got full credit. But I discovered a subtle bug only after wasting hours debugging more complex code utilizing the function. The subtle bug causes the function to return incorrect results for powers of 10 (<code>n = 10**x</code> for positive values <code>x</code> of type <code>int</code>). For example, though <span class="math inline">10<sup>2</sup> = 100</span> has 3 digits, the following is true.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">math.ceil(math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">==</span> math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>) <span class="op">==</span> <span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>math.ceil(math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">==</span> math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>) <span class="op">==</span> <span class="dv">2</span></span></code></pre></div>
 <p>Thus <code>digitLengthClever(10**2) == 2</code>, when it should return <code>3</code>. I didn’t discover this problem initially, because the autograding test cases did not include a test using a power of 10.</p>
 <p>Before concluding the small group session, I work with students to finalize a correct, loop-free solution like the following.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">import</span> math</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="kw">def</span> digitLengthClever2(n):</a>
-<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">return</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> (math.floor(math.log10(n)) <span class="op">+</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> math</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">def</span> digitLengthClever2(n):</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> (math.floor(math.log10(n)) <span class="op">+</span> <span class="dv">1</span>)</span></code></pre></div>
 <h1 id="lessons-learned">Lessons Learned</h1>
 <p>With the remaining time in the small group session, I recap fundamental concepts and discuss how the problem relates to deep ideas in programming. Though many of the lessons may be obvious to those with software engineering experience, the conclusions therein can take a long time to reach for students new to the discipline, which is why I make a point to discuss them early in the course.</p>
 <h2 id="testing">Testing</h2>
@@ -161,17 +161,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If my job is done correctly, students will leave the small group session understanding that clarifying details about the specification before writing code is the difference between unexpected errors and well-defined behavior.</p>
 <h2 id="code-and-math">Code and Math</h2>
 <p>Working through programming problems that have elegant mathematical solutions is a good way to help students frame their perceptions about the relationship between code and math. Solving coding problems mathematically is a particularly good tactic for decoupling students’ conceptualization of programming from the process of giving instructions to a computer. Though sometimes useful, thinking in terms of instructing a computer can be an impediment to thinking algorithmically. Since algorithmic problem solving is both one of the main facets of the course, and is necessary for students’ continued success in future computer science courses at Carnegie Mellon, problems like finding digit length are handy to broaden students’ minds.</p>
-<p>Conversely, problems like finding digit length also demonstrate how to explore mathematical ideas through computation. Evaluating different solutions leads to natural questions about the definitions implicit in the problem statement: mathematically, what is digit length? How many digits does 0 actually have? Can one define natural numbers based on whether they posses digit length,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> or is digit length a derivative property of natural numbers? What are the resulting implications for the oft-debated consideration of 0 as a natural number? Though computation may not be able to answer these questions directly, it provides a useful means by which to understand and probe abstract mathematical concepts.</p>
+<p>Conversely, problems like finding digit length also demonstrate how to explore mathematical ideas through computation. Evaluating different solutions leads to natural questions about the definitions implicit in the problem statement: mathematically, what is digit length? How many digits does 0 actually have? Can one define natural numbers based on whether they posses digit length,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> or is digit length a derivative property of natural numbers? What are the resulting implications for the oft-debated consideration of 0 as a natural number? Though computation may not be able to answer these questions directly, it provides a useful means by which to understand and probe abstract mathematical concepts.</p>
 <h1 id="alternate-invalid-solution">Alternate, Invalid Solution</h1>
 <p>By the time this problem is given, strings have not yet been covered in the course. As a result, solutions using strings are disallowed on problem sets and quizzes until they are taught. However, the few students who have prior Python programming experience may be tempted to find digit length without loops using a variant of the following (for our purposes) invalid solution. I include it below for reference.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">def</span> digitLengthCheating(n):</a>
-<a class="sourceLine" id="cb6-2" title="2">    <span class="cf">return</span> <span class="bu">len</span>(<span class="bu">str</span>(n))</a></code></pre></div>
-<section class="footnotes">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> digitLengthCheating(n):</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="cf">return</span> <span class="bu">len</span>(<span class="bu">str</span>(n))</span></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The simple answer is not necessarily the correct one; the correct answer depends on how many digits you think 0 has<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>This seems to suggest that depending on how you define “digit length,” the number 0 has an undefined digit length, rather than having 1 digit<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>In other words, define the natural numbers as the domain of the <span class="math inline">log </span> function, rather than vice-versa<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>The simple answer is not necessarily the correct one; the correct answer depends on how many digits you think 0 has<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>This seems to suggest that depending on how you define “digit length,” the number 0 has an undefined digit length, rather than having 1 digit<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>In other words, define the natural numbers as the domain of the <span class="math inline">log </span> function, rather than vice-versa<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>
