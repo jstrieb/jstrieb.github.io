@@ -72,6 +72,20 @@ h2 {
   text-align: center;
 }
 
+svg {
+  width: 100%;
+}
+
+svg * {
+  stroke: limegreen;
+  fill: none;
+}
+
+svg .text * {
+  stroke: none;
+  fill: limegreen;
+}
+
 
 
 .menu hr {
