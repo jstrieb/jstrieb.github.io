@@ -34,17 +34,31 @@
 <p><img src="headshot.png" class="avatar" /></p>
 <h1 id="about">About</h1>
 <p>I am currently an undergraduate studying math, computer science, and public policy at Carnegie Mellon University in Pittsburgh. My resume is available upon request.</p>
-<p>For more information about this website and how I created it, read my post <a href="/projects/personal-site">here</a>.</p>
+<p>For more information about this website and how I created it, read my post <a href="/projects/personal-site">here</a>. The website does not use tracking or analytics, nor do any of the distributed web applications I have built. Thus, the only feedback I get is from people reaching out to me. If you like my work, please send me a message!</p>
 <h1 id="contact">Contact</h1>
 <p>I can be reached at <a href="mailto:jstrieb@cmu.edu">jstrieb@cmu.edu</a>.</p>
-<p>Alternatively, use the form below to directly send me a message. A chatbot delivers these messages directly to my cell phone. If you see a blank screen after clicking “Send,” then the message was sent successfully.</p>
+<p>Alternatively, use the form below to contact me directly. A chatbot delivers these messages directly to my cell phone.</p>
 <div class="contact-form">
-<form action="https://api.groupme.com/v3/bots/post?bot_id=706deaf523f339bcee544e833b" method="post">
-<textarea name="text" maxlength="999"></textarea>
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;">
+</iframe>
+<form onsubmit="showSent(this)" action="https://api.groupme.com/v3/bots/post?bot_id=706deaf523f339bcee544e833b" method="post" target="hiddenFrame">
+<textarea id="text" name="text" maxlength="999"></textarea>
 <br /> <input id="bot_id" name="bot_id" type="hidden" value="  706deaf523f339bcee544e833b"> <button>Send</button>
+<p class="alert">
+</p>
 </form>
 </div>
 <p><br /></p>
+<script type="text/javascript">
+    // Show that the message has been sent and clear the textarea
+function showSent(form) {
+    const alert = document.querySelector(".contact-form .alert");
+    alert.innerText = "Sent!"
+    alert.style.opacity = 1;
+    setTimeout(() => alert.style.opacity = 0, 5000);
+    setTimeout(() => document.querySelector("#text").value = "", 100);
+}
+</script>
 <footer>
 <hr />
 Copyright &copy 2020 <a href="/about">Jacob Strieb</a>. All rights reserved.

@@ -177,6 +177,7 @@ footer hr {
 .contact-form form {
   width: inherit;
   height: inherit;
+  display: contents;
 }
 
 .contact-form textarea {
@@ -199,4 +200,10 @@ footer hr {
   padding-right: 1em;
   border: 1px solid limegreen;
   border-radius: 0.25em;
+}
+
+.contact-form .alert {
+  font-family: sans-serif;
+  opacity: 0;
+  transition: opacity 0.25s;
 }
