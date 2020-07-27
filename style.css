@@ -1,3 +1,5 @@
+/* Styles for all regular elements */
+
 html {
   background: black;
   color: limegreen;
@@ -67,10 +69,9 @@ h2 {
   margin-top: 1em;
 }
 
-.math.display {
-  display: block;
-  text-align: center;
-}
+
+
+/* Inline SVG graphics */
 
 svg {
   width: 100%;
@@ -87,6 +88,41 @@ svg .text * {
 }
 
 
+
+/* Centered math */
+
+.math.display {
+  display: block;
+  text-align: center;
+}
+
+
+
+/* Hoverable buttons */
+
+.button-container {
+  padding: 1em;
+  text-align: center;
+}
+
+a.button {
+  color: limegreen;
+  text-decoration: none;
+  border: 2px solid;
+  border-radius: 3px;
+  padding: 0.5em;
+}
+
+a.button:hover {
+  color: black;
+  background: limegreen;
+  text-decoration: none;
+  border: 2px solid limegreen;
+}
+
+
+
+/* Menu and footer styling */
 
 .menu hr {
   border: 0;
@@ -112,7 +148,7 @@ svg .text * {
   padding: 0.75em;
   text-align: center;
   flex: 1;
-//  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .menu li a {
@@ -136,6 +172,9 @@ footer hr {
 }
 
 
+
+/* Projects page custom styles */
+
 .projects ul {
   list-style-type: none;
   padding: 0;
@@ -154,10 +193,16 @@ footer hr {
 }
 
 
+
+/* Add spacing for footnotes section of posts */
+
 .footnotes {
   padding-top: 25px;
 }
 
+
+
+/* Make the avatar on the about page have a rounded border */
 
 .avatar {
   display: block;
@@ -165,6 +210,10 @@ footer hr {
   border: 5px solid;
   border-radius: 168px;
 }
+
+
+
+/* Adjust the appearance of the contact form on the about page */
 
 .contact-form {
   max-width: 80ch;
