@@ -39,24 +39,42 @@
 <p>I can be reached at <a href="mailto:jstrieb@cmu.edu">jstrieb@cmu.edu</a>.</p>
 <p>Alternatively, use the form below to contact me directly. A chatbot delivers these messages directly to my cell phone. Don’t forget to include contact information if you would like a response!</p>
 <div class="contact-form">
-<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;">
-</iframe>
-<form onsubmit="showSent(this)" action="https://api.groupme.com/v3/bots/post?bot_id=706deaf523f339bcee544e833b" method="post" target="hiddenFrame">
-<textarea id="text" name="text" maxlength="999"></textarea>
-<br /> <input id="bot_id" name="bot_id" type="hidden" value="  706deaf523f339bcee544e833b"> <button>Send</button>
-<p class="alert">
+<noscript>
+The form below requires JavaScript to be enabled in order to submit. I wish I could use a regular form that does not require JavaScript, but unfortunately spammers took advantage. As a result, I have had to resort to this. If you have JavaScript disabled but still want to contact me, please use my email, which can be found above.
+</noscript>
+<form onsubmit="submitForm(this); return false">
+<label for="email">Email (Optional): <input type="email" id="email" name="email" /></label> <label for="text">Message:
+<textarea minlength="1" maxlength="999" id="text" name="text"></textarea>
+</text> <button>Send</button>
+<p class="alert" id="alert">
 </p>
 </form>
 </div>
-<p><br /></p>
 <script type="text/javascript">
 // Show that the message has been sent and clear the textarea
-function showSent(form) {
-    const alert = document.querySelector(".contact-form .alert");
-    alert.innerText = "Sent!"
+async function submitForm(form) {
+  const message = (( form.email.value ? `From: ${form.email.value}\n` : "")
+                  + `${form.text.value}`);
+
+  const BOT_ID = "706deaf523f339bcee544e833b";
+  fetch(`https://api.groupme.com/v3/bots/post?bot_id=${BOT_ID}`, {
+    mode: "no-cors",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      text: message,
+    }),
+  })
+  .then(() => {
+    form.email.value = "";
+    form.text.value = "";
+    const alert = form.querySelector("#alert");
+    alert.innerText = "Sent!";
     alert.style.opacity = 1;
     setTimeout(() => alert.style.opacity = 0, 5000);
-    setTimeout(() => document.querySelector("#text").value = "", 100);
+  });
 }
 </script>
 <footer>
