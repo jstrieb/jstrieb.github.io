@@ -49,6 +49,10 @@ blockquote {
   border-left: 3px solid;
 }
 
+blockquote p {
+  text-align: left;
+}
+
 p > code {
   background: #383838;
   padding: 3px;
@@ -67,6 +71,10 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
   margin-top: 1em;
+}
+
+details summary {
+  cursor: pointer;
 }
 
 
@@ -210,6 +218,10 @@ footer hr {
 
 .footnotes {
   padding-top: 25px;
+}
+
+.footnotes p {
+  text-align: left;
 }
 
 
