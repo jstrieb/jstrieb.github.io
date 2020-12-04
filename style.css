@@ -37,8 +37,9 @@ p {
   font-family: serif;
 }
 
-img {
-  max-width: 70ch;
+img, video {
+  max-width: 100%;
+  width: 100%;
   display: inline-block;
 }
 
@@ -51,6 +52,10 @@ blockquote {
 
 blockquote p {
   text-align: left;
+}
+
+figcaption {
+  text-align: center;
 }
 
 p > code {
@@ -75,6 +80,10 @@ h2 {
 
 details summary {
   cursor: pointer;
+}
+
+summary h1, summary h2, summary h3, summary h4, summary h5, summary h6 {
+  display: inline;
 }
 
 
