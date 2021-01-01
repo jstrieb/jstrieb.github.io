@@ -238,6 +238,7 @@ footer hr {
 /* Make the avatar on the about page have a rounded border */
 
 .avatar {
+  width: auto;
   display: block;
   margin: auto;
   border: 5px solid;

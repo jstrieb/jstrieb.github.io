@@ -10,7 +10,7 @@
   <meta name="date" content="2020-12-02" />
   <meta name="dcterms.date" content="2020-12-02" />
   <meta name="description" content="Setting up a distraction-free, virtual reality programming environment using a borrowed Oculus Go" />
-  <title>Programming in Virtual Reality</title>
+  <title>A Reflection on Programming in Virtual Reality</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,16 +93,16 @@
 </ul>
 <hr />
 </div>
-<h1 id="programming-in-virtual-reality">Programming in Virtual Reality</h1>
+<h1 id="a-reflection-on-programming-in-virtual-reality">A Reflection on Programming in Virtual Reality</h1>
 <p>By <a href="https://jstrieb.github.io">Jacob Strieb</a></p>
 <p>Published on <a href="/posts/vr-programming/">December 02, 2020</a></p>
 <hr />
-<h2 id="background">Background</h2>
-<p>Since I began college, I have struggled with staying focused while working in shared spaces.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> An ADHD diagnosis during my sophomore year helped identify the root cause of my distractibility, but did little to ameliorate it. As a result, I spend a lot of time finding and testing techniques to limit distractions in my work environment, especially while I have actual work to do.</p>
+<h1 id="background">Background</h1>
+<p>Since I began college, I have struggled with staying focused while working in shared spaces.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> An ADHD diagnosis during my sophomore year helped identify the root cause of my distractibility, but did little to ameliorate it. As a result, I spend a lot of time finding and testing techniques to limit distractions in my work environment. This is an especially engaging diversion when I have actual work to do.</p>
 <p>When my friend and housemate Logan went home for Thanksgiving, he left behind his Oculus Go—a Virtual Reality (VR) headset he bought on eBay—and gave me permission to use it in his absence. Since I had a challenging assignment for my programming language theory course due the next day,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> it was only natural to get diverted by attempting to minimize external distractions using this new toy.</p>
-<p>Given programmers’ stereotypical penchant for multi-monitor setups, I was surprised that my cursory research into VR programming environments returned no helpful results. I found a lot of vaporware claiming to “revolutionize coding” using immersive interactive experiences, but nothing about regular programming using a headset in lieu of computer monitors.</p>
+<p>Given programmers’ stereotypical penchant for multi-monitor setups, I was surprised that my cursory research into VR programming environments returned no helpful results. I found a lot of vaporware claiming to “revolutionize coding” using immersive interactive experiences and three-dimensional metaphors for code, but nothing about regular programming using a headset in lieu of computer monitors.</p>
 <p>What follows is a description of how I set up a distraction-free programming environment using the Oculus Go, and a review of my experience.</p>
-<h2 id="logistics">Logistics</h2>
+<h1 id="technical-details">Technical Details</h1>
 <p>The headset already had Mozilla’s VR web browser “Firefox Reality” installed,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> which defaults to opening new tabs on either side of the main one, thereby allowing multiple pages to be viewed at the same time and emulating the multi-monitor setup I was after. Rather than fumbling with peripherals and installing apps on the device, I resolved to open documentation in two separate browser tabs, and stream my terminal to the third. I would type at my regular keyboard, and simply view it through the web browser on the VR headset.</p>
 <p>The video below demonstrates the final setup. Note that when the headset remote turns sideways, it has been laid on the desk next to my keyboard so I can type.</p>
 <figure>
@@ -114,14 +114,14 @@ A video demo of working on PL theory homework in Standard ML with virtual monito
 </figcaption>
 </figure>
 <p>There were two steps to getting fully set-up. Streaming my terminal was done using <code>ttyd</code> with a shared <code>tmux</code> session.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Reading documentation was done with <code>PDF.js</code>,<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> since Firefox Reality does not come with a built-in PDF reader.</p>
-<p>Click the subsection headers below to expand for technical details.</p>
+<p>Click the subsection headers below to expand for further technical details.</p>
 <details>
 <summary>
-<h3>
+<h2>
 Streaming the Terminal
-</h3>
+</h2>
 <p></summary></p>
-<p>Setting up terminal streaming was a simple matter of downloading the correct <code>ttyd</code> release, making it executable, and running it in a <code>tmux</code> session. The following commands were run from within the terminal session I intended to stream.</p>
+<p>Setting up terminal streaming was a simple matter of downloading the correct <code>ttyd</code> release, making it executable, and running it with a <code>tmux</code> session. The following commands were run from within the terminal session I intended to stream.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Download ttyd (I use the latest x86_64 release)</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">wget</span> --output-document <span class="st">&quot;ttyd&quot;</span> <span class="st">&quot;https://github.com/tsl0922/ttyd/releases/latest/download/ttyd_linux.x86_64&quot;</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -133,20 +133,61 @@ Streaming the Terminal
 <p>The final command tells <code>ttyd</code> to run <code>tmux new -A -s ttyd_tmux</code> whenever a new user appears from the web. This connects them to a <code>tmux</code> session named <code>ttyd_tmux</code>, and creates the session before connecting if it does not already exist. Doing this ensures that the terminal viewed from the headset exactly matches the one being typed into on the computer.</p>
 <p>Next, from my terminal, I ran the following command to open up the shared session. Anything typed into this session would appear on the VR headset.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">tmux</span> new -A -s ttyd_tmux</span></code></pre></div>
-<p>Then, since the Oculus headset was on the same Wi-Fi network, I ran <code>ifconfig</code> to get my local IP address, and went to the following URL inside the VR web browser to view the terminal.</p>
+<p>Then, since the Oculus headset was on the same Wi-Fi network as my laptop, I ran <code>ifconfig</code> to get my local IP address, and went to the following URL inside the VR web browser to view the terminal.</p>
 <pre><code>http://&lt;my local IP&gt;:6969/</code></pre>
-<p>As long as the window containing the terminal was in-focus, any keys typed there appeared in the terminal being viewed in the browser.<br />
+<p>As long as the window containing the terminal was in-focus on my computer, any keys typed there appeared in the terminal being viewed in the browser.<br />
 </p>
 </details>
 <details>
 <summary>
-<h3>
+<h2>
 Viewing PDFs in Mozilla Reality
-</h3>
+</h2>
 <p></summary></p>
+<!-- TODO -->
+<ul>
+<li>PDF.js is necessary</li>
+<li>CORS proxy is necessary</li>
+<li>General format of URLs</li>
+<li>Form to get short link to PDF with PDF.js viewer</li>
+</ul>
 </details>
-<h2 id="reflection">Reflection</h2>
-<p>TODO</p>
+<h1 id="reflection">Reflection</h1>
+<!-- TODO -->
+<ul>
+<li>It was really effective</li>
+<li>Resolution was too low
+<ul>
+<li>Bearable for an hour or two of focused work</li>
+<li>The battery only lasted for an hour anyway</li>
+<li>This will get better in coming years; if this is taken as a given, it is possible to get ahead and be first-to-market with coding environments for VR</li>
+</ul></li>
+<li>Felt like the future
+<ul>
+<li>I can imagine being on a train or plane and working productively as if I was in “the office”</li>
+</ul></li>
+<li>Building VR applications on top of web standards like WebXR makes sense
+<ul>
+<li>Device agnostic (including non-VR devices for trying things out)</li>
+<li>Future-proof?</li>
+<li>Easy, no-installation setup</li>
+<li>Can start today, don’t even need hardware</li>
+<li>Web is the future anyway?</li>
+<li>GitHub/Microsoft is already putting VS code in the browser. Adding WebXR integration probably isn’t that much of a stretch</li>
+</ul></li>
+<li>Would be worth setting up with the Raspberry Pi 400, which doesn’t even have a screen</li>
+<li>Remote instead of the mouse is very natural</li>
+<li>Doesn’t work if you can’t touch type</li>
+<li>Might be a bit harder to set up on a non-Linux system</li>
+<li>For some PDFs, would have to put them online on a web server or file host</li>
+<li>Delay after typing exists, but isn’t too bad for me</li>
+<li>Not being able to open lots of tabs (for documentation, for example) is a feature, not a bug, at least for doing homework
+<ul>
+<li>Could be problematic for certain types of coding, but when I look stuff up like that I usually get distracted anyway</li>
+</ul></li>
+<li>Having the terminal in-focus on the computer was annoying, but necessary</li>
+<li>Run <code>ttyd</code> securely (with credentials) if there is concern about others viewing it, or if the device is on the open Internet. In particular, the <code>--readonly</code> flag is <em>highly</em> recommended.</li>
+</ul>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
