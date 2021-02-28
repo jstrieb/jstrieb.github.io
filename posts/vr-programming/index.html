@@ -98,7 +98,7 @@
 <p>Published on <a href="/posts/vr-programming/">December 02, 2020</a></p>
 <hr />
 <h1 id="background">Background</h1>
-<p>Since I began college, I have struggled with staying focused while working in shared spaces.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> An ADHD diagnosis during my sophomore year helped identify the root cause of my distractibility, but did little to ameliorate it. As a result, I spend a lot of time finding and testing techniques to limit distractions in my work environment. This is an especially engaging diversion when I have actual work to do.</p>
+<p>Since I began college, I have struggled with staying focused while working in shared spaces.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> An ADHD diagnosis during my sophomore year helped identify the root cause of my distractibility, but did little to ameliorate it. As a result, I spend a lot of time finding and testing techniques to limit distractions in my work environment. This is an especially engaging diversion when I have important work to do.</p>
 <p>When my friend and housemate Logan went home for Thanksgiving, he left behind his Oculus Go—a Virtual Reality (VR) headset he bought on eBay—and gave me permission to use it in his absence. Since I had a challenging assignment for my programming language theory course due the next day,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> it was only natural to get diverted by attempting to minimize external distractions using this new toy.</p>
 <p>Given programmers’ stereotypical penchant for multi-monitor setups, I was surprised that my cursory research into VR programming environments returned no helpful results. I found a lot of vaporware claiming to “revolutionize coding” using immersive interactive experiences and three-dimensional metaphors for code, but nothing about regular programming using a headset in lieu of computer monitors.</p>
 <p>What follows is a description of how I set up a distraction-free programming environment using the Oculus Go, and a review of my experience.</p>
@@ -144,15 +144,33 @@ Streaming the Terminal
 Viewing PDFs in Mozilla Reality
 </h2>
 <p></summary></p>
-<!-- TODO -->
-<ul>
-<li>PDF.js is necessary</li>
-<li>CORS proxy is necessary</li>
-<li>General format of URLs</li>
-<li>Form to get short link to PDF with PDF.js viewer</li>
-</ul>
+<p>Mozilla Reality does not come with a built-in PDF viewer, so <code>PDF.js</code> was a natural choice for rendering PDF files in the browser.</p>
+<p>The <code>PDF.js</code> website provides a viewer that can render PDF files from arbitrary URLs.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Since the PDF files are fetched client-side from within the browser, they are subject to the same-origin policy, and thus a cross-origin request sharing (CORS) proxy is necessary.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Thus, it is possible to view PDF files by navigating to URLs like the following:</p>
+<pre><code>https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cors-anywhere.herokuapp.com/http://jstrieb.github.io/posts/vr-programming/assn5.pdf</code></pre>
+<p>For convenience, below is a form that takes in a PDF URL and generates a shortened link to the Mozilla <code>PDF.js</code> viewer.</p>
+<style>
+.contact-form {
+  height: auto;
+}
+</style>
+<form class="contact-form" action="https://tinyurl.com/create.php" method="get" target="_blank">
+<label for="pdf_url">Link to PDF:</label> <input id="pdf_url" type="url" /> <input type="hidden" id="source" name="source" value="indexpage"> <input type="hidden" id="url" name="url"> <button onclick="makePDFURL(this)">Get Short PDF Viewer URL</button>
+</form>
+<script>
+function makePDFURL(form) {
+  let pdf_url = document.querySelector("#pdf_url");
+  let url = document.querySelector("#url");
+  url.value = ("https://mozilla.github.io/pdf.js/web/viewer.html?file="
+      + "https://cors-anywhere.herokuapp.com/"
+      + pdf_url.value);
+  return true;
+}
+</script>
 </details>
 <h1 id="reflection">Reflection</h1>
+<p>Despite the difficulties and practical limitations of the headset and keyboard setup, the experience left me with the distinct impression that I had glimpsed how people will use computers in the future. Once VR technology matures, I would not be surprised if white-collar workers spend much of their time using immersive desktop environments, rather than looking at real-world screens.</p>
+<p>In a world replete with distractions, deep focus is an uncommon treat. By using the VR headset, it was possible to instantly shut everything out and consistently attain this otherwise rare state of complete concentration. While wearing the headset, there were no visual distractions, and checking my phone and falling into rabbit holes on the Web were both cumbersome enough to be infrequent – the path of least resistance when working in VR was to keep hacking away at the code positioned front and center, looking away only to glance at already-open documentation pages on either side.</p>
+<p>In this case, the difficulty of searching the Web and navigating to new pages was a feature, not a bug. In the course of programming outside of VR, I commonly search for something simple and realize an hour later that all I have done is read Stack Exchange “Hot Network Questions” linked on the right side of every Stack Overflow post. On the other hand, in my VR setup, the most accessible documentation is that which is readable from the terminal interface – typically, documentation already stored offline in the form of man pages or Python’s <code>help()</code> utility.</p>
 <!-- TODO -->
 <ul>
 <li>It was really effective</li>
@@ -188,6 +206,8 @@ Viewing PDFs in Mozilla Reality
 <li>Having the terminal in-focus on the computer was annoying, but necessary</li>
 <li>Run <code>ttyd</code> securely (with credentials) if there is concern about others viewing it, or if the device is on the open Internet. In particular, the <code>--readonly</code> flag is <em>highly</em> recommended.</li>
 </ul>
+<h1 id="future-work">Future Work</h1>
+<p>The utterly complete focus I experienced working while immersed in virtual reality left me eager for more opportunities to work while using a VR headset. Since the initial experience in November, I have</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -196,11 +216,13 @@ Viewing PDFs in Mozilla Reality
 <li id="fn3" role="doc-endnote"><p><a href="https://mzl.la/reality" class="uri">https://mzl.la/reality</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4" role="doc-endnote"><p><a href="https://github.com/tsl0922/ttyd" class="uri">https://github.com/tsl0922/ttyd</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5" role="doc-endnote"><p><a href="https://mozilla.github.io/pdf.js/" class="uri">https://mozilla.github.io/pdf.js/</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p><a href="https://mozilla.github.io/pdf.js/web/viewer.html" class="uri">https://mozilla.github.io/pdf.js/web/viewer.html</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>Incidentally, the maintainer of one of the most popular, free CORS proxies is also a primary maintainer of the <code>PDF.js</code> extension for Google Chrome <a href="https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244" class="uri">https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>
 <hr />
-Copyright &copy 2020 <a href="/about">Jacob Strieb</a>. All rights reserved.
+Copyright &copy 2021 <a href="/about">Jacob Strieb</a>. All rights reserved.
 </footer>
 </body>
 </html>

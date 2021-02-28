@@ -32,6 +32,10 @@ pre {
   page-break-inside: avoid;
 }
 
+pre code {
+  white-space: nowrap;
+}
+
 p {
   text-align: justify;
   font-family: serif;
