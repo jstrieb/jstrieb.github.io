@@ -208,7 +208,7 @@ try {
   let decrypted = null;
   try {
     decrypted = await api.decrypt(encrypted, passphrase, salt, iv);
-  } catch (_) {
+  } catch {
     console.log(params, passphrase);
     params.p = passphrase;
     window.location.replace(redirect + "#" + b64.encode(JSON.stringify(params)));
@@ -263,16 +263,67 @@ function addBookmark() {
 
 
 /***
+ * Fill inputs with random Wikipedia pages.
+ */
+async function fillRandom() {
+  let bookmarks = Array.from(document.querySelectorAll(".bookmark"));
+
+  bookmarks.forEach(async b => {
+    let page = await fetch("https://en.wikipedia.org/w/api.php?"
+        + "format=json"
+        + "&action=query"
+        + "&generator=random"
+        + "&grnnamespace=0" /* Only show articles, not users */
+        + "&prop=info"
+        + "&inprop=url" /* Get URLs, they're not there by default */
+        + "&origin=*") /* https://mediawiki.org/wiki/API:Cross-site_requests */
+      .then(r => r.json())
+      .then(d => {
+        let pages = d.query.pages;
+        return pages[Object.keys(pages)[0]];
+      });
+    b.value = await page.canonicalurl;
+  });
+}
+
+
+/***
  * Generate bookmarks from user input.
  */
 async function generateBookmarks() {
-  // TODO: Check for APIs loaded
+  let outputBookmarks = document.querySelector(".output-bookmarks");
+  let bookmarks = Array.from(document.querySelectorAll(".bookmark"));
+
+  // Check for APIs loaded
+  if (!("b64" in window && "apiVersions" in window)) {
+    outputBookmarks.style.opacity = 0;
+    error("Critical libraries not loaded!");
+    return;
+  }
   let api = apiVersions[LATEST_API_VERSION];
 
-  // TODO: Form validation
-  let url = document.querySelector("#hidden-url")?.value;
-
-  let bookmarks = Array.from(document.querySelectorAll(".bookmark"));
+  // Form validation
+  let url = document.querySelector("#hidden-url").value;
+  try {
+    new URL(url);
+  } catch {
+    outputBookmarks.style.opacity = 0;
+    error("Hidden URL is not valid. Make sure it starts with \"https://\"!");
+    return;
+  }
+  let allValid = bookmarks.every(b => { 
+    try {
+      new URL(b.value);
+    } catch {
+      return false;
+    }
+    return true;
+  });
+  if (!allValid) {
+    outputBookmarks.style.opacity = 0;
+    error("One or more bookmark URLs is not valid. Make sure they all start with \"https://\"!");
+    return;
+  }
 
   // Pick a pseudorandom passphrase 
   let charFactor = 4;
@@ -285,7 +336,8 @@ async function generateBookmarks() {
   await window.crypto.getRandomValues(randomBytes);
   randomBytes = randomBytes.map(b => b % charset.length);
   let passphrase = Array.from(randomBytes).map(b => charset[b]).join("");
-  console.log("Encrypting with", passphrase);
+  // TODO: Remove
+  // console.log("Encrypting with", passphrase);
 
   // Encrypt the hidden link
   let salt = await api.randomSalt();
@@ -301,10 +353,13 @@ async function generateBookmarks() {
   let output = b64.encode(JSON.stringify(outputObject));
 
   // Display the output bookmark area
-  let outputBookmarks = document.querySelector(".output-bookmarks");
   outputBookmarks.style.opacity = 1;
   let generated = document.querySelector("#generated");
   generated.innerText = "";
+
+  // Make sure no error is shown
+  const alert = document.querySelector("#alert");
+  alert.style.opacity = 0;
 
   bookmarks.forEach((b, i) => {
     let button = document.createElement("a");
