@@ -132,12 +132,6 @@ Drag the generated bookmarks to your bookmarks bar. Their default names are the 
 <p>Since it is perfectly valid to have an arbitrary hash at the end of a typical URL, the bookmark behaves normally if the knock sequence is incorrect or incomplete. The only distinguishing feature of the decoy bookmark URLs is the presence of a long, nonsensical fragment, which wouldn’t alarm most people.</p>
 <h2 id="link-lock-version">Link Lock Version</h2>
 <p>The simplified version of bookmark knocking <a href="https://jstrieb.github.io/link-lock/hidden/">built into Link Lock</a> only supports two knocks. There is one universal second knock for any valid first knock. Then the hidden link prompts for a password. This two-knock version provides a practical level of privacy, without compromising on usability or security.</p>
-<!--
-In port knocking, a user who attempts connections to closed ports is granted
-access if they connect to the correct ports in the correct order. For bookmark
-knocking, a user who clicks certain, otherwise-normal bookmarks in the right
-order is redirected to a hidden link.
--->
 <h1 id="who-it-is-for">Who It Is For</h1>
 <p>Software security claims are only valid relative to a well-defined threat model. In this case, the software aims to be secure against family and friends, not agencies.</p>
 <p>In other words, links protected with bookmark knocking (as implemented here) will be difficult to notice for most people, let alone crack. But the protection <em>can</em> be noticed by an astute observer, and <em>can</em> be broken by a determined adversary.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
