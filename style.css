@@ -17,6 +17,7 @@ body {
 
 a {
   color: inherit;
+  overflow-wrap: break-word;
 }
 
 hr {
@@ -38,9 +39,13 @@ p {
   font-family: serif;
 }
 
-img {
-  max-width: 70ch;
+img, video {
+  max-width: min(70ch, 100%);
   display: inline-block;
+}
+
+video {
+  min-width: min(70ch, 100%);
 }
 
 blockquote {
