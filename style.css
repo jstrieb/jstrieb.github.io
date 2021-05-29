@@ -4,6 +4,7 @@ html {
   background: black;
   color: limegreen;
   padding: 25px;
+  font-family: serif;
 }
 
 body {
@@ -16,6 +17,7 @@ body {
 
 a {
   color: inherit;
+  overflow-wrap: break-word;
 }
 
 hr {
@@ -42,9 +44,21 @@ p {
 }
 
 img, video {
+  /*
+<<<<<<< HEAD
   max-width: 100%;
   width: 100%;
+=======
+  max-width: min(70ch, 100%);
+>>>>>>> master
+  */
+  max-width: min(70ch, 100%);
+  width: 100%;
   display: inline-block;
+}
+
+video {
+  min-width: min(70ch, 100%);
 }
 
 blockquote {
@@ -297,7 +311,7 @@ footer hr {
 }
 
 .contact-form .alert {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   opacity: 0;
   transition: opacity 0.25s;
 }
