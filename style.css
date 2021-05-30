@@ -76,7 +76,7 @@ figcaption {
   text-align: center;
 }
 
-p > code {
+code {
   background: #383838;
   padding: 3px;
   padding-top: 0px;
