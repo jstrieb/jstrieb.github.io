@@ -7,8 +7,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="author" content="Jacob Strieb" />
-  <meta name="date" content="2022-05-30" />
-  <meta name="dcterms.date" content="2022-05-30" />
+  <meta name="date" content="2021-05-30" />
+  <meta name="dcterms.date" content="2021-05-30" />
   <meta name="description" content="Setting up a distraction-free, virtual reality programming environment using a borrowed Oculus Go" />
   <title>A Reflection on Programming in Virtual Reality</title>
   <style>
@@ -131,12 +131,12 @@ Streaming the Terminal
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Start a ttyd session running in the background</span></span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="ex">./ttyd</span> --readonly --port 6969 tmux new -A -s ttyd_tmux <span class="op">&amp;&gt;</span> /dev/null <span class="kw">&amp;</span></span></code></pre></div>
-<p>The final command tells <code>ttyd</code> to run <code>tmux new -A -s ttyd_tmux</code> whenever a new user appears from the web. This connects them to a <code>tmux</code> session named <code>ttyd_tmux</code>, and creates the session before connecting if it does not already exist. This ensures that the terminal viewed from the headset exactly matches the one being typed into on the computer.</p>
+<p>The final command tells <code>ttyd</code> to run <code>tmux new -A -s ttyd_tmux</code> whenever a new user appears from the web. This connects them to a <code>tmux</code> session named <code>ttyd_tmux</code>, and creates the session before connecting if it does not already exist. This ensures that the terminal viewed from the headset exactly matches the one being typed on the computer.</p>
 <p>Next, from my terminal, I ran the following command to open up the shared session. Anything typed into this session would appear on the VR headset.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">tmux</span> new -A -s ttyd_tmux</span></code></pre></div>
 <p>Then, since the Oculus headset was on the same Wi-Fi network as my laptop, I ran <code>ifconfig</code> to get my local IP address, and went to the following URL inside the VR web browser to view the terminal.</p>
 <pre><code>http://&lt;my local IP&gt;:6969/</code></pre>
-<p>As long as the window containing the terminal was in-focus on my computer, any keys typed there appeared in the terminal being streamed to the headset browser. <br></p>
+<p>As long as the terminal window was in-focus on my computer, any keys typed there were immediately reflected in the terminal on the headset. <br></p>
 </details>
 <details>
 <summary>
@@ -170,22 +170,23 @@ function makePDFURL(form) {
 <h1 id="reflection">Reflection</h1>
 <p>Despite practical limitations of the headset and keyboard setup, the experience left me with the distinct impression that virtual reality is the future of human-computer interaction.</p>
 <p>Once VR technology matures, I expect knowledge workers will spend much of their time using immersive desktop environments, rather than looking at real-world screens. Eventually, busy people on planes and trains will goggle into VR workspaces, and remote workers will walk around virtual offices.</p>
-<p>In a world replete with distractions, deep focus is an uncommon treat. By using the VR headset, it was possible to instantly shut everything out, and to consistently attain this otherwise rare state of complete concentration.</p>
+<p>In a world replete with distractions, deep focus is an uncommon treat. By using the VR headset, it was possible to instantly shut everything out, and to attain this otherwise rare state of complete concentration.</p>
 <p>While wearing the headset, there were no visual distractions. Checking my phone and falling into rabbit holes on the Web were both cumbersome enough to be infrequent – the path of least resistance when working was to keep hacking on the code positioned front and center, looking away only to glance at already-open documentation on either side.</p>
 <p>In this case, the difficulty of searching the Web and navigating to new pages was a feature, not a bug. In the course of programming outside of VR, I commonly search for something simple and realize an hour later that all I have done is read “Hot Network Questions” linked on the right side of every Stack Overflow post. Whereas in my VR setup, the most accessible documentation is that which is readable from the terminal interface. Typically, this is documentation already stored offline such as man pages or Python’s <code>help()</code> utility. The benefit of being restricted to offline documentation cannot be overstated.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
-<p>The two practical limitations of programming in VR were the headset screen resolution and battery. The low resolution was tolerable for about two hours, but the battery only lasted that long, anyway. These points of friction are core limitations of VR technology in general, and will inevitably be overcome as the tech improves. They are also likely far less limiting in higher-end headsets, even today.</p>
+<p>The two practical limitations of programming in VR were the headset screen resolution and battery. The low resolution was tolerable for about two hours, but the battery only lasted that long, anyway. These points of friction are core limitations of VR technology in general, and will inevitably be overcome as the tech improves. They are also far less limiting in higher-end headsets, even today.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 <p>The need to touch-type might also inhibit some people from programming in VR. But I don’t expect this to prevent the steady replacement of computer monitors as headsets get better, since a headset-mounted camera pointing at the keyboard would allow a user to see their hands so they don’t have to type blind. Based on my experience, I also don’t believe novel controllers or interaction modalities are necessary for VR to replace traditional monitors in work environments – using the VR remote instead of the mouse was shockingly natural, and not seeing the keyboard was a minor inconvenience at worst.</p>
 <p>It seems obvious that there should be startups working on VR document, spreadsheet, and presentation editing software in addition to programming environments. That way, as soon as there are hardware improvements, those companies would be positioned to be first to market with products tailored for workers looking to replace their monitors with focus-enhancing VR workstations.</p>
 <p>On the other hand, since consumer applications are increasingly made for the web, maybe the future is Google Drive, Sheets, and Slides, but optimized for VR. A headset that only runs a browser isn’t too different from a Chromebook, so I wouldn’t be surprised if Google used their web-based, cross-platform dominance to muscle into the market for VR productivity software. Either way, after this first experience working in virtual reality, I will be watching the space eagerly.</p>
 <h1 id="postscript">Postscript</h1>
 <p>The utterly complete focus attained while immersed in virtual reality left me eager for more opportunities to work using a VR headset. Since the initial experience in November, I have continued to occasionally author documents and write code using the headset instead of my normal computer screen.</p>
-<p>I bought a Raspberry Pi 400,<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> and have <code>ttyd</code> set up to run on boot so I can use it in text mode from the VR headset without connecting a monitor.</p>
+<p>I bought a Raspberry Pi 400,<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> and have <code>ttyd</code> set up to run on boot so I can use it in text mode from the VR headset without connecting a monitor.</p>
 <p>Additionally, the following applications seem to work in VR:</p>
 <ul>
-<li>VS Code entirely in the browser with “github1s” (but the lack of keyboard makes it difficult to use)<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></li>
+<li>VS Code entirely in the browser with “github1s” (but the lack of keyboard makes it difficult to use)<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></li>
 <li>Google Docs works well if I have the same document open on my computer. Google Sheets works less well, and Google Slides is nearly unusable since these last two both rely more heavily on the mouse than Docs</li>
 </ul>
-<p>Finally, I was able to use Apache Guacamole with the graphical mode of my “CTF Collab” project to run an entire remote desktop session in the browser where the computer I connected to was running on GitHub Actions.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a><span class="math inline"><sup>,</sup></span> <a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> This web-based remote desktop session enabled me to run graphical applications like Ghidra from within the virtual environment without installing anything on my computer.</p>
+<p>Finally, I was able to use Apache Guacamole with the graphical mode of my “CTF Collab” project to run an entire remote desktop session in the browser where the computer I connected to was running on GitHub Actions.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a><span class="math inline"><sup>,</sup></span> <a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> This web-based remote desktop session enabled me to run graphical applications like Ghidra from within the virtual environment without installing anything on my computer.</p>
+<p>There are undoubtedly many additional ways in which regular productivity applications can be brought to VR, and I can’t wait to see how the field develops.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -195,12 +196,15 @@ function makePDFURL(form) {
 <li id="fn4" role="doc-endnote"><p><a href="https://github.com/tsl0922/ttyd" class="uri">https://github.com/tsl0922/ttyd</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5" role="doc-endnote"><p><a href="https://mozilla.github.io/pdf.js/" class="uri">https://mozilla.github.io/pdf.js/</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6" role="doc-endnote"><p><a href="https://mozilla.github.io/pdf.js/web/viewer.html" class="uri">https://mozilla.github.io/pdf.js/web/viewer.html</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>Incidentally, the maintainer of one of the most popular, free CORS proxies is also a primary maintainer of the <code>PDF.js</code> extension for Google Chrome <a href="https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244" class="uri">https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>Incidentally, the maintainer of one of the most popular, free CORS proxies is also a primary maintainer of the <code>PDF.js</code> extension for Google Chrome<br />
+<a href="https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244" class="uri">https://github.com/mozilla/pdf.js/issues/1000#issuecomment-133756244</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8" role="doc-endnote"><p>This limitation can also be enforced by working in text mode and not starting the desktop window manager, which I like to do from time to time. But this doesn’t help with distractions in the environment.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p><a href="https://www.raspberrypi.org/products/raspberry-pi-400/" class="uri">https://www.raspberrypi.org/products/raspberry-pi-400/</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p><a href="https://github.com/conwnet/github1s" class="uri">https://github.com/conwnet/github1s</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11" role="doc-endnote"><p><a href="https://guacamole.apache.org/" class="uri">https://guacamole.apache.org/</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12" role="doc-endnote"><p><a href="https://github.com/jstrieb/ctf-collab" class="uri">https://github.com/jstrieb/ctf-collab</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>The Oculus Go is known for being a particularly mediocre “intro” headset. The exact same setup would probably work better on a more expensive headset. Then again, better headsets also have proper virtual desktop applications like<br />
+<a href="https://store.steampowered.com/app/382110/Virtual_Desktop/" class="uri">https://store.steampowered.com/app/382110/Virtual_Desktop/</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p><a href="https://www.raspberrypi.org/products/raspberry-pi-400/" class="uri">https://www.raspberrypi.org/products/raspberry-pi-400/</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p><a href="https://github.com/conwnet/github1s" class="uri">https://github.com/conwnet/github1s</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12" role="doc-endnote"><p><a href="https://guacamole.apache.org/" class="uri">https://guacamole.apache.org/</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13" role="doc-endnote"><p><a href="https://github.com/jstrieb/ctf-collab" class="uri">https://github.com/jstrieb/ctf-collab</a><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>
