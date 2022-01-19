@@ -98,6 +98,7 @@ h2 {
 
 details summary {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 summary h1, summary h2, summary h3, summary h4, summary h5, summary h6 {
@@ -316,3 +317,9 @@ footer hr {
   transition: opacity 0.25s;
 }
 
+
+
+/* Underlined text for emphasis */
+.underline {
+  text-decoration: underline;
+}
