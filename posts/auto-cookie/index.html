@@ -103,6 +103,7 @@
 <div class="button-container">
 <a class="button" href="javascript:var autoclicker = setInterval(function(){ try { document.getElementById('bigCookie').click(); } catch (err) { clearInterval(); } }, 10);">Cookie Autoclicker</a>
 </div>
+<p>If you do not have a visible bookmarks bar, you can press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> (<kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on macOS) to bring it up. Then drag the bookmark and drop it there. If that doesn’t work for your browser, try using the instructions <a href="https://www.computerhope.com/issues/ch001917.htm">here</a> or <a href="https://it.nmu.edu/docs/display-bookmarks-and-favorites-your-internet-browser">here</a>.</p>
 <p>The code is very simple. It creates a timer that calls a function every 10 milliseconds. That function finds the cookie element in the document and clicks it. If such an element does not exist, the timer terminates.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> A more readable version of the code is included below, without the <code>javascript:</code> prefix required for the bookmarklet to work.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">var</span> autoclicker <span class="op">=</span> <span class="pp">setInterval</span>(<span class="kw">function</span>(){</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">try</span> {</span>
