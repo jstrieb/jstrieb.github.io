@@ -165,7 +165,7 @@
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="st">    total = sum(data.values()); \</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="st">    data = {k: v / total for k, v in data.items()};  \</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="st">    print(json.dumps(data, indent=2))&#39;</span> <span class="kw">\</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>  <span class="op">&gt;</span> <span class="ex">frequency.json</span></span></code></pre></div>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>  <span class="kw">|</span> <span class="fu">tee</span> frequency.json</span></code></pre></div>
 <p>Though this hardly counts as a one-liner, here is the whole pipeline in its full glory:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
@@ -199,7 +199,103 @@
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a><span class="st">    total = sum(data.values()); \</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a><span class="st">    data = {k: v / total for k, v in data.items()};  \</span></span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a><span class="st">    print(json.dumps(data, indent=2))&#39;</span> <span class="kw">\</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a>  <span class="op">&gt;</span> <span class="ex">frequency.json</span></span></code></pre></div>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a>  <span class="kw">|</span> <span class="fu">tee</span> frequency.json</span></code></pre></div>
+<p>The results of one of the runs can be found below. Due to the nondeterministic sampling of book URLs, the results will be different after every run.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="dt">&quot;^&quot;</span><span class="fu">:</span> <span class="fl">5.196361403817819e-08</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  <span class="dt">&quot;%&quot;</span><span class="fu">:</span> <span class="fl">1.6108720351835239e-06</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  <span class="dt">&quot;{&quot;</span><span class="fu">:</span> <span class="fl">1.922653719412593e-06</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span class="dt">&quot;#&quot;</span><span class="fu">:</span> <span class="fl">2.234435403641662e-06</span><span class="fu">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  <span class="dt">&quot;@&quot;</span><span class="fu">:</span> <span class="fl">2.3903262457561967e-06</span><span class="fu">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>  <span class="dt">&quot;}&quot;</span><span class="fu">:</span> <span class="fl">2.494253473832553e-06</span><span class="fu">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>  <span class="dt">&quot;$&quot;</span><span class="fu">:</span> <span class="fl">3.2737076844052257e-06</span><span class="fu">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>  <span class="dt">&quot;+&quot;</span><span class="fu">:</span> <span class="fl">7.794542105726728e-06</span><span class="fu">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>  <span class="dt">&quot;|&quot;</span><span class="fu">:</span> <span class="fl">8.31417824610851e-06</span><span class="fu">,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>  <span class="dt">&quot;&lt;&quot;</span><span class="fu">:</span> <span class="fl">1.2003594842819162e-05</span><span class="fu">,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>  <span class="dt">&quot;&gt;&quot;</span><span class="fu">:</span> <span class="fl">1.2003594842819162e-05</span><span class="fu">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>  <span class="dt">&quot;=&quot;</span><span class="fu">:</span> <span class="fl">1.2211449298971873e-05</span><span class="fu">,</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>  <span class="dt">&quot;&amp;&quot;</span><span class="fu">:</span> <span class="fl">1.4238030246460823e-05</span><span class="fu">,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>  <span class="dt">&quot;Q&quot;</span><span class="fu">:</span> <span class="fl">4.0323764493626275e-05</span><span class="fu">,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>  <span class="dt">&quot;[&quot;</span><span class="fu">:</span> <span class="fl">4.084340063400805e-05</span><span class="fu">,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>  <span class="dt">&quot;]&quot;</span><span class="fu">:</span> <span class="fl">4.136303677438984e-05</span><span class="fu">,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>  <span class="dt">&quot;9&quot;</span><span class="fu">:</span> <span class="fl">4.6663325406284015e-05</span><span class="fu">,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>  <span class="dt">&quot;/&quot;</span><span class="fu">:</span> <span class="fl">4.785848852916211e-05</span><span class="fu">,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>  <span class="dt">&quot;6&quot;</span><span class="fu">:</span> <span class="fl">4.957328779242199e-05</span><span class="fu">,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>  <span class="dt">&quot;7&quot;</span><span class="fu">:</span> <span class="fl">5.393823137162896e-05</span><span class="fu">,</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>  <span class="dt">&quot;Z&quot;</span><span class="fu">:</span> <span class="fl">5.752372074026325e-05</span><span class="fu">,</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>  <span class="dt">&quot;4&quot;</span><span class="fu">:</span> <span class="fl">6.064153758255394e-05</span><span class="fu">,</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>  <span class="dt">&quot;5&quot;</span><span class="fu">:</span> <span class="fl">6.178473709139387e-05</span><span class="fu">,</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true"></a>  <span class="dt">&quot;*&quot;</span><span class="fu">:</span> <span class="fl">6.822822523212796e-05</span><span class="fu">,</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true"></a>  <span class="dt">&quot;8&quot;</span><span class="fu">:</span> <span class="fl">7.332065940786942e-05</span><span class="fu">,</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true"></a>  <span class="dt">&quot;0&quot;</span><span class="fu">:</span> <span class="fl">7.732185768880914e-05</span><span class="fu">,</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true"></a>  <span class="dt">&quot;3&quot;</span><span class="fu">:</span> <span class="fl">7.778953021515274e-05</span><span class="fu">,</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true"></a>  <span class="dt">&quot;X&quot;</span><span class="fu">:</span> <span class="fl">8.402516389973413e-05</span><span class="fu">,</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true"></a>  <span class="dt">&quot;2&quot;</span><span class="fu">:</span> <span class="fl">0.0001022124288130965</span><span class="fu">,</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true"></a>  <span class="dt">&quot;U&quot;</span><span class="fu">:</span> <span class="fl">0.00020135900439794048</span><span class="fu">,</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true"></a>  <span class="dt">&quot;K&quot;</span><span class="fu">:</span> <span class="fl">0.00020281398559100945</span><span class="fu">,</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true"></a>  <span class="dt">&quot;(&quot;</span><span class="fu">:</span> <span class="fl">0.00020951729180193444</span><span class="fu">,</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true"></a>  <span class="dt">&quot;)&quot;</span><span class="fu">:</span> <span class="fl">0.0002103487096265453</span><span class="fu">,</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true"></a>  <span class="dt">&quot;1&quot;</span><span class="fu">:</span> <span class="fl">0.00024303382285655937</span><span class="fu">,</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true"></a>  <span class="dt">&quot;V&quot;</span><span class="fu">:</span> <span class="fl">0.00033511334693221115</span><span class="fu">,</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="fl">0.00037621656563641007</span><span class="fu">,</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true"></a>  <span class="dt">&quot;J&quot;</span><span class="fu">:</span> <span class="fl">0.000394559721391887</span><span class="fu">,</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true"></a>  <span class="dt">&quot;z&quot;</span><span class="fu">:</span> <span class="fl">0.0004528628963427229</span><span class="fu">,</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true"></a>  <span class="dt">&quot;Y&quot;</span><span class="fu">:</span> <span class="fl">0.00048269001080063716</span><span class="fu">,</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true"></a>  <span class="dt">&quot;F&quot;</span><span class="fu">:</span> <span class="fl">0.0006709541844609568</span><span class="fu">,</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true"></a>  <span class="dt">&quot;D&quot;</span><span class="fu">:</span> <span class="fl">0.0007090954771649795</span><span class="fu">,</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true"></a>  <span class="dt">&quot;O&quot;</span><span class="fu">:</span> <span class="fl">0.0007477044423953459</span><span class="fu">,</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true"></a>  <span class="dt">&quot;G&quot;</span><span class="fu">:</span> <span class="fl">0.0007549793483606909</span><span class="fu">,</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true"></a>  <span class="dt">&quot;R&quot;</span><span class="fu">:</span> <span class="fl">0.0007651642167121738</span><span class="fu">,</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true"></a>  <span class="dt">&quot;N&quot;</span><span class="fu">:</span> <span class="fl">0.0007676065065719682</span><span class="fu">,</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true"></a>  <span class="dt">&quot;:&quot;</span><span class="fu">:</span> <span class="fl">0.0007801297375551691</span><span class="fu">,</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true"></a>  <span class="dt">&quot;L&quot;</span><span class="fu">:</span> <span class="fl">0.0009273946197393661</span><span class="fu">,</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true"></a>  <span class="dt">&quot;P&quot;</span><span class="fu">:</span> <span class="fl">0.000931447781634344</span><span class="fu">,</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true"></a>  <span class="dt">&quot;E&quot;</span><span class="fu">:</span> <span class="fl">0.0009454779574246522</span><span class="fu">,</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true"></a>  <span class="dt">&quot;!&quot;</span><span class="fu">:</span> <span class="fl">0.0009535323176005697</span><span class="fu">,</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true"></a>  <span class="dt">&quot;j&quot;</span><span class="fu">:</span> <span class="fl">0.0009649123490749307</span><span class="fu">,</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true"></a>  <span class="dt">&quot;q&quot;</span><span class="fu">:</span> <span class="fl">0.0009655359124433889</span><span class="fu">,</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true"></a>  <span class="dt">&quot;W&quot;</span><span class="fu">:</span> <span class="fl">0.0009925569917432415</span><span class="fu">,</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true"></a>  <span class="dt">&quot;?&quot;</span><span class="fu">:</span> <span class="fl">0.0010007152791472356</span><span class="fu">,</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true"></a>  <span class="dt">&quot;C&quot;</span><span class="fu">:</span> <span class="fl">0.001008146075954695</span><span class="fu">,</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true"></a>  <span class="dt">&quot;B&quot;</span><span class="fu">:</span> <span class="fl">0.0010093932026916112</span><span class="fu">,</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true"></a>  <span class="dt">&quot;x&quot;</span><span class="fu">:</span> <span class="fl">0.0012159485684933695</span><span class="fu">,</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true"></a>  <span class="dt">&quot;H&quot;</span><span class="fu">:</span> <span class="fl">0.0013806732249943944</span><span class="fu">,</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true"></a>  <span class="dt">&quot;M&quot;</span><span class="fu">:</span> <span class="fl">0.0014142417196630576</span><span class="fu">,</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true"></a>  <span class="dt">&quot;S&quot;</span><span class="fu">:</span> <span class="fl">0.0014376773095942758</span><span class="fu">,</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true"></a>  <span class="dt">&quot;&#39;&quot;</span><span class="fu">:</span> <span class="fl">0.0015881119722348017</span><span class="fu">,</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true"></a>  <span class="dt">&quot;;&quot;</span><span class="fu">:</span> <span class="fl">0.0017668148409120965</span><span class="fu">,</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true"></a>  <span class="dt">&quot;A&quot;</span><span class="fu">:</span> <span class="fl">0.001867260506847895</span><span class="fu">,</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true"></a>  <span class="dt">&quot;T&quot;</span><span class="fu">:</span> <span class="fl">0.0024605810519358136</span><span class="fu">,</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true"></a>  <span class="dt">&quot;-&quot;</span><span class="fu">:</span> <span class="fl">0.0027239326478813003</span><span class="fu">,</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true"></a>  <span class="dt">&quot;I&quot;</span><span class="fu">:</span> <span class="fl">0.00429868997130829</span><span class="fu">,</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true"></a>  <span class="dt">&quot;</span><span class="ch">\&quot;</span><span class="dt">&quot;</span><span class="fu">:</span> <span class="fl">0.004835422140708633</span><span class="fu">,</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true"></a>  <span class="dt">&quot;k&quot;</span><span class="fu">:</span> <span class="fl">0.005644599538511144</span><span class="fu">,</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true"></a>  <span class="dt">&quot;v&quot;</span><span class="fu">:</span> <span class="fl">0.008026143933494888</span><span class="fu">,</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true"></a>  <span class="dt">&quot;.&quot;</span><span class="fu">:</span> <span class="fl">0.009327364792624908</span><span class="fu">,</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true"></a>  <span class="dt">&quot;b&quot;</span><span class="fu">:</span> <span class="fl">0.010927168578018301</span><span class="fu">,</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true"></a>  <span class="dt">&quot;p&quot;</span><span class="fu">:</span> <span class="fl">0.012489298743234012</span><span class="fu">,</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true"></a>  <span class="dt">&quot;,&quot;</span><span class="fu">:</span> <span class="fl">0.014844705440356553</span><span class="fu">,</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true"></a>  <span class="dt">&quot;g&quot;</span><span class="fu">:</span> <span class="fl">0.015086180354791968</span><span class="fu">,</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true"></a>  <span class="dt">&quot;y&quot;</span><span class="fu">:</span> <span class="fl">0.015144847275041071</span><span class="fu">,</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true"></a>  <span class="dt">&quot;f&quot;</span><span class="fu">:</span> <span class="fl">0.01664914193783229</span><span class="fu">,</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true"></a>  <span class="dt">&quot;w&quot;</span><span class="fu">:</span> <span class="fl">0.017037569952767673</span><span class="fu">,</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true"></a>  <span class="dt">&quot;c&quot;</span><span class="fu">:</span> <span class="fl">0.01866974706970685</span><span class="fu">,</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true"></a>  <span class="dt">&quot;m&quot;</span><span class="fu">:</span> <span class="fl">0.01892473252379219</span><span class="fu">,</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true"></a>  <span class="dt">&quot;u&quot;</span><span class="fu">:</span> <span class="fl">0.0228628989409036</span><span class="fu">,</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true"></a>  <span class="dt">&quot;l&quot;</span><span class="fu">:</span> <span class="fl">0.03078002321214639</span><span class="fu">,</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true"></a>  <span class="dt">&quot;d&quot;</span><span class="fu">:</span> <span class="fl">0.0334997468072906</span><span class="fu">,</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true"></a>  <span class="dt">&quot;r&quot;</span><span class="fu">:</span> <span class="fl">0.0453264575079238</span><span class="fu">,</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true"></a>  <span class="dt">&quot;s&quot;</span><span class="fu">:</span> <span class="fl">0.048719941322687026</span><span class="fu">,</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true"></a>  <span class="dt">&quot;h&quot;</span><span class="fu">:</span> <span class="fl">0.049453875407362256</span><span class="fu">,</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true"></a>  <span class="dt">&quot;i&quot;</span><span class="fu">:</span> <span class="fl">0.051417476454636936</span><span class="fu">,</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true"></a>  <span class="dt">&quot;n&quot;</span><span class="fu">:</span> <span class="fl">0.05463236132795094</span><span class="fu">,</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true"></a>  <span class="dt">&quot;o&quot;</span><span class="fu">:</span> <span class="fl">0.05965417695221452</span><span class="fu">,</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true"></a>  <span class="dt">&quot;a&quot;</span><span class="fu">:</span> <span class="fl">0.06139542569501983</span><span class="fu">,</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true"></a>  <span class="dt">&quot;t&quot;</span><span class="fu">:</span> <span class="fl">0.07050059407401749</span><span class="fu">,</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true"></a>  <span class="dt">&quot;e&quot;</span><span class="fu">:</span> <span class="fl">0.0993860239183319</span><span class="fu">,</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true"></a>  <span class="dt">&quot; &quot;</span><span class="fu">:</span> <span class="fl">0.16554292753128405</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
+<p>Note that the most common letters form the sequence <code>etaonihsrdlu</code>, which is pretty close to the infamous <a href="https://en.wikipedia.org/wiki/Etaoin_shrdlu"><code>etaoin shrdlu</code></a>. This seems like a good sign that our sample was fairly representative, and that the shell script works!</p>
 <footer>
 <hr />
 Copyright &copy 2022 <a href="/about">Jacob Strieb</a>. All rights reserved.
