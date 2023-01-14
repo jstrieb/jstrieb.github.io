@@ -123,17 +123,17 @@ Streaming the Terminal
 </h2>
 <p></summary></p>
 <p>Setting up terminal streaming was a simple matter of downloading the correct <code>ttyd</code> release, making it executable, and running it with a <code>tmux</code> session. The following commands were run from within the terminal session I intended to stream.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Download ttyd (I use the latest x86_64 release)</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">wget</span> --output-document <span class="st">&quot;ttyd&quot;</span> <span class="st">&quot;https://github.com/tsl0922/ttyd/releases/latest/download/ttyd.x86_64&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Make the downloaded file executable</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">chmod</span> +x ./ttyd</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Start a ttyd session running in the background</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="ex">./ttyd</span> --readonly --port 6969 tmux new -A -s ttyd_tmux <span class="op">&amp;&gt;</span> /dev/null <span class="kw">&amp;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># Download ttyd (I use the latest x86_64 release)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">wget</span> --output-document <span class="st">&quot;ttyd&quot;</span> <span class="st">&quot;https://github.com/tsl0922/ttyd/releases/latest/download/ttyd.x86_64&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co"># Make the downloaded file executable</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="fu">chmod</span> +x ./ttyd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="co"># Start a ttyd session running in the background</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="ex">./ttyd</span> --readonly --port 6969 tmux new -A -s ttyd_tmux <span class="op">&amp;&gt;</span> /dev/null <span class="kw">&amp;</span></span></code></pre></div>
 <p>The final command tells <code>ttyd</code> to run <code>tmux new -A -s ttyd_tmux</code> whenever a new user appears from the web. This connects them to a <code>tmux</code> session named <code>ttyd_tmux</code>, and creates the session before connecting if it does not already exist. This ensures that the terminal viewed from the headset exactly matches the one being typed on the computer.</p>
 <p>Next, from my terminal, I ran the following command to open up the shared session. Anything typed into this session would appear on the VR headset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">tmux</span> new -A -s ttyd_tmux</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">tmux</span> new -A -s ttyd_tmux</span></code></pre></div>
 <p>Then, since the Oculus headset was on the same Wi-Fi network as my laptop, I ran <code>ifconfig</code> to get my local IP address, and went to the following URL inside the VR web browser to view the terminal.</p>
 <pre><code>http://&lt;my local IP&gt;:6969/</code></pre>
 <p>As long as the terminal window was in-focus on my computer, any keys typed there were immediately reflected in the terminal on the headset. <br></p>
@@ -209,7 +209,7 @@ function makePDFURL(form) {
 </section>
 <footer>
 <hr />
-Copyright &copy 2022 <a href="/about">Jacob Strieb</a>. All rights reserved.
+Copyright &copy 2023 <a href="/about">Jacob Strieb</a>. All rights reserved.
 </footer>
 </body>
 </html>

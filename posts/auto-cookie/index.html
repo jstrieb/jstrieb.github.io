@@ -106,17 +106,17 @@
 <p>If you do not have a visible bookmarks bar, you can press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> (<kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on macOS) to bring it up. Then drag the bookmark and drop it there. If that doesn’t work for your browser, try using the instructions <a href="https://www.computerhope.com/issues/ch001917.htm">here</a> or <a href="https://it.nmu.edu/docs/display-bookmarks-and-favorites-your-internet-browser">here</a>.</p>
 <p>The code is very simple. It creates a timer that calls a function every 1 millisecond. That function finds the cookie element in the document and clicks it. If such an element does not exist, the timer terminates.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The code also changes the time of the last click to beat the auto clicker detection.</p>
 <p>A readable version of the code is included below, without the <code>javascript:</code> prefix required for the bookmarklet to work.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">var</span> autoclicker <span class="op">=</span> <span class="pp">setInterval</span>(<span class="kw">function</span>(){</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">try</span> {</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    Game<span class="op">.</span><span class="at">lastClick</span> <span class="op">-=</span> <span class="dv">1000</span><span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;bigCookie&#39;</span>)<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>  } <span class="cf">catch</span> (err) {</span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&#39;Stopping auto clicker&#39;</span>)<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="pp">clearInterval</span>(autoclicker)<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">var</span> autoclicker <span class="op">=</span> <span class="pp">setInterval</span>(<span class="kw">function</span>(){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="cf">try</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    Game<span class="op">.</span><span class="at">lastClick</span> <span class="op">-=</span> <span class="dv">1000</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;bigCookie&#39;</span>)<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  } <span class="cf">catch</span> (err) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&#39;Stopping auto clicker&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="pp">clearInterval</span>(autoclicker)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span></code></pre></div>
 <p>There are several ways to stop the autoclicker from running. The easiest is to save the game and refresh the page. Alternatively, enter the following code in the browser console:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">clearInterval</span>(autoclicker)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">clearInterval</span>(autoclicker)<span class="op">;</span></span></code></pre></div>
 <p>This code is included as a second bookmarklet below, for convenience:</p>
 <div class="button-container">
 <a class="button" href="javascript:clearInterval(autoclicker);">Stop Cookie Autoclicker</a>
@@ -130,7 +130,7 @@
 </section>
 <footer>
 <hr />
-Copyright &copy 2022 <a href="/about">Jacob Strieb</a>. All rights reserved.
+Copyright &copy 2023 <a href="/about">Jacob Strieb</a>. All rights reserved.
 </footer>
 </body>
 </html>

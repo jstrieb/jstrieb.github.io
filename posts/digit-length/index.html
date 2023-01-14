@@ -109,24 +109,24 @@
 <p>When this problem is assigned, students have learned about arithmetic operators, variables, conditional statments, and loops. For the vast majority of students (who lack prior programming experience), this can be a particularly difficult time in the course. The first few weeks go quickly, and students are expected to solve problems using multiple programming concepts shortly after learning them. This task is ideal for helping students build confidence, practice basic topics, and learn skills that will be critical for their success in the rest of the course.</p>
 <h1 id="naive-solution">Naive Solution</h1>
 <p>The first solution students come up with typically looks like the following.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> digitLengthNaive(n):</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:   <span class="co"># or while n &gt; 0</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>        n <span class="op">//=</span> <span class="dv">10</span>    <span class="co"># or n = n // 10</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">return</span> count</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">def</span> digitLengthNaive(n):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:   <span class="co"># or while n &gt; 0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        n <span class="op">//=</span> <span class="dv">10</span>    <span class="co"># or n = n // 10</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="cf">return</span> count</span></code></pre></div>
 <p>After correcting errors, reviewing functionally-equivalent alternatives, and congratulating students on their understanding of loops, functions, variables, and arithmetic, I ask them: does this function always work?</p>
 <p>The simple<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> answer: this solution fails on <code>n = 0</code>, returning <code>0</code> instead of <code>1</code> because it never enters the loop body and thus never increments <code>count</code>. Addressing this minor problem provides a good opportunity to review conditionals. It also prompts a discussion about handling edge cases, and the mechanics and merits of returning early. We are left with a valid solution that looks like the following.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> digitLengthNaive2(n):</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="co"># Handle n == 0 edge case</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb2-4"><a href="#cb2-4"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:</span>
-<span id="cb2-8"><a href="#cb2-8"></a>        n <span class="op">//=</span> <span class="dv">10</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">return</span> count</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">def</span> digitLengthNaive2(n):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="co"># Handle n == 0 edge case</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>        n <span class="op">//=</span> <span class="dv">10</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="cf">return</span> count</span></code></pre></div>
 <h1 id="constrained-solution">Constrained Solution</h1>
 <p>Expecting to move on, most students are surprised when I pose the problem again, but with a constraint: don’t use any loops.</p>
 <p>If the task is framed as a “counting” problem, it seems best accomplished with loops, so I encourage conceptualizing it differently. The first hint is to develop a solution using a composition of functions and operations, rather than a series of instructions given to the computer. The subsequent big hint is to work with a <em>mathematical</em> definition of “digit length in base 10.”</p>
@@ -134,20 +134,20 @@
 <p>Discussing <code>math.log10</code> presents a good opportunity to review the concept of types, and to discuss different methods of conversion between <code>float</code> and <code>int</code> with consideration given to the method of rounding used for each. Python’s default <code>round</code> function behaves unintuitively, so it is important to ensure students understand how to use it properly.</p>
 <p>The process of solving this problem is also a chance to emphasize the utility of exploring concepts by doing examples and planning on the chalkboard before beginning to write code.</p>
 <p>At this point, students may develop a solution like the following.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> math</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">def</span> digitLengthClever(n):</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">return</span> math.ceil(math.log10(n))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">import</span> math</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">def</span> digitLengthClever(n):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="cf">return</span> math.ceil(math.log10(n))</span></code></pre></div>
 <p>As before, after congratulating students on arriving at a clever, unintuitive solution to a difficult problem, I ask: does this function always work?</p>
 <p>Once again, the function fails on <code>n = 0</code>. This time, rather than returning an incorrect solution, there is an error. This is because <code>math.log10(0)</code> raises a <code>ValueError</code> exception since 0 is not in the domain of the <span class="math inline">log<sub>10</sub></span> function.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>When I had this problem for homework as a student, I submitted a variant of <code>digitLengthClever</code>. It passed all test cases, and I got full credit. But I discovered a subtle bug only after wasting hours debugging more complex code utilizing the function. The subtle bug causes the function to return incorrect results for powers of 10 (<code>n = 10**x</code> for positive values <code>x</code> of type <code>int</code>). For example, though <span class="math inline">10<sup>2</sup> = 100</span> has 3 digits, the following is true.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>math.ceil(math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">==</span> math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>) <span class="op">==</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>math.ceil(math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">==</span> math.log10(<span class="dv">10</span><span class="op">**</span><span class="dv">2</span>) <span class="op">==</span> <span class="dv">2</span></span></code></pre></div>
 <p>Thus <code>digitLengthClever(10**2) == 2</code>, when it should return <code>3</code>. I didn’t discover this problem initially, because the autograding test cases did not include a test using a power of 10.</p>
 <p>Before concluding the small group session, I work with students to finalize a correct, loop-free solution like the following.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> math</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">def</span> digitLengthClever2(n):</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> (math.floor(math.log10(n)) <span class="op">+</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="im">import</span> math</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">def</span> digitLengthClever2(n):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> (math.floor(math.log10(n)) <span class="op">+</span> <span class="dv">1</span>)</span></code></pre></div>
 <h1 id="lessons-learned">Lessons Learned</h1>
 <p>With the remaining time in the small group session, I recap fundamental concepts and discuss how the problem relates to deep ideas in programming. Though many of the lessons may be obvious to those with software engineering experience, the conclusions therein can take a long time to reach for students new to the discipline, which is why I make a point to discuss them early in the course.</p>
 <h2 id="testing">Testing</h2>
@@ -164,8 +164,8 @@
 <p>Conversely, problems like finding digit length also demonstrate how to explore mathematical ideas through computation. Evaluating different solutions leads to natural questions about the definitions implicit in the problem statement: mathematically, what is digit length? How many digits does 0 actually have? Can one define natural numbers based on whether they posses digit length,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> or is digit length a derivative property of natural numbers? What are the resulting implications for the oft-debated consideration of 0 as a natural number? Though computation may not be able to answer these questions directly, it provides a useful means by which to understand and probe abstract mathematical concepts.</p>
 <h1 id="alternate-invalid-solution">Alternate, Invalid Solution</h1>
 <p>By the time this problem is given, strings have not yet been covered in the course. As a result, solutions using strings are disallowed on problem sets and quizzes until they are taught. However, the few students who have prior Python programming experience may be tempted to find digit length without loops using a variant of the following (for our purposes) invalid solution. I include it below for reference.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> digitLengthCheating(n):</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    <span class="cf">return</span> <span class="bu">len</span>(<span class="bu">str</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">def</span> digitLengthCheating(n):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="bu">len</span>(<span class="bu">str</span>(n))</span></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -176,7 +176,7 @@
 </section>
 <footer>
 <hr />
-Copyright &copy 2022 <a href="/about">Jacob Strieb</a>. All rights reserved.
+Copyright &copy 2023 <a href="/about">Jacob Strieb</a>. All rights reserved.
 </footer>
 </body>
 </html>
