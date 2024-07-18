@@ -9,16 +9,8 @@
   <meta name="author" content="Jacob Strieb" />
   <meta name="date" content="2019-07-13" />
   <meta name="dcterms.date" content="2019-07-13" />
-  <meta name="description" content="Background on Jacob Strieb: programmer, hacker, and public interest technologist." />
+  <meta name="description" content="About Jacob Strieb: cybersecurity-focused software engineer." />
   <title>About - Jacob Strieb</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
 <body>
@@ -31,33 +23,67 @@
 </ul>
 <hr />
 </div>
-<p><img src="headshot.png" width="300" height="300" alt="Dithered headshot of Jacob Strieb" class="avatar"></p>
+<style>
+img {
+  border: 5px solid var(--fg-color);
+  border-radius: 50%;
+  filter: brightness(80%);
+}
+
+.contact {
+  gap: 1em;
+  min-height: 20em;
+}
+
+form.contact, label {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+label[for="text"] {
+  flex-grow: 1;
+}
+
+textarea {
+  flex-grow: 1;
+  resize: vertical;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 1em;
+}
+
+.buttons #alert {
+  flex-grow: 1;
+}
+</style>
+<p><img src="headshot.png" width="300" height="300" alt="Dithered headshot of Jacob Strieb"></p>
 <h1 id="about">About</h1>
-<p>In college, I studied math, computer science, and public policy. Now I work in cybersecurity. <a href="https://jstrieb.github.io/link-lock/#eyJ2IjoiMC4wLjEiLCJlIjoiaUx4aGdVSmFRWGNHcmI2eVc1RDVuT1VsODV3SFo4anhsbGd3U0ZyUHNTcXhPS3NNVjRzOTE0TktkR29QQUhkU1lHaDhBWldXbGxKQ3c2OVZCT3hFZUtDQmlIYXBSdXlGU1E9PSIsImgiOiJFbWFpbCBtZSBvciB1c2UgbXkgY29udGFjdCBmb3JtIHRvIHJlcXVlc3QgYWNjZXNzIiwicyI6ImRHb1JFNU5FK1VRejNuNlZOV3BQZUE9PSIsImkiOiJBUmVzTVJRUlFSZUJwd1BVIn0=">View my resume here</a>.</p>
-<p>The site does not use tracking or analytics. The only way I know people visit is when they contact me directly.</p>
-<div class="noscript">
-<p>Scammers have been impersonating me. I will never send emails asking for cryptocurrency or offering to “hack” people.</p>
-<p>If you receive emails from people claiming to be me, please forward them to the address listed below.</p>
-</div>
+<p>I work as a software engineer at a cybersecurity startup. My job largely involves securing embedded devices. I graduated from Carnegie Mellon University a few years ago. While there, I studied math, computer science, and public policy.</p>
+<p><a href="https://jstrieb.github.io/link-lock/#eyJ2IjoiMC4wLjEiLCJlIjoiaUx4aGdVSmFRWGNHcmI2eVc1RDVuT1VsODV3SFo4anhsbGd3U0ZyUHNTcXhPS3NNVjRzOTE0TktkR29QQUhkU1lHaDhBWldXbGxKQ3c2OVZCT3hFZUtDQmlIYXBSdXlGU1E9PSIsImgiOiJFbWFpbCBtZSBvciB1c2UgbXkgY29udGFjdCBmb3JtIHRvIHJlcXVlc3QgYWNjZXNzIiwicyI6ImRHb1JFNU5FK1VRejNuNlZOV3BQZUE9PSIsImkiOiJBUmVzTVJRUlFSZUJwd1BVIn0=">View my resume here</a>.</p>
 <h1 id="contact">Contact</h1>
-<p>I can be reached at <a href="mailto:jstrieb@alumni.cmu.edu">jstrieb@alumni.cmu.edu</a>.</p>
-<p>Alternatively, use the form below. A chatbot delivers the messages directly to my cell phone. Include an email if you would like a response!</p>
-<div class="contact-form">
+<p>You can reach me by email at <a href="mailto:jstrieb@alumni.cmu.edu">jstrieb@alumni.cmu.edu</a>.</p>
+<p>You can also get in touch via the form below. Include an email address in your contact form submission if you would like a response!</p>
 <noscript>
-<p>
 The form below requires JavaScript to be enabled in order to submit. I wish I could use a regular form that does not require JavaScript, but unfortunately spammers took advantage. As a result, I have had to resort to this. If you have JavaScript disabled but still want to contact me, please use my email, which can be found above.
-</p>
 </noscript>
-<form onsubmit="submitForm(this); return false">
-<label for="email">Email (Optional): <input type="email" id="email" name="email" /></label> <label for="text">Message:
+<form class="contact" onsubmit="submitForm(this); return false">
+<label for="email"> Email (Optional): <input type="email" id="email" name="email" /> </label> <label for="text"> Message:
 <textarea minlength="1" maxlength="999" id="text" name="text"></textarea>
-<button>
-Send
-</button>
-<p class="alert" id="alert">
+</label>
+<div class="buttons">
+<p id="alert">
 </p>
-</form>
+<button>Send</button>
 </div>
+</form>
 <script type="text/javascript">
 // Show that the message has been sent and clear the textarea
 async function submitForm(form) {
@@ -87,7 +113,7 @@ async function submitForm(form) {
 </script>
 <footer>
 <hr />
-Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.
+<p>Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
 </footer>
 </body>
 </html>

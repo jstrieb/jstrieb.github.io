@@ -258,7 +258,7 @@ function addBookmark() {
   let input = document.createElement("input");
   input.setAttribute("type", "url");
   input.setAttribute("class", "bookmark");
-  bookmarks.appendChild(input);
+  label.appendChild(input);
 }
 
 
@@ -382,9 +382,7 @@ async function generateBookmarks() {
     }
       
     // Add the generated bookmark to the list on the page
-    let li = document.createElement("li");
-    li.appendChild(button);
-    generated.appendChild(li);
+    generated.appendChild(button);
   });
 
 	// Scroll to the bottom so the user sees where the bookmark was created

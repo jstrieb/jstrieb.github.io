@@ -11,14 +11,6 @@
   <meta name="dcterms.date" content="2020-04-16" />
   <meta name="description" content="A tactic I use to remember the meaning of theoretical computer science notation for describing reductions" />
   <title>Theoretical Computer Science Reduction Notation Mnemonic</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
 <body>
@@ -40,8 +32,17 @@
 <p><br /><span class="math display"><em>X</em> ≤ <em>Y</em></span><br /></p>
 <p>In my introductory theoretical computer science course, several flavors of reductions have been introduced. However, I have found it difficult to remember the reduction notation. Specifically, if <span class="math inline"><em>X</em></span> reduces to <span class="math inline"><em>Y</em></span>, I have trouble remembering that this means computing <span class="math inline"><em>X</em></span> can be made to rely on computing <span class="math inline"><em>Y</em></span>. The prevalence of this confusing notation in the course materials and academic literature motivated finding a reliable way to remember its meaning.</p>
 <p>My tactic has been to imagine a description for each turing machine (<span class="math inline"><em>M</em><sub><em>X</em></sub></span> and <span class="math inline"><em>M</em><sub><em>Y</em></sub></span>) side-by-side, with the “<span class="math inline">≤</span>” symbol overlaid between them, representing the definition for <span class="math inline"><em>M</em><sub><em>Y</em></sub></span> zooming in on the call to <span class="math inline"><em>M</em><sub><em>Y</em></sub></span> in <span class="math inline"><em>M</em><sub><em>X</em></sub></span>. A poorly-rendered example diagram can be seen below.</p>
-<!-- TODO: Figure out how to embed the SVG such that it is still allowed to be
-styled by the global CSS -->
+<style>
+  svg * {
+    stroke: var(--fg-color);
+    fill: none;
+  }
+
+  svg .text * {
+    stroke: none;
+    fill: var(--fg-color);
+  }
+</style>
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="16.615837cm" height="9.9633818cm" viewBox="0 0 6.5416681 3.9225911" version="1.1" id="SVGRoot" inkscape:version="0.92.3 (2405546, 2018-03-11)" sodipodi:docname="diagram_notext.svg">
 <sodipodi:namedview
      id="base"
@@ -277,7 +278,7 @@ styled by the global CSS -->
 </section>
 <footer>
 <hr />
-Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.
+<p>Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
 </footer>
 </body>
 </html>

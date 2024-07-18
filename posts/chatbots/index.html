@@ -11,76 +11,6 @@
   <meta name="dcterms.date" content="2018-11-06" />
   <meta name="description" content="Supporting materials for an optional lecture given as part of 15-112 at Carnegie Mellon University during Fall 2018" />
   <title>Chatbots: 15-112 Optional Lectue - Jacob Strieb</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #d7846d; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #aaaaaa; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #c072ca; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
 <body>
@@ -115,104 +45,104 @@
 <h1 id="json">JSON</h1>
 <p>“JSON” is an acronym used to describe JavaScript Object Notation. This is essentially a format for transmitting data in the form of “objects” (think object-oriented programming). The notation is very similar to Python’s syntax for dictionaries. Generally, JSON objects can be thought of as a text form of dictionaries.</p>
 <p>Here is an example of a JSON object:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>{</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">27</span><span class="op">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  <span class="st">&quot;address&quot;</span><span class="op">:</span> {</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;10021-3100&quot;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>  }<span class="op">,</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    {</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    }<span class="op">,</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    {</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>    }<span class="op">,</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    {</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>    }</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>  ]<span class="op">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>  <span class="st">&quot;children&quot;</span><span class="op">:</span> []<span class="op">,</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a>{</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">27</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="st">&quot;address&quot;</span><span class="op">:</span> {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;10021-3100&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  }<span class="op">,</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    {</span>
+<span id="cb1-14"><a href="#cb1-14"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>    }<span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    {</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    }<span class="op">,</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    {</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>    }</span>
+<span id="cb1-25"><a href="#cb1-25"></a>  ]<span class="op">,</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="st">&quot;children&quot;</span><span class="op">:</span> []<span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>}</span></code></pre></div>
 <p>Parsing text formatted as JSON objects is very easy in Python. Using the <code>json</code> library, and calling the <code>json.loads</code> method on a properly-formatted string will return a regular Python dictionary.</p>
 <p>Assuming that the above text is stored as <code>jsonString</code>, we can do the following to turn it into a dictionary in Python:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="im">import</span> json</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>jsonDict <span class="op">=</span> json.loads(jsonString)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="co"># Prints: 27</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="bu">print</span>(jsonDict[<span class="st">&quot;age&quot;</span>])</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co"># Prints: 3</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">len</span>(jsonDict[<span class="st">&quot;phoneNumbers&quot;</span>]))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="co"># Prints: dict</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">type</span>(jsonDict[<span class="st">&quot;address&quot;</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> json</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>jsonDict <span class="op">=</span> json.loads(jsonString)</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Prints: 27</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="bu">print</span>(jsonDict[<span class="st">&quot;age&quot;</span>])</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Prints: 3</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="bu">print</span>(<span class="bu">len</span>(jsonDict[<span class="st">&quot;phoneNumbers&quot;</span>]))</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Prints: dict</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="bu">print</span>(<span class="bu">type</span>(jsonDict[<span class="st">&quot;address&quot;</span>]))</span></code></pre></div>
 <p>In order to create JSON text strings from Python dictionaries, we can use the <code>json.dumps</code> method. Calling this method will return a properly-formatted JSON string assuming that each item in the dictionary is well-formed. If you are working with custom objects, you will need to tell the <code>json</code> library how to turn those objects in to <code>json</code> strings.</p>
 <p>Additionally, the <code>indent</code> optional parameter to the <code>json.dumps</code> method is very useful for printing and debugging JSON strings. This allows the output string to be formatted nicely. The <code>indent</code> parameter is an integer representing the number of spaces to indent each successive nested layer of the dictionary. Typical values are 2 or 4.</p>
 <p>Here is an example of modifying some values from the JSON string above and returning the modified JSON string:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">import</span> json</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>jsonDict <span class="op">=</span> json.loads(jsonString)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co"># Change the age</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>jsonDict[<span class="st">&quot;age&quot;</span>] <span class="op">=</span> <span class="dv">69</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="co"># Add children</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Kiddo1&quot;</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Little Boi&quot;</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co"># Add a field</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>jsonDict[<span class="st">&quot;favNumber&quot;</span>] <span class="op">=</span> <span class="dv">420</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="co"># Modify the address</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>jsonDict[<span class="st">&quot;address&quot;</span>][<span class="st">&quot;postalCode&quot;</span>] <span class="op">=</span> <span class="st">&quot;15213&quot;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a><span class="co"># Get a nicely formatted JSON string</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>newJsonString <span class="op">=</span> json.dumps(jsonDict, indent<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a><span class="bu">print</span>(newJsonString)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> json</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>jsonDict <span class="op">=</span> json.loads(jsonString)</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># Change the age</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>jsonDict[<span class="st">&quot;age&quot;</span>] <span class="op">=</span> <span class="dv">69</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># Add children</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Kiddo1&quot;</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>jsonDict[<span class="st">&quot;children&quot;</span>].append(<span class="st">&quot;Little Boi&quot;</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co"># Add a field</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>jsonDict[<span class="st">&quot;favNumber&quot;</span>] <span class="op">=</span> <span class="dv">420</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># Modify the address</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>jsonDict[<span class="st">&quot;address&quot;</span>][<span class="st">&quot;postalCode&quot;</span>] <span class="op">=</span> <span class="st">&quot;15213&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># Get a nicely formatted JSON string</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>newJsonString <span class="op">=</span> json.dumps(jsonDict, indent<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="bu">print</span>(newJsonString)</span></code></pre></div>
 <p>Running this code prints the following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>{</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">69</span><span class="op">,</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>  <span class="st">&quot;address&quot;</span><span class="op">:</span> {</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;15213&quot;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>  }<span class="op">,</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>    {</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>    }<span class="op">,</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>    {</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>    }<span class="op">,</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a>    {</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>    }</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a>  ]<span class="op">,</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a>  <span class="st">&quot;children&quot;</span><span class="op">:</span> [</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a>    <span class="st">&quot;Kiddo1&quot;</span><span class="op">,</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a>    <span class="st">&quot;Little Boi&quot;</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a>  ]<span class="op">,</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a>  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a>  <span class="st">&quot;favNumber&quot;</span><span class="op">:</span> <span class="dv">420</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1"></a>{</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="st">&quot;firstName&quot;</span><span class="op">:</span> <span class="st">&quot;John&quot;</span><span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="st">&quot;lastName&quot;</span><span class="op">:</span> <span class="st">&quot;Smith&quot;</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="st">&quot;isAlive&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="st">&quot;age&quot;</span><span class="op">:</span> <span class="dv">69</span><span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="st">&quot;address&quot;</span><span class="op">:</span> {</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="st">&quot;streetAddress&quot;</span><span class="op">:</span> <span class="st">&quot;21 2nd Street&quot;</span><span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="st">&quot;city&quot;</span><span class="op">:</span> <span class="st">&quot;New York&quot;</span><span class="op">,</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="st">&quot;state&quot;</span><span class="op">:</span> <span class="st">&quot;NY&quot;</span><span class="op">,</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="st">&quot;postalCode&quot;</span><span class="op">:</span> <span class="st">&quot;15213&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  }<span class="op">,</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="st">&quot;phoneNumbers&quot;</span><span class="op">:</span> [</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    {</span>
+<span id="cb4-14"><a href="#cb4-14"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;home&quot;</span><span class="op">,</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;212 555-1234&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>    }<span class="op">,</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    {</span>
+<span id="cb4-18"><a href="#cb4-18"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;office&quot;</span><span class="op">,</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;646 555-4567&quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>    }<span class="op">,</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>    {</span>
+<span id="cb4-22"><a href="#cb4-22"></a>      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;mobile&quot;</span><span class="op">,</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>      <span class="st">&quot;number&quot;</span><span class="op">:</span> <span class="st">&quot;123 456-7890&quot;</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    }</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  ]<span class="op">,</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>  <span class="st">&quot;children&quot;</span><span class="op">:</span> [</span>
+<span id="cb4-27"><a href="#cb4-27"></a>    <span class="st">&quot;Kiddo1&quot;</span><span class="op">,</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>    <span class="st">&quot;Little Boi&quot;</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>  ]<span class="op">,</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>  <span class="st">&quot;spouse&quot;</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="st">&quot;favNumber&quot;</span><span class="op">:</span> <span class="dv">420</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>}</span></code></pre></div>
 <p>More information about JSON can be found at the following links:</p>
 <ul>
 <li><a href="https://docs.python.org/3/library/json.html">Python JSON Documentation</a></li>
@@ -238,47 +168,47 @@
 </ul>
 <p>The Docs for the API also specify what the response will look like, but for now we will just make some requests and see what we can extract from the response. For this example, we will get a random cat GIF and print the link to the screen.</p>
 <p>In the following example, we import the <code>requests</code> library, assemble the data we want to send in a <code>data</code> dictionary, and make a <code>GET</code> request. Then we print the JSON output to the screen:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="im">import</span> requests</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="im">import</span> random</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>data <span class="op">=</span> {</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>         <span class="st">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>         <span class="st">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>       }</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a><span class="bu">print</span>(r.text)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> requests</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="im">import</span> random</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>data <span class="op">=</span> {</span>
+<span id="cb7-5"><a href="#cb7-5"></a>         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>         <span class="st">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>         <span class="st">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>       }</span>
+<span id="cb7-9"><a href="#cb7-9"></a></span>
+<span id="cb7-10"><a href="#cb7-10"></a>r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)</span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="bu">print</span>(r.text)</span></code></pre></div>
 <p>The example above searches GIPHY for “cat” and randomly offsets the search results. The code will print a bunch of JSON data with the returned GIFs. Now, we want to parse this data and extract meaningful information. In our case, we want the URL of the first GIF.</p>
 <p>Alternatively, it is also possible to make <code>GET</code> requests using the browser by manually encoding our parameters in the URL and then navigating there. For example, by entering the following URL into our browser, we can see the same output that the code above returns:</p>
 <pre><code>http://api.giphy.com/v1/gifs/search?api_key=exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&amp;q=cat</code></pre>
 <p>By manually inspecting the output of the above code, we see that within the <code>data</code> attribute each element has a <code>bitly_gif_url</code> attribute that has a shortened link to the GIF. The following code extracts this URL and prints it to the screen:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="im">import</span> requests</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="im">import</span> random</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>data <span class="op">=</span> {</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>         <span class="st">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>         <span class="st">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>       }</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>url <span class="op">=</span> r.json()[<span class="st">&quot;data&quot;</span>][<span class="dv">0</span>][<span class="st">&quot;bitly_gif_url&quot;</span>]</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="bu">print</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> requests</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> random</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>data <span class="op">=</span> {</span>
+<span id="cb9-5"><a href="#cb9-5"></a>         <span class="st">&quot;api_key&quot;</span> : <span class="st">&quot;exiOXgECL7g582dV2Mt85vYZoSs1Kb0m&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6"></a>         <span class="st">&quot;q&quot;</span> : <span class="st">&quot;cat&quot;</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>         <span class="st">&quot;offset&quot;</span> : random.randint(<span class="dv">0</span>, <span class="dv">500</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>       }</span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a>r <span class="op">=</span> requests.get(<span class="st">&quot;http://api.giphy.com/v1/gifs/search&quot;</span>, params<span class="op">=</span>data)</span>
+<span id="cb9-11"><a href="#cb9-11"></a>url <span class="op">=</span> r.json()[<span class="st">&quot;data&quot;</span>][<span class="dv">0</span>][<span class="st">&quot;bitly_gif_url&quot;</span>]</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="bu">print</span>(url)</span></code></pre></div>
 <p>Note that the above code uses the JSON parser built natively into the <code>requests</code> library. When run the first time, this code linked to the following fun cat GIF:</p>
 <p><img src="cat.gif" title="Lit Cat GIF" /></p>
 <h1 id="groupme-bot-api">GroupMe Bot API</h1>
 <p>Now that we know how to use APIs in general, we can begin to build a chatbot for the GroupMe messaging platform that will send messages in a group chat when we run the code. Doing this is largely the same as the procedure we went through in order to get GIFs from the GIPHY API.</p>
 <p>First, we must register a bot with a group. This can be done at <a href="https://dev.groupme.com/bots/new">this page</a>. Once the bot is registered, as with the GIPHY API, we will be given an access token that should be kept secret and safe. Then, sending a message is as easy as using the requests library as before:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="im">import</span> requests</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>data <span class="op">=</span> {</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>         <span class="st">&quot;bot_id&quot;</span> : <span class="st">&quot;b52841049bfccdfe5217512b63&quot;</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>         <span class="st">&quot;text&quot;</span> : <span class="st">&quot;This is a test&quot;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>       }</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>r <span class="op">=</span> requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> requests</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>data <span class="op">=</span> {</span>
+<span id="cb10-4"><a href="#cb10-4"></a>         <span class="st">&quot;bot_id&quot;</span> : <span class="st">&quot;b52841049bfccdfe5217512b63&quot;</span>,</span>
+<span id="cb10-5"><a href="#cb10-5"></a>         <span class="st">&quot;text&quot;</span> : <span class="st">&quot;This is a test&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>       }</span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a>r <span class="op">=</span> requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span></code></pre></div>
 <p>Notice that this time, when we send the message, we make a <code>POST</code> request as opposed to a <code>GET</code> request. Also note that we use the optional parameter <code>data</code> instead of <code>params</code>.</p>
 <p>More information on creating bots can be found at the official <a href="https://dev.groupme.com/tutorials/bots">GroupMe Bots documentation here</a>.</p>
 <p>Simply sending messages is very useful; if you need to leave code running for a long time it can be helpful to get a notification on your phone when it has completed. Likewise, if you run code on a server, it can be helpful to have diagnostic information sent back to your phone.</p>
@@ -286,138 +216,138 @@
 <p>The reason that doing this is more complex than having the bot simply send messages is that we need to regularly check whether or not new messages have been sent in the group. The strategy that we will use here involves regularly checking the GroupMe server that will let us know if there are new messages. Doing this requires an access token in addition to a Bot token (they are different for GroupMe). An access token can be obtained by clicking the “Access Token” button in the top right corner of the page where you registered your GroupMe Bot. It may be necessary to also register the bot as an <a href="https://dev.groupme.com/applications">application</a></p>
 <p>To poll the server for new messages, we will use the GroupMe push service. In order to use this service, our code must first get a clientId, and then must “subscribe” to a channel before being able to poll it for new messages. The following code does all of these steps before entering the main loop of the function where it polls for new messages. After seeing new messages, it makes sure it is responding to messages in the correct group, and makes sure that the bot isn’t responding to itself (which could result in an infinite loop).</p>
 <p>This simple bot merely repeats whatever is sent in its group:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="im">import</span> requests</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="im">import</span> time</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="im">import</span> json</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="co">#*******************************************************************************</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="co">################################################################################</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="co">#</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a><span class="co"># Created by Jacob Strieb for the Chatbots optional lecture given as part of</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a><span class="co"># the 15-112 Fall 2018 semester at Carnegie Mellon University</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a><span class="co">#</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a><span class="co">################################################################################</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a><span class="co">#*******************************************************************************</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a><span class="co"># Global Variables</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a><span class="co"># All of these can be found on the bot registration page here:</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a><span class="co"># https://dev.groupme.com/bots/</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>accessToken <span class="op">=</span> <span class="st">&quot;&lt;your API key here&gt;&quot;</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true"></a>groupId <span class="op">=</span> <span class="st">&quot;&lt;your bot&#39;s group ID here&gt;&quot;</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true"></a><span class="co"># GroupMe API Helper Functions</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true"></a><span class="co"># Send a message as the bot</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true"></a><span class="kw">def</span> send(text):</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true"></a>    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true"></a>    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true"></a></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true"></a><span class="co"># Get my user ID for later API calls</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true"></a><span class="kw">def</span> getUserId(accessToken):</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true"></a>    data <span class="op">=</span> { <span class="st">&quot;access_token&quot;</span> : accessToken }</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true"></a>    r <span class="op">=</span> requests.get(<span class="st">&quot;https://api.groupme.com/v3/users/me&quot;</span>, params<span class="op">=</span>data)</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true"></a>    <span class="cf">return</span> r.json()[<span class="st">&quot;response&quot;</span>][<span class="st">&quot;user_id&quot;</span>]</span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true"></a></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true"></a><span class="co"># Get a client ID to use for this session</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true"></a><span class="kw">def</span> getClientId():</span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true"></a>    data <span class="op">=</span> [ {</span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/handshake&quot;</span>,</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true"></a>               <span class="st">&quot;version&quot;</span> : <span class="st">&quot;1.0&quot;</span>,</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true"></a>               <span class="st">&quot;supportedConnectionTypes&quot;</span> : [<span class="st">&quot;long-polling&quot;</span>],</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;1&quot;</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true"></a>             } ]</span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true"></a>    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true"></a>    <span class="cf">return</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;clientId&quot;</span>]</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true"></a></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true"></a><span class="co"># Subscribe to the group channel -- bind the client ID to the user ID</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true"></a><span class="kw">def</span> subscribe(accessToken, clientId):</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true"></a>    data <span class="op">=</span> [ {</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/subscribe&quot;</span>,</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true"></a>               <span class="st">&quot;clientId&quot;</span> : clientId,</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true"></a>               <span class="st">&quot;subscription&quot;</span> : <span class="st">&quot;/user/</span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> getUserId(accessToken),</span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;2&quot;</span>,</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true"></a>               <span class="st">&quot;ext&quot;</span> : {</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true"></a>                         <span class="st">&quot;access_token&quot;</span> : accessToken,</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true"></a>                         <span class="st">&quot;timestamp&quot;</span> : <span class="bu">int</span>(time.time())</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true"></a>                       }</span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true"></a>             } ]</span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true"></a>    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true"></a>    <span class="cf">if</span> <span class="kw">not</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;successful&quot;</span>]: <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Subscription failed&quot;</span>)</span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true"></a></span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true"></a><span class="co"># Get new messages from the server</span></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true"></a><span class="kw">def</span> getNew(clientId, numCalls):</span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true"></a>    data <span class="op">=</span> [ {</span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/connect&quot;</span>,</span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true"></a>               <span class="st">&quot;clientId&quot;</span> : clientId,</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true"></a>               <span class="st">&quot;connectionType&quot;</span> : <span class="st">&quot;in-process&quot;</span>,</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span> <span class="op">%</span> numCalls</span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true"></a>             } ]</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true"></a>    <span class="cf">try</span>:</span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true"></a>        r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data, stream<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true"></a>    <span class="cf">except</span>:</span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;There was a problem getting the next messages.&quot;</span>)</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true"></a>        <span class="cf">return</span></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true"></a>    <span class="cf">for</span> line <span class="kw">in</span> r.iter_lines():</span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true"></a>        preProcess(line.decode(<span class="st">&quot;utf-8&quot;</span>))</span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true"></a></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true"></a><span class="co"># Ensure each message sent to the right group and not from the bot</span></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true"></a><span class="kw">def</span> preProcess(line):</span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true"></a>    data <span class="op">=</span> json.loads(line)</span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true"></a>    <span class="cf">for</span> response <span class="kw">in</span> data:</span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true"></a>        <span class="co"># Make sure it is a message type</span></span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true"></a>        <span class="cf">if</span> <span class="st">&quot;data&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response: <span class="cf">continue</span></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true"></a>        <span class="cf">if</span> <span class="st">&quot;type&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span></span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true"></a>        <span class="cf">if</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;line.create&quot;</span>: <span class="cf">continue</span></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true"></a>        <span class="cf">if</span> <span class="st">&quot;subject&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span></span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true"></a></span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true"></a>        <span class="co"># Make sure it was sent to the correct group and not from the bot</span></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true"></a>        msg <span class="op">=</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;subject&quot;</span>]</span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true"></a>        <span class="cf">if</span> msg[<span class="st">&quot;group_id&quot;</span>] <span class="op">!=</span> groupId: <span class="cf">continue</span></span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true"></a>        <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">==</span> <span class="st">&quot;bot&quot;</span>: <span class="cf">continue</span></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true"></a></span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true"></a>        <span class="co"># If none of the above skipped, actually process the message</span></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true"></a>        process(msg)</span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true"></a></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true"></a><span class="co"># Bot functionality</span></span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true"></a></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true"></a><span class="co"># Process the msg dictionary containing sender and message information</span></span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true"></a><span class="kw">def</span> process(msg):</span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true"></a>    send(msg[<span class="st">&quot;text&quot;</span>])</span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true"></a></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true"></a>    <span class="co"># Uncomment the following line to print the whole message dict</span></span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true"></a>    <span class="co"># print(json.dumps(msg, indent=2))</span></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true"></a></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true"></a><span class="co"># Main Function</span></span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true"></a><span class="co">##################################################</span></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true"></a></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true"></a>    <span class="co"># Try subscribing</span></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true"></a>    clientId <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true"></a>    <span class="cf">try</span>:</span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true"></a>        clientId <span class="op">=</span> getClientId()</span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true"></a>        subscribe(accessToken, clientId)</span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true"></a>    <span class="cf">except</span>:</span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;There was a problem while trying to subscribe to the message&quot;</span></span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true"></a>              <span class="st">&quot;feed.&quot;</span>)</span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true"></a>        exit()</span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true"></a></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true"></a>    <span class="co"># Poll the server for new messages</span></span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true"></a>    numCalls <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true"></a>        getNew(clientId, numCalls)</span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true"></a>        numCalls <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> requests</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="im">import</span> time</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="im">import</span> json</span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#*******************************************************************************</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">################################################################################</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co"># Created by Jacob Strieb for the Chatbots optional lecture given as part of</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co"># the 15-112 Fall 2018 semester at Carnegie Mellon University</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">################################################################################</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#*******************************************************************************</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">##################################################</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co"># Global Variables</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">##################################################</span></span>
+<span id="cb11-17"><a href="#cb11-17"></a></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="co"># All of these can be found on the bot registration page here:</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="co"># https://dev.groupme.com/bots/</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>accessToken <span class="op">=</span> <span class="st">&quot;&lt;your API key here&gt;&quot;</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a>botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a>groupId <span class="op">=</span> <span class="st">&quot;&lt;your bot&#39;s group ID here&gt;&quot;</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a></span>
+<span id="cb11-24"><a href="#cb11-24"></a><span class="co">##################################################</span></span>
+<span id="cb11-25"><a href="#cb11-25"></a><span class="co"># GroupMe API Helper Functions</span></span>
+<span id="cb11-26"><a href="#cb11-26"></a><span class="co">##################################################</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a></span>
+<span id="cb11-28"><a href="#cb11-28"></a><span class="co"># Send a message as the bot</span></span>
+<span id="cb11-29"><a href="#cb11-29"></a><span class="kw">def</span> send(text):</span>
+<span id="cb11-30"><a href="#cb11-30"></a>    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }</span>
+<span id="cb11-31"><a href="#cb11-31"></a>    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span>
+<span id="cb11-32"><a href="#cb11-32"></a></span>
+<span id="cb11-33"><a href="#cb11-33"></a><span class="co"># Get my user ID for later API calls</span></span>
+<span id="cb11-34"><a href="#cb11-34"></a><span class="kw">def</span> getUserId(accessToken):</span>
+<span id="cb11-35"><a href="#cb11-35"></a>    data <span class="op">=</span> { <span class="st">&quot;access_token&quot;</span> : accessToken }</span>
+<span id="cb11-36"><a href="#cb11-36"></a>    r <span class="op">=</span> requests.get(<span class="st">&quot;https://api.groupme.com/v3/users/me&quot;</span>, params<span class="op">=</span>data)</span>
+<span id="cb11-37"><a href="#cb11-37"></a>    <span class="cf">return</span> r.json()[<span class="st">&quot;response&quot;</span>][<span class="st">&quot;user_id&quot;</span>]</span>
+<span id="cb11-38"><a href="#cb11-38"></a></span>
+<span id="cb11-39"><a href="#cb11-39"></a><span class="co"># Get a client ID to use for this session</span></span>
+<span id="cb11-40"><a href="#cb11-40"></a><span class="kw">def</span> getClientId():</span>
+<span id="cb11-41"><a href="#cb11-41"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
+<span id="cb11-42"><a href="#cb11-42"></a>    data <span class="op">=</span> [ {</span>
+<span id="cb11-43"><a href="#cb11-43"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/handshake&quot;</span>,</span>
+<span id="cb11-44"><a href="#cb11-44"></a>               <span class="st">&quot;version&quot;</span> : <span class="st">&quot;1.0&quot;</span>,</span>
+<span id="cb11-45"><a href="#cb11-45"></a>               <span class="st">&quot;supportedConnectionTypes&quot;</span> : [<span class="st">&quot;long-polling&quot;</span>],</span>
+<span id="cb11-46"><a href="#cb11-46"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;1&quot;</span></span>
+<span id="cb11-47"><a href="#cb11-47"></a>             } ]</span>
+<span id="cb11-48"><a href="#cb11-48"></a>    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)</span>
+<span id="cb11-49"><a href="#cb11-49"></a>    <span class="cf">return</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;clientId&quot;</span>]</span>
+<span id="cb11-50"><a href="#cb11-50"></a></span>
+<span id="cb11-51"><a href="#cb11-51"></a><span class="co"># Subscribe to the group channel -- bind the client ID to the user ID</span></span>
+<span id="cb11-52"><a href="#cb11-52"></a><span class="kw">def</span> subscribe(accessToken, clientId):</span>
+<span id="cb11-53"><a href="#cb11-53"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
+<span id="cb11-54"><a href="#cb11-54"></a>    data <span class="op">=</span> [ {</span>
+<span id="cb11-55"><a href="#cb11-55"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/subscribe&quot;</span>,</span>
+<span id="cb11-56"><a href="#cb11-56"></a>               <span class="st">&quot;clientId&quot;</span> : clientId,</span>
+<span id="cb11-57"><a href="#cb11-57"></a>               <span class="st">&quot;subscription&quot;</span> : <span class="st">&quot;/user/</span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> getUserId(accessToken),</span>
+<span id="cb11-58"><a href="#cb11-58"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;2&quot;</span>,</span>
+<span id="cb11-59"><a href="#cb11-59"></a>               <span class="st">&quot;ext&quot;</span> : {</span>
+<span id="cb11-60"><a href="#cb11-60"></a>                         <span class="st">&quot;access_token&quot;</span> : accessToken,</span>
+<span id="cb11-61"><a href="#cb11-61"></a>                         <span class="st">&quot;timestamp&quot;</span> : <span class="bu">int</span>(time.time())</span>
+<span id="cb11-62"><a href="#cb11-62"></a>                       }</span>
+<span id="cb11-63"><a href="#cb11-63"></a>             } ]</span>
+<span id="cb11-64"><a href="#cb11-64"></a>    r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data)</span>
+<span id="cb11-65"><a href="#cb11-65"></a>    <span class="cf">if</span> <span class="kw">not</span> r.json()[<span class="dv">0</span>][<span class="st">&quot;successful&quot;</span>]: <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Subscription failed&quot;</span>)</span>
+<span id="cb11-66"><a href="#cb11-66"></a></span>
+<span id="cb11-67"><a href="#cb11-67"></a><span class="co"># Get new messages from the server</span></span>
+<span id="cb11-68"><a href="#cb11-68"></a><span class="kw">def</span> getNew(clientId, numCalls):</span>
+<span id="cb11-69"><a href="#cb11-69"></a>    <span class="co"># Copied data from tutorial here: https://dev.groupme.com/tutorials/push</span></span>
+<span id="cb11-70"><a href="#cb11-70"></a>    data <span class="op">=</span> [ {</span>
+<span id="cb11-71"><a href="#cb11-71"></a>               <span class="st">&quot;channel&quot;</span> : <span class="st">&quot;/meta/connect&quot;</span>,</span>
+<span id="cb11-72"><a href="#cb11-72"></a>               <span class="st">&quot;clientId&quot;</span> : clientId,</span>
+<span id="cb11-73"><a href="#cb11-73"></a>               <span class="st">&quot;connectionType&quot;</span> : <span class="st">&quot;in-process&quot;</span>,</span>
+<span id="cb11-74"><a href="#cb11-74"></a>               <span class="st">&quot;id&quot;</span> : <span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span> <span class="op">%</span> numCalls</span>
+<span id="cb11-75"><a href="#cb11-75"></a>             } ]</span>
+<span id="cb11-76"><a href="#cb11-76"></a>    <span class="cf">try</span>:</span>
+<span id="cb11-77"><a href="#cb11-77"></a>        r <span class="op">=</span> requests.post(<span class="st">&quot;https://push.groupme.com/faye&quot;</span>, json<span class="op">=</span>data, stream<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-78"><a href="#cb11-78"></a>    <span class="cf">except</span>:</span>
+<span id="cb11-79"><a href="#cb11-79"></a>        <span class="bu">print</span>(<span class="st">&quot;There was a problem getting the next messages.&quot;</span>)</span>
+<span id="cb11-80"><a href="#cb11-80"></a>        <span class="cf">return</span></span>
+<span id="cb11-81"><a href="#cb11-81"></a>    <span class="cf">for</span> line <span class="kw">in</span> r.iter_lines():</span>
+<span id="cb11-82"><a href="#cb11-82"></a>        preProcess(line.decode(<span class="st">&quot;utf-8&quot;</span>))</span>
+<span id="cb11-83"><a href="#cb11-83"></a></span>
+<span id="cb11-84"><a href="#cb11-84"></a><span class="co"># Ensure each message sent to the right group and not from the bot</span></span>
+<span id="cb11-85"><a href="#cb11-85"></a><span class="kw">def</span> preProcess(line):</span>
+<span id="cb11-86"><a href="#cb11-86"></a>    data <span class="op">=</span> json.loads(line)</span>
+<span id="cb11-87"><a href="#cb11-87"></a>    <span class="cf">for</span> response <span class="kw">in</span> data:</span>
+<span id="cb11-88"><a href="#cb11-88"></a>        <span class="co"># Make sure it is a message type</span></span>
+<span id="cb11-89"><a href="#cb11-89"></a>        <span class="cf">if</span> <span class="st">&quot;data&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response: <span class="cf">continue</span></span>
+<span id="cb11-90"><a href="#cb11-90"></a>        <span class="cf">if</span> <span class="st">&quot;type&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span></span>
+<span id="cb11-91"><a href="#cb11-91"></a>        <span class="cf">if</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;line.create&quot;</span>: <span class="cf">continue</span></span>
+<span id="cb11-92"><a href="#cb11-92"></a>        <span class="cf">if</span> <span class="st">&quot;subject&quot;</span> <span class="kw">not</span> <span class="kw">in</span> response[<span class="st">&quot;data&quot;</span>]: <span class="cf">continue</span></span>
+<span id="cb11-93"><a href="#cb11-93"></a></span>
+<span id="cb11-94"><a href="#cb11-94"></a>        <span class="co"># Make sure it was sent to the correct group and not from the bot</span></span>
+<span id="cb11-95"><a href="#cb11-95"></a>        msg <span class="op">=</span> response[<span class="st">&quot;data&quot;</span>][<span class="st">&quot;subject&quot;</span>]</span>
+<span id="cb11-96"><a href="#cb11-96"></a>        <span class="cf">if</span> msg[<span class="st">&quot;group_id&quot;</span>] <span class="op">!=</span> groupId: <span class="cf">continue</span></span>
+<span id="cb11-97"><a href="#cb11-97"></a>        <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">==</span> <span class="st">&quot;bot&quot;</span>: <span class="cf">continue</span></span>
+<span id="cb11-98"><a href="#cb11-98"></a></span>
+<span id="cb11-99"><a href="#cb11-99"></a>        <span class="co"># If none of the above skipped, actually process the message</span></span>
+<span id="cb11-100"><a href="#cb11-100"></a>        process(msg)</span>
+<span id="cb11-101"><a href="#cb11-101"></a></span>
+<span id="cb11-102"><a href="#cb11-102"></a><span class="co">##################################################</span></span>
+<span id="cb11-103"><a href="#cb11-103"></a><span class="co"># Bot functionality</span></span>
+<span id="cb11-104"><a href="#cb11-104"></a><span class="co">##################################################</span></span>
+<span id="cb11-105"><a href="#cb11-105"></a></span>
+<span id="cb11-106"><a href="#cb11-106"></a><span class="co"># Process the msg dictionary containing sender and message information</span></span>
+<span id="cb11-107"><a href="#cb11-107"></a><span class="kw">def</span> process(msg):</span>
+<span id="cb11-108"><a href="#cb11-108"></a>    send(msg[<span class="st">&quot;text&quot;</span>])</span>
+<span id="cb11-109"><a href="#cb11-109"></a></span>
+<span id="cb11-110"><a href="#cb11-110"></a>    <span class="co"># Uncomment the following line to print the whole message dict</span></span>
+<span id="cb11-111"><a href="#cb11-111"></a>    <span class="co"># print(json.dumps(msg, indent=2))</span></span>
+<span id="cb11-112"><a href="#cb11-112"></a></span>
+<span id="cb11-113"><a href="#cb11-113"></a><span class="co">##################################################</span></span>
+<span id="cb11-114"><a href="#cb11-114"></a><span class="co"># Main Function</span></span>
+<span id="cb11-115"><a href="#cb11-115"></a><span class="co">##################################################</span></span>
+<span id="cb11-116"><a href="#cb11-116"></a></span>
+<span id="cb11-117"><a href="#cb11-117"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb11-118"><a href="#cb11-118"></a>    <span class="co"># Try subscribing</span></span>
+<span id="cb11-119"><a href="#cb11-119"></a>    clientId <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb11-120"><a href="#cb11-120"></a>    <span class="cf">try</span>:</span>
+<span id="cb11-121"><a href="#cb11-121"></a>        clientId <span class="op">=</span> getClientId()</span>
+<span id="cb11-122"><a href="#cb11-122"></a>        subscribe(accessToken, clientId)</span>
+<span id="cb11-123"><a href="#cb11-123"></a>    <span class="cf">except</span>:</span>
+<span id="cb11-124"><a href="#cb11-124"></a>        <span class="bu">print</span>(<span class="st">&quot;There was a problem while trying to subscribe to the message&quot;</span></span>
+<span id="cb11-125"><a href="#cb11-125"></a>              <span class="st">&quot;feed.&quot;</span>)</span>
+<span id="cb11-126"><a href="#cb11-126"></a>        exit()</span>
+<span id="cb11-127"><a href="#cb11-127"></a></span>
+<span id="cb11-128"><a href="#cb11-128"></a>    <span class="co"># Poll the server for new messages</span></span>
+<span id="cb11-129"><a href="#cb11-129"></a>    numCalls <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb11-130"><a href="#cb11-130"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb11-131"><a href="#cb11-131"></a>        getNew(clientId, numCalls)</span>
+<span id="cb11-132"><a href="#cb11-132"></a>        numCalls <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p>Note that the code above has a space for you to enter your bot’s details. Also note that the only part of the code that actually processes messages is the <code>process</code> function near the bottom of the code file. The rest is responsible for handling the connection to the GroupMe API.</p>
 <p>For your convenience, the code above can be downloaded from <a href="GroupMe.py">here</a>.</p>
 <p>The code above should not be used for complete projects, but should only be used for testing bot functionality before deploying on a server. Likewise for large projects, the code above should be imported as a module and separated from the <code>process</code> function to make the code more readable.</p>
@@ -444,67 +374,67 @@
 <li>Get user information</li>
 <li>Send message to user</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="co">#Python libraries that we need to import for our bot</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="im">import</span> random</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="im">from</span> pymessenger.bot <span class="im">import</span> Bot</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>ACCESS_TOKEN <span class="op">=</span> <span class="st">&#39;fdskafndsfjslafdsakjfdsaklfsaldf&#39;</span> <span class="co">#my token! :)</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>VERIFY_TOKEN <span class="op">=</span> <span class="st">&#39;esketit&#39;</span> <span class="co">#some random verify token</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>bot <span class="op">=</span> Bot(ACCESS_TOKEN)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="co">#We will receive messages that Facebook sends our bot at this endpoint</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&quot;/&quot;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a><span class="kw">def</span> receive_message():</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>    <span class="cf">if</span> request.method <span class="op">==</span> <span class="st">&#39;GET&#39;</span>:</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>        <span class="co">&quot;&quot;&quot;Before allowing people to message your bot, Facebook has implemented a verify token</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="co">        that confirms all requests that your bot receives came from Facebook.&quot;&quot;&quot;</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>        token_sent <span class="op">=</span> request.args.get(<span class="st">&quot;hub.verify_token&quot;</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a>        <span class="cf">return</span> verify_fb_token(token_sent)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true"></a>    <span class="co">#if the request was not get, it must be POST and we can just proceed with sending a message back to user</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true"></a>        <span class="co"># get whatever message a user sent the bot</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true"></a>       output <span class="op">=</span> request.get_json()</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true"></a>       <span class="cf">for</span> event <span class="kw">in</span> output[<span class="st">&#39;entry&#39;</span>]:</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true"></a>          messaging <span class="op">=</span> event[<span class="st">&#39;messaging&#39;</span>]</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true"></a>          <span class="cf">for</span> message <span class="kw">in</span> messaging:</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true"></a>            <span class="cf">if</span> message.get(<span class="st">&#39;message&#39;</span>):</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true"></a>                <span class="co">#Facebook Messenger ID for user so we know where to send response back to</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true"></a>                recipient_id <span class="op">=</span> message[<span class="st">&#39;sender&#39;</span>][<span class="st">&#39;id&#39;</span>]</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true"></a>                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;text&#39;</span>):</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true"></a>                    response_sent_text <span class="op">=</span> get_message()</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true"></a>                    send_message(recipient_id, response_sent_text)</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true"></a>                <span class="co">#if user sends us a GIF, photo,video, or any other non-text item</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true"></a>                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;attachments&#39;</span>):</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true"></a>                    response_sent_nontext <span class="op">=</span> get_message()</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true"></a>                    send_message(recipient_id, response_sent_nontext)</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&quot;Message Processed&quot;</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true"></a></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true"></a></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true"></a><span class="kw">def</span> verify_fb_token(token_sent):</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true"></a>    <span class="co">#take token sent by facebook and verify it matches the verify token you sent</span></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true"></a>    <span class="co">#if they match, allow the request, else return an error</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true"></a>    <span class="cf">if</span> token_sent <span class="op">==</span> VERIFY_TOKEN:</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true"></a>        <span class="cf">return</span> request.args.get(<span class="st">&quot;hub.challenge&quot;</span>)</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&#39;Invalid verification token&#39;</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true"></a></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true"></a></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true"></a><span class="co">#chooses a random message to send to the user</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true"></a><span class="kw">def</span> get_message():</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true"></a>    sample_responses <span class="op">=</span> [<span class="st">&quot;ESKETITTTTTT&quot;</span>, <span class="st">&quot;100 on my wrist, 80 on a brick, Lil Pump never spend money on a b**ch&quot;</span>, <span class="st">&quot;Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang&quot;</span>, <span class="st">&quot;I sold crack on PayPal&quot;</span>,</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true"></a>              <span class="st">&quot;LIL PUMP IN THE WHITE HOUSE, MADE WHITE HOUSE TURN TO A TRAP HOUSE&quot;</span>, <span class="st">&quot;Took 4 xans now I&#39;m feeling like a hero.. And my auntie on P.O.&quot;</span>]</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true"></a>    <span class="co"># return selected item to the user</span></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true"></a>    <span class="cf">return</span> random.choice(sample_responses)</span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true"></a></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true"></a><span class="co">#uses PyMessenger to send response to user</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true"></a><span class="kw">def</span> send_message(recipient_id, response):</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true"></a>    <span class="co">#sends user the text message provided via input response parameter</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true"></a>    bot.send_text_message(recipient_id, response)</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&quot;success&quot;</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true"></a></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true"></a>    app.run()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#Python libraries that we need to import for our bot</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="im">import</span> random</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="im">from</span> pymessenger.bot <span class="im">import</span> Bot</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb12-7"><a href="#cb12-7"></a>ACCESS_TOKEN <span class="op">=</span> <span class="st">&#39;fdskafndsfjslafdsakjfdsaklfsaldf&#39;</span> <span class="co">#my token! :)</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>VERIFY_TOKEN <span class="op">=</span> <span class="st">&#39;esketit&#39;</span> <span class="co">#some random verify token</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>bot <span class="op">=</span> Bot(ACCESS_TOKEN)</span>
+<span id="cb12-10"><a href="#cb12-10"></a></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#We will receive messages that Facebook sends our bot at this endpoint</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="at">@app.route</span>(<span class="st">&quot;/&quot;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="kw">def</span> receive_message():</span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="cf">if</span> request.method <span class="op">==</span> <span class="st">&#39;GET&#39;</span>:</span>
+<span id="cb12-15"><a href="#cb12-15"></a>        <span class="co">&quot;&quot;&quot;Before allowing people to message your bot, Facebook has implemented a verify token</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">        that confirms all requests that your bot receives came from Facebook.&quot;&quot;&quot;</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>        token_sent <span class="op">=</span> request.args.get(<span class="st">&quot;hub.verify_token&quot;</span>)</span>
+<span id="cb12-18"><a href="#cb12-18"></a>        <span class="cf">return</span> verify_fb_token(token_sent)</span>
+<span id="cb12-19"><a href="#cb12-19"></a>    <span class="co">#if the request was not get, it must be POST and we can just proceed with sending a message back to user</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-21"><a href="#cb12-21"></a>        <span class="co"># get whatever message a user sent the bot</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a>       output <span class="op">=</span> request.get_json()</span>
+<span id="cb12-23"><a href="#cb12-23"></a>       <span class="cf">for</span> event <span class="kw">in</span> output[<span class="st">&#39;entry&#39;</span>]:</span>
+<span id="cb12-24"><a href="#cb12-24"></a>          messaging <span class="op">=</span> event[<span class="st">&#39;messaging&#39;</span>]</span>
+<span id="cb12-25"><a href="#cb12-25"></a>          <span class="cf">for</span> message <span class="kw">in</span> messaging:</span>
+<span id="cb12-26"><a href="#cb12-26"></a>            <span class="cf">if</span> message.get(<span class="st">&#39;message&#39;</span>):</span>
+<span id="cb12-27"><a href="#cb12-27"></a>                <span class="co">#Facebook Messenger ID for user so we know where to send response back to</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a>                recipient_id <span class="op">=</span> message[<span class="st">&#39;sender&#39;</span>][<span class="st">&#39;id&#39;</span>]</span>
+<span id="cb12-29"><a href="#cb12-29"></a>                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;text&#39;</span>):</span>
+<span id="cb12-30"><a href="#cb12-30"></a>                    response_sent_text <span class="op">=</span> get_message()</span>
+<span id="cb12-31"><a href="#cb12-31"></a>                    send_message(recipient_id, response_sent_text)</span>
+<span id="cb12-32"><a href="#cb12-32"></a>                <span class="co">#if user sends us a GIF, photo,video, or any other non-text item</span></span>
+<span id="cb12-33"><a href="#cb12-33"></a>                <span class="cf">if</span> message[<span class="st">&#39;message&#39;</span>].get(<span class="st">&#39;attachments&#39;</span>):</span>
+<span id="cb12-34"><a href="#cb12-34"></a>                    response_sent_nontext <span class="op">=</span> get_message()</span>
+<span id="cb12-35"><a href="#cb12-35"></a>                    send_message(recipient_id, response_sent_nontext)</span>
+<span id="cb12-36"><a href="#cb12-36"></a>    <span class="cf">return</span> <span class="st">&quot;Message Processed&quot;</span></span>
+<span id="cb12-37"><a href="#cb12-37"></a></span>
+<span id="cb12-38"><a href="#cb12-38"></a></span>
+<span id="cb12-39"><a href="#cb12-39"></a><span class="kw">def</span> verify_fb_token(token_sent):</span>
+<span id="cb12-40"><a href="#cb12-40"></a>    <span class="co">#take token sent by facebook and verify it matches the verify token you sent</span></span>
+<span id="cb12-41"><a href="#cb12-41"></a>    <span class="co">#if they match, allow the request, else return an error</span></span>
+<span id="cb12-42"><a href="#cb12-42"></a>    <span class="cf">if</span> token_sent <span class="op">==</span> VERIFY_TOKEN:</span>
+<span id="cb12-43"><a href="#cb12-43"></a>        <span class="cf">return</span> request.args.get(<span class="st">&quot;hub.challenge&quot;</span>)</span>
+<span id="cb12-44"><a href="#cb12-44"></a>    <span class="cf">return</span> <span class="st">&#39;Invalid verification token&#39;</span></span>
+<span id="cb12-45"><a href="#cb12-45"></a></span>
+<span id="cb12-46"><a href="#cb12-46"></a></span>
+<span id="cb12-47"><a href="#cb12-47"></a><span class="co">#chooses a random message to send to the user</span></span>
+<span id="cb12-48"><a href="#cb12-48"></a><span class="kw">def</span> get_message():</span>
+<span id="cb12-49"><a href="#cb12-49"></a>    sample_responses <span class="op">=</span> [<span class="st">&quot;ESKETITTTTTT&quot;</span>, <span class="st">&quot;100 on my wrist, 80 on a brick, Lil Pump never spend money on a b**ch&quot;</span>, <span class="st">&quot;Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang&quot;</span>, <span class="st">&quot;I sold crack on PayPal&quot;</span>,</span>
+<span id="cb12-50"><a href="#cb12-50"></a>              <span class="st">&quot;LIL PUMP IN THE WHITE HOUSE, MADE WHITE HOUSE TURN TO A TRAP HOUSE&quot;</span>, <span class="st">&quot;Took 4 xans now I&#39;m feeling like a hero.. And my auntie on P.O.&quot;</span>]</span>
+<span id="cb12-51"><a href="#cb12-51"></a>    <span class="co"># return selected item to the user</span></span>
+<span id="cb12-52"><a href="#cb12-52"></a>    <span class="cf">return</span> random.choice(sample_responses)</span>
+<span id="cb12-53"><a href="#cb12-53"></a></span>
+<span id="cb12-54"><a href="#cb12-54"></a><span class="co">#uses PyMessenger to send response to user</span></span>
+<span id="cb12-55"><a href="#cb12-55"></a><span class="kw">def</span> send_message(recipient_id, response):</span>
+<span id="cb12-56"><a href="#cb12-56"></a>    <span class="co">#sends user the text message provided via input response parameter</span></span>
+<span id="cb12-57"><a href="#cb12-57"></a>    bot.send_text_message(recipient_id, response)</span>
+<span id="cb12-58"><a href="#cb12-58"></a>    <span class="cf">return</span> <span class="st">&quot;success&quot;</span></span>
+<span id="cb12-59"><a href="#cb12-59"></a></span>
+<span id="cb12-60"><a href="#cb12-60"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb12-61"><a href="#cb12-61"></a>    app.run()</span></code></pre></div>
 <h3 id="how-to-set-up-your-bot">How to Set Up Your Bot</h3>
 <ul>
 <li>Create Facebook Page (literally anything!)</li>
@@ -524,11 +454,11 @@
 <p>Most of the following setup steps were taken from <a href="http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/">this tutorial</a>. Feel free to follow it instead.</p>
 <p>Note: putting code on Heroku requires the use of <code>git</code> in addition to installing the <code>heroku</code> command-line interface from <a href="https://devcenter.heroku.com/articles/heroku-cli">here</a>. Please make sure you can use the <code>git</code> and <code>heroku</code> commands before proceeding.</p>
 <p>First, create a new folder and initialize a new <code>git</code> repository. Then create a new <code>heroku</code> app in the folder with the repository. To do this, run the following commands in <code>cmd</code>/Terminal/<code>bash</code> depeding on whether you are on Windows, Mac, or Linux (respectively):</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="fu">mkdir</span> bot</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="bu">cd</span> bot</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="fu">git</span> init .</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="ex">heroku</span> apps:create bot</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="fu">git</span> remote</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">mkdir</span> bot</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="bu">cd</span> bot</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">git</span> init .</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="ex">heroku</span> apps:create bot</span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="fu">git</span> remote</span></code></pre></div>
 <p>Once the repository has been created, you will need to add a <code>Procfile</code>, <code>runtime.txt</code> and <code>requirements.txt</code> file to the repo so that Heroku knows how to set up your environment. Put the following things in each of the files:</p>
 <h4 id="procfile"><code>Procfile</code></h4>
 <pre><code>web: gunicorn app:app --log-file=-</code></pre>
@@ -538,34 +468,34 @@
 <pre><code>Flask==0.12
 gunicorn==19.6.0</code></pre>
 <p>Once the above files have been added to the repository, the last step is to add your code and tell Heroku to run it. In order to add your code, insert it into a file called <code>app.py</code> formatted as the code below is:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="im">import</span> json</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="im">import</span> requests</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a><span class="kw">def</span> webhook():</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>    msg <span class="op">=</span> request.get_json()</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>    <span class="co"># Ignore messages sent by the bot</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>    <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;bot&quot;</span>:</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>        process(msg)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a><span class="co"># Insert any helper functions used by the process() function here</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a><span class="co"># For example, the send() function:</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a><span class="kw">def</span> send(text):</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a>    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a>    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a><span class="kw">def</span> process(msg):</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a>    <span class="co"># Insert your process() function that you wrote as with the test code above</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a>    <span class="cf">pass</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">import</span> json</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="im">import</span> requests</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>botId <span class="op">=</span> <span class="st">&quot;&lt;your bot ID here&gt;&quot;</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="kw">def</span> webhook():</span>
+<span id="cb17-10"><a href="#cb17-10"></a>    msg <span class="op">=</span> request.get_json()</span>
+<span id="cb17-11"><a href="#cb17-11"></a></span>
+<span id="cb17-12"><a href="#cb17-12"></a>    <span class="co"># Ignore messages sent by the bot</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>    <span class="cf">if</span> msg[<span class="st">&quot;sender_type&quot;</span>] <span class="op">!=</span> <span class="st">&quot;bot&quot;</span>:</span>
+<span id="cb17-14"><a href="#cb17-14"></a>        process(msg)</span>
+<span id="cb17-15"><a href="#cb17-15"></a></span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="co"># Insert any helper functions used by the process() function here</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a><span class="co"># For example, the send() function:</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a><span class="kw">def</span> send(text):</span>
+<span id="cb17-19"><a href="#cb17-19"></a>    data <span class="op">=</span> { <span class="st">&quot;bot_id&quot;</span> : botId, <span class="st">&quot;text&quot;</span> : text }</span>
+<span id="cb17-20"><a href="#cb17-20"></a>    requests.post(<span class="st">&quot;https://api.groupme.com/v3/bots/post&quot;</span>, data<span class="op">=</span>data)</span>
+<span id="cb17-21"><a href="#cb17-21"></a></span>
+<span id="cb17-22"><a href="#cb17-22"></a><span class="kw">def</span> process(msg):</span>
+<span id="cb17-23"><a href="#cb17-23"></a>    <span class="co"># Insert your process() function that you wrote as with the test code above</span></span>
+<span id="cb17-24"><a href="#cb17-24"></a>    <span class="cf">pass</span></span></code></pre></div>
 <p>Once <code>app.py</code> has been created, it is time to send the code to Heroku to be run. To do this, run the following commands:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="fu">git</span> add .</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="fu">git</span> commit -am <span class="st">&#39;updated code&#39;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="fu">git</span> push heroku master</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">git</span> add .</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">git</span> commit -am <span class="st">&#39;updated code&#39;</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">git</span> push heroku master</span></code></pre></div>
 <p>The last step when that has been done is to get the address of your Heroku project and set it as the “Callback URL” on the GroupMe Bots page <a href="https://dev.groupme.com/bots">here</a>.</p>
 <p>More information about running a GroupMe Bot (and other code) on Heroku can be found here:</p>
 <ul>
@@ -600,7 +530,7 @@ gunicorn==19.6.0</code></pre>
 </ul>
 <footer>
 <hr />
-Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.
+<p>Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
 </footer>
 </body>
 </html>
