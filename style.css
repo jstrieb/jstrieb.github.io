@@ -25,6 +25,7 @@ html {
   padding: 3em 1.5em;
   font-family: sans-serif;
   min-height: 100vh;
+  line-height: 1.35;
 }
 
 body {
@@ -57,17 +58,40 @@ figcaption {
   text-align: center;
 }
 
-pre, pre.sourceCode, blockquote {
+pre, pre.sourceCode {
   margin-left: 1px;
-  padding: 0.25em 1em;
-  border-left: 1px solid;
+  padding: 1em;
   overflow: auto;
+  border: 1px solid var(--fg-color);
 }
 
 blockquote {
+  margin-left: 1px;
+  padding: 0.25em 1em;
+  overflow: auto;
+  border-left: 1px solid var(--fg-color);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+pre {
+  counter-reset: line;
+}
+
+pre code > span:not(:first-child:last-child) {
+  counter-increment: line;
+}
+
+pre code > span:not(:first-child:last-child):before {
+  content: counter(line);
+  opacity: 0.8;
+  text-align: right;
+  display: inline-block;
+  min-width: 2ch;
+  margin-right: 2ch;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 pre, code {
@@ -158,10 +182,6 @@ hr {
   border-top: 1px solid var(--fg-color);
 }
 
-body > hr {
-  margin: 1em 0;
-}
-
 form, label {
   display: flex;
   flex-direction: column;
@@ -186,6 +206,10 @@ noscript {
   display: block;
   border: 1px solid var(--fg-color);
   padding: 1em;
+}
+
+a.footnote-back {
+  margin: 0 0.5ch;
 }
 
 .menu {
@@ -222,6 +246,10 @@ noscript {
   display: flex;
   flex-direction: column;
   gap: 1em;
+}
+
+.footnotes li {
+  margin: 0.5em 0;
 }
 
 /* Pandoc syntax highlighting */
