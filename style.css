@@ -36,6 +36,7 @@ body {
   justify-content: flex-start;
   align-items: stretch;
   gap: 1rem;
+  background: none;
 }
 
 a {
@@ -59,6 +60,7 @@ figcaption {
 }
 
 pre, pre.sourceCode {
+  margin: 0.5em 0;
   margin-left: 1px;
   padding: 1em;
   overflow: auto;
@@ -101,7 +103,8 @@ pre, code {
 
 :not(pre) > code {
   background: var(--accent-color-1);
-  padding: 0 0.5ch;
+  padding: 0 0.25ch;
+  line-height: 1;
 }
 
 kbd {
@@ -182,6 +185,10 @@ hr {
   border-top: 1px solid var(--fg-color);
 }
 
+body > hr {
+  margin: 1em 0;
+}
+
 form, label {
   display: flex;
   flex-direction: column;
@@ -226,7 +233,7 @@ a.footnote-back {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  gap: 1em;
+  gap: 0.5em 1em;
 }
 
 .menu li {

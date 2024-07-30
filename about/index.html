@@ -89,6 +89,8 @@ The form below requires JavaScript to be enabled in order to submit. I wish I co
 async function submitForm(form) {
   const message = (( form.email.value ? `From: ${form.email.value}\n` : "")
                    + `${form.text.value}`);
+  form.email.value = "";
+  form.text.value = "";
 
   const BOT_ID = "706deaf523f339bcee544e833b";
   fetch(`https://api.groupme.com/v3/bots/post?bot_id=${BOT_ID}`, {
@@ -102,8 +104,6 @@ async function submitForm(form) {
     }),
   })
   .then(() => {
-    form.email.value = "";
-    form.text.value = "";
     const alert = form.querySelector("#alert");
     alert.innerText = "Sent!";
     alert.style.opacity = 1;
