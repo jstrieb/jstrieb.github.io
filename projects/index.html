@@ -7,8 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="author" content="Jacob Strieb" />
-  <meta name="keywords" content="projects, jacob, strieb, jacob strieb" />
-  <meta name="description" content="List of publicly released projects created by Jacob Strieb" />
+  <meta name="description" content="Publicly released projects created by Jacob Strieb" />
   <title>Projects - Jacob Strieb</title>
   <link rel="stylesheet" href="/style.css" type="text/css" />
 </head>
@@ -17,42 +16,594 @@
 <ul>
 <li><a href="/">Home</a></li>
 <li><a href="/about/">About</a></li>
-<li><a href="https://github.com/jstrieb">Projects</a></li>
+<li><a href="/projects/">Projects</a></li>
 <li><a href="/posts/">Posts</a></li>
 </ul>
 <hr />
 </div>
+<style>
+body {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr min(100%, 70ch) 1fr;
+  gap: 1em 0;
+}
+
+body > * {
+  grid-column: 2;
+}
+
+.wide {
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
+.table-container.wide {
+  margin: auto;
+  max-width: min(1024px, 100%);
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 2em;
+}
+
+tr {
+  border-bottom: 1px solid var(--fg-color);
+}
+
+tbody tr:hover {
+  background: var(--accent-color-1);
+}
+
+th, td {
+  padding: 1em 0.5em;
+}
+
+td:first-of-type {
+  min-width: 30ch;
+}
+
+th:not(:first-of-type) {
+  cursor: pointer;
+}
+
+th:not(:first-of-type):hover {
+  text-decoration: underline;
+}
+
+th:not(:first-of-type), 
+td:not(:first-of-type) {
+  text-align: center;
+}
+
+td p {
+  margin: 1em 0;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 <h1 id="projects">Projects</h1>
-<div class="projects">
-<ul>
-<li><h3 id="link-lock"><a href="https://github.com/jstrieb/link-lock">Link Lock</a></h3>
-<p>Distributed application to password-protect URLs using AES in the browser. Written in <code>HTML</code>, <code>CSS</code>, and <code>JavaScript</code>.</p></li>
-<li><h3 id="bookmark-knocking"><a href="/projects/hidden-bookmarks">Bookmark Knocking</a></h3>
-<p>A novel technique to create secure, hidden bookmarks without a browser extension.</p></li>
-<li><h3 id="url-pages"><a href="https://github.com/jstrieb/urlpages">URL Pages</a></h3>
-<p>Create and view web pages stored entirely in their URL. Written in <code>HTML</code>, <code>CSS</code>, and <code>JavaScript</code>.</p></li>
-<li><h3 id="quickserv"><a href="https://github.com/jstrieb/quickserv">QuickServ</a></h3>
-<p>Minimal-setup, dependency-free Linux web server for hackathons. Written in <code>Go</code>.</p></li>
-<li><h3 id="hacker-news-discussion-button"><a href="https://github.com/jstrieb/hackernews-button">Hacker News Discussion Button</a></h3>
-<p>Firefox extension that links to the Hacker News discussion for the current page and preserves privacy with Bloom filters. Written in <code>C</code> with <code>WebAssembly</code>, and <code>JavaScript</code>.</p></li>
-<li><h3 id="github-statistics-images"><a href="https://github.com/jstrieb/github-stats">GitHub Statistics Images</a></h3>
-<p>Automatically generate summary GitHub statistics images for your profile using GitHub Actions and <code>Python</code>.</p></li>
-<li><h3 id="collaborative-ctf-environment"><a href="https://github.com/jstrieb/ctf-collab">Collaborative CTF Environment</a></h3>
-<p>Create a collaborative programming environment inside GitHub Actions – like Google Docs for hacking competitions.</p></li>
-<li><h3 id="personal-site"><a href="https://github.com/jstrieb/personal-site">Personal Site</a></h3>
-<p>Personal website designed by hand in <code>HTML</code>, <code>CSS</code>, and <code>JavaScript</code>, and compiled from <code>markdown</code> using a custom <code>bash</code> script.</p></li>
-<li><h3 id="groupme-latex-bot"><a href="https://github.com/jstrieb/groupme-latex">GroupMe LaTeX Bot</a></h3>
-<p>Renders LaTeX equations and sends them to the group chat as images. Also works with text and <code>tikz</code> plots. Written in <code>Python3</code> and run using <code>cgi-bin</code>.</p></li>
-<li><h3 id="zoom-download"><a href="https://github.com/jstrieb/zoom-download">Zoom Download</a></h3>
-<p>Browser extension to download recorded Zoom videos. Written in pure <code>HTML</code>, <code>CSS</code>, and <code>JavaScript</code>.</p></li>
-<li><h3 id="online-homework-template"><a href="https://github.com/jstrieb/homework-template">Online Homework Template</a></h3>
-<p>Homework template used for typesetting assignments and problem sets at Carnegie Mellon University; optimized for online submission. Written in <code>LaTeX</code>.</p></li>
-<li><h3 id="groupme-archiver"><a href="https://github.com/jstrieb/groupme-archiver">GroupMe Archiver</a></h3>
-<p>GUI to download media and messages from GroupMe Chats. Written in <code>Java</code> using <code>JavaFX</code>.</p></li>
-<li><h3 id="cmu-qpa"><a href="/cmuqpa">CMU QPA</a></h3>
-<p>Static web application to help Carnegie Mellon students calculate and predict their semester QPA. Created from scratch using <code>HTML</code>, <code>CSS</code>, and <code>JavaScript</code>.</p></li>
-</ul>
+<p>Most of the time, I am working intermittently on at least one side project. I tend to work on projects that either make my life easier, or validate unconventional uses of existing technology.</p>
+<p>I intend my projects to function for years with minimal maintainership. To that end, I often build scripts, native applications, or fully client-side web applications, and I avoid hosting servers and other public infrastructure that requires regular attention. I also try to write my code with as few dependencies as possible, since I believe that code rots fastest when it touches other software in many places.</p>
+<noscript>
+You do not have JavaScript enabled, so the table values may be outdated.
+</noscript>
+<div class="wide table-container">
+<table>
+<thead>
+<tr>
+<th>
+Project
+</th>
+<th>
+Released
+</th>
+<th>
+GitHub
+</th>
+<th>
+Hacker News
+</th>
+<th>
+Reddit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><a href="https://ofrak.com/tetris">ARM Assembly Tetris</a></p>
+<p>A game like Tetris, but the “blocks” are ARM assembly instructions that execute in a CPU emulator, which runs client-side in the browser. The score is stored in emulated memory, and the instructions can change it directly.</p>
+<p>Built with Svelte, Unicorn, Keystone, and WebAssembly.</p>
+</td>
+<td>
+August 2023
+</td>
+<td>
+</td>
+<td>
+472
+</td>
+<td>
+392
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/link-lock">Link Lock</a> <a href="https://jstrieb.github.io/link-lock" class="hidden"></a> <a href="https://jstrieb.github.io/link-lock/create" class="hidden"></a> <a href="https://jstrieb.github.io/link-lock/hidden" class="hidden"></a> <a href="https://jstrieb.github.io/link-lock/bruteforce" class="hidden"></a> <a href="https://github.com/jstrieb/bruteforce-link-lock" class="hidden"></a></p>
+<p>Password-protect URLs using AES in the browser, and create hidden bookmarks without a browser extension.</p>
+<p>Built with HTML, CSS, and JavaScript.</p>
+</td>
+<td>
+May 2020
+</td>
+<td>
+854
+</td>
+<td>
+73
+</td>
+<td>
+382
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/urlpages">URL Pages</a> <a href="https://jstrieb.github.io/urlpages" class="hidden"></a> <a href="https://jstrieb.github.io/urlpages/editor" class="hidden"></a></p>
+<p>Create and view web pages stored entirely in the URL.</p>
+<p>Built with HTML, CSS, and JavaScript.</p>
+</td>
+<td>
+June 2019
+</td>
+<td>
+1373
+</td>
+<td>
+377
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/poker-chipper">Poker Chipper</a> <a href="https://jstrieb.github.io/poker-chipper" class="hidden"></a></p>
+<p>Optimally select poker chip denominations for cash games using constrained, nonlinear optimization that runs client-side in the browser.</p>
+<p>Built with Svelte; mixed-integer, nonlinear programming (via <a
+  href="https://www.scipopt.org/" class="ignore">SCIP</a>); and WebAssembly.</p>
+</td>
+<td>
+June 2024
+</td>
+<td>
+171
+</td>
+<td>
+213
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/just.sh">just.sh</a> <a href="https://jstrieb.github.io/just.sh" class="hidden"></a></p>
+<p>Compiler that transforms Justfiles into portable, POSIX-compatible shell scripts.</p>
+<p>Built with Python.</p>
+</td>
+<td>
+December 2023
+</td>
+<td>
+128
+</td>
+<td>
+64
+</td>
+<td>
+11
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/quickserv">QuickServ</a> <a href="https://github.com/jstrieb/quickserv-examples" class="hidden"></a></p>
+<p>QuickServ is a dependency-free, statically-linked, single-file web server that makes it easy to prototype quick and dirty web applications.</p>
+<p>Built with Go.</p>
+</td>
+<td>
+October 2021
+</td>
+<td>
+322
+</td>
+<td>
+62
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/github-stats">GitHub Statistics Images</a></p>
+<p>Generate visualizations of GitHub user and repository statistics with GitHub Actions. Visualizations can include data for both private repositories, and for repositories you have contributed to, but do not own.</p>
+<p>Built with Python, SVG, CSS, and GitHub Actions.</p>
+</td>
+<td>
+August 2020
+</td>
+<td>
+2844
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/hackernews-button">Hacker News Button</a></p>
+<p>Firefox extension that links to the Hacker News discussion for the current page and preserves privacy using Bloom filters.</p>
+<p>Built with C, JavaScript, and WebAssembly.</p>
+</td>
+<td>
+March 2021
+</td>
+<td>
+84
+</td>
+<td>
+74
+</td>
+<td>
+5
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://jstrieb.github.io/projects/hidden-bookmarks">Bookmark Knocking</a></p>
+<p>A novel technique to create hidden bookmarks that open different links depending on the order in which you click them.</p>
+<p>Built with JavaScript and bookmarklets.</p>
+</td>
+<td>
+March 2021
+</td>
+<td>
+</td>
+<td>
+50
+</td>
+<td>
+128
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/webash">webash</a></p>
+<p>Create web interfaces for console applications by extracting flags and options from programs’ help text to run shell commands without leaving the browser.</p>
+<p>Built with shell scripting, HTML, CSS, JavaScript, and <a
+  href="https://github.com/jstrieb/quickserv" class="ignore">QuickServ</a>.</p>
+</td>
+<td>
+November 2023
+</td>
+<td>
+6
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/paperify">Paperify</a></p>
+<p>Transform any document, web page, or eBook into a research paper. (ChatGPT not required.)</p>
+<p>Built with shell scripting, Python, Pandoc, and LaTeX.</p>
+</td>
+<td>
+September 2023
+</td>
+<td>
+363
+</td>
+<td>
+96
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/systems-programming-cheat-sheet">Systems Programming Cheat Sheet</a></p>
+<p>Cheat sheet for x86-64 Linux systems programming. Made for 15-213 during my Spring 2019 semester at Carnegie Mellon.</p>
+<p>Built with LaTeX.</p>
+</td>
+<td>
+October 2021
+</td>
+<td>
+360
+</td>
+<td>
+9
+</td>
+<td>
+186
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/ctf-collab">CTF Collab</a></p>
+<p>Create an ephemeral, collaborative programming environment inside GitHub Actions; conveniently save data with Git. Particularly useful for solving Capture The Flag (CTF) problems.</p>
+<p>Built with shell scripting, Tor, and GitHub Actions.</p>
+</td>
+<td>
+December 2020
+</td>
+<td>
+69
+</td>
+<td>
+</td>
+<td>
+103
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/groupme-latex">GroupMe LaTeX Rendering Bot</a></p>
+<p>Detects any GroupMe messages containing LaTeX equations, renders them, and sends the output to the group chat as an image. The bot can also render short snippets of text, in addition to tikz plots.</p>
+<p>Built with Python, LaTeX, and <abbr title="Common Gateway Interface">CGI</abbr>.</p>
+</td>
+<td>
+September 2019
+</td>
+<td>
+6
+</td>
+<td>
+</td>
+<td>
+340
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/homework-template">LaTeX Homework Template</a></p>
+<p>Homework template using best-practice document styling. Designed specifically for typesetting solutions to math and computer science problem sets that will be graded online.</p>
+<p>Built with LaTeX.</p>
+</td>
+<td>
+October 2020
+</td>
+<td>
+32
+</td>
+<td>
+4
+</td>
+<td>
+68
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="https://github.com/jstrieb/panopto-download">Panopto Download</a></p>
+<p>Script to facilitate batch downloading of lecture videos from Panopto.</p>
+<p>Built with Python.</p>
+</td>
+<td>
+February 2020
+</td>
+<td>
+42
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
+<p>This page makes requests to the GitHub API, the Hacker News Algolia Search API, and the Reddit API to automatically update the table with current information. <a onclick="updateTableValues('reload')">Click here to flush the cache and force-reload the values.</a></p>
+<script>
+(() => {
+  function getTableParent(e) {
+    if (e.tagName.toLocaleLowerCase() === "table") {
+      return e;
+    }
+    return getTableParent(e.parentElement);
+  }
+
+  const numberRegex = /^[0-9]+$/;
+  const dateRegex = /^([A-Z][a-z]+) ([0-9]+)$/;
+  const months = [
+    "January", "February", "March", "April", "May", "June", "July", "August",
+    "September", "October", "November", "December",
+  ];
+
+  function sortTable(table, columnIndex) {
+    const rows = Array.from(table.querySelectorAll("tbody tr"));
+    rows.forEach(row => row.remove());
+    rows.sort((a, b) => {
+      a = a.children[columnIndex].innerText.trim();
+      b = b.children[columnIndex].innerText.trim();
+      if (a.match(numberRegex) || b.match(numberRegex)) {
+        a = parseInt(a || "0");
+        b = parseInt(b || "0");
+        return b - a;
+      }
+      if (a.match(dateRegex) || b.match(dateRegex)) {
+        aMatches = a.match(dateRegex);
+        a = new Date(parseInt(aMatches[2]), months.indexOf(aMatches[1]));
+        bMatches = b.match(dateRegex);
+        b = new Date(parseInt(bMatches[2]), months.indexOf(bMatches[1]));
+        return b - a;
+      }
+      return a.localeCompare(b);
+    })
+    rows.forEach(row => table.querySelector("tbody").appendChild(row));
+  }
+
+  Array.from(document.querySelectorAll("th")).slice(1).forEach(th => {
+    th.addEventListener("click", (e) => {
+      const siblings = Array.from(e.target.parentElement.children);
+      const columnIndex = siblings.indexOf(e.target);
+      sortTable(getTableParent(e.target), columnIndex);
+    });
+  });
+})();
+
+function _fetch(...args) {
+  return fetch(...args)
+    .then(r => {
+      if (!r.ok) {
+        throw new Error(r.status);
+      }
+      return r;
+    });
+}
+
+function canonicalize(url) {
+  const u = new URL(url);
+  u.search = "";
+  u.hash = "";
+  u.pathname = u.pathname.replace(/\/+/, "/").replace(/\/$/, "");
+  return u.toString();
+}
+
+async function getRepos(cache) {
+  let repos = [];
+  for (let page = 1; ; page++) {
+    let r;
+    try {
+      r = await _fetch(
+        `https://api.github.com/users/jstrieb/repos?per_page=100&type=all&page=${page}`,
+        { cache: cache },
+      );
+    } catch {
+      break;
+    }
+    repos = repos.concat(await r.json());
+    if (r.headers.get("link") == null) {
+      break;
+    }
+  }
+  return repos;
+}
+
+async function getRedditPosts(cache) {
+  let posts = [];
+  for (let after = "";;) {
+    let r;
+    try {
+      r = await _fetch(
+        `https://www.reddit.com/search.json?q=url%3Ajstrieb+OR+url%3Aofrak.com%2Ftetris&t=all&after=${after}`,
+        { cache: cache },
+      );
+    } catch {
+      break;
+    }
+    const json = await r.json();
+    if (json.data.children.length == 0) {
+      break;
+    }
+    posts = posts.concat(json.data.children.map(o => o.data));
+    after = posts[posts.length - 1].name;
+  }
+  return posts;
+}
+
+async function searchAlgolia(cache, query) {
+  query = encodeURIComponent(query);
+  let posts = [];
+  for (let page = 0; ; page++) {
+    let r;
+    try {
+      r = await _fetch(
+        `https://hn.algolia.com/api/v1/search_by_date?query="${query}"&tags=story&page=${page}&hitsPerPage=1000`,
+        { cache: cache },
+      );
+    } catch {
+      break;
+    }
+    const json = await r.json();
+    posts = posts.concat(json.hits);
+    if (json.page >= json.nbPages - 1) {
+      break;
+    }
+  }
+  return posts;
+}
+
+async function getHnPosts(cache) {
+  const seen = {};
+  return (
+    await Promise.all([
+      searchAlgolia(cache, "github.com/jstrieb"),
+      searchAlgolia(cache, "jstrieb.github.io"),
+      searchAlgolia(cache, "ofrak.com/tetris"),
+    ])
+  )
+  .flat()
+  .filter(post => {
+    if (seen[post.objectID]) {
+      return false;
+    }
+    seen[post.objectID] = true;
+    return true;
+  });
+}
+
+async function getPoints(listPromise, url_key, count_key) {
+  const result = {};
+  const list = await listPromise;
+  list.forEach(o => {
+    const url = canonicalize(o[url_key]);
+    result[url] = (result[url] ?? 0) + o[count_key];
+  });
+  return result;
+}
+
+async function updateTableValues(cache = "force-cache") {
+  Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
+    tr.children[2].innerText = "";
+    tr.children[3].innerText = "";
+    tr.children[4].innerText = "";
+  });
+
+  const [github, reddit, hn] = await Promise.all([
+    getPoints(getRepos(cache), "html_url", "stargazers_count"),
+    getPoints(getRedditPosts(cache), "url", "score"),
+    getPoints(getHnPosts(cache), "url", "points"),
+  ]);
+
+  Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
+    const totals = {
+      github: 0,
+      hn: 0,
+      reddit: 0,
+    };
+    Array.from(tr.querySelectorAll("a:not(.ignore)")).forEach(a => {
+      const url = canonicalize(a.href);
+      totals.github += github[url] ?? 0;
+      totals.hn += hn[url] ?? 0;
+      totals.reddit += reddit[url] ?? 0;
+    });
+    tr.children[2].innerText = totals.github || "";
+    tr.children[3].innerText = totals.hn || "";
+    tr.children[4].innerText = totals.reddit || "";
+  });
+}
+
+updateTableValues();
+</script>
 <footer>
 <hr />
 <p>Copyright &copy; 2024 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>

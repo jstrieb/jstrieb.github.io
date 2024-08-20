@@ -41,6 +41,9 @@ body {
 
 a {
   overflow-wrap: break-word;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
 }
 
 a:hover {
