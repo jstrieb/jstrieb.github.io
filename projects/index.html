@@ -586,21 +586,51 @@ async function getHnPosts(cache) {
   });
 }
 
-async function getPoints(listPromise, url_key, count_key) {
-  const result = {};
+async function getPoints(listPromise, urlKey, countKey, storyLink) {
+  const result = {
+    scores: {},
+    topUrls: {},
+  };
   const list = await listPromise;
   list.forEach(o => {
-    const url = canonicalize(o[url_key]);
-    result[url] = (result[url] ?? 0) + o[count_key];
+    const url = canonicalize(o[urlKey]);
+
+    result.scores[url] = (result.scores[url] ?? 0) + o[countKey];
+
+    const current = {
+      topUrl: storyLink(o),
+      topUrlPoints: o[countKey],
+    };
+    if (url in result.topUrls) {
+      const {topUrl, topUrlPoints} = result.topUrls[url];
+      if (current.topUrlPoints > topUrlPoints) {
+        result.topUrls[url] = current;
+      }
+    } else {
+      result.topUrls[url] = current;
+    }
   });
   return result;
 }
 
 async function updateTableValues(cache = "force-cache") {
   const [github, reddit, hn] = await Promise.all([
-    getPoints(getRepos(cache), "html_url", "stargazers_count"),
-    getPoints(getRedditPosts(cache), "url", "score"),
-    getPoints(getHnPosts(cache), "url", "points"),
+    getPoints(
+      getRepos(cache), 
+      "html_url", 
+      "stargazers_count", 
+      o => o["html_url"],
+    ),
+    getPoints(getRedditPosts(cache),
+      "url",
+      "score",
+      o => `https://reddit.com${o["permalink"]}`,
+    ),
+    getPoints(getHnPosts(cache),
+      "url",
+      "points",
+      o => `https://news.ycombinator.com/item?id=${o["story_id"]}`,
+    ),
   ]);
 
   Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
@@ -617,13 +647,47 @@ async function updateTableValues(cache = "force-cache") {
     };
     Array.from(tr.querySelectorAll("a:not(.ignore)")).forEach(a => {
       const url = canonicalize(a.href);
-      totals.github += github[url] ?? 0;
-      totals.hn += hn[url] ?? 0;
-      totals.reddit += reddit[url] ?? 0;
+      totals.github += github.scores[url] ?? 0;
+      if (!totals.githubLink) {
+        totals.githubLink = github.topUrls[url]?.topUrl;
+      }
+      totals.hn += hn.scores[url] ?? 0;
+      if (!totals.hnLink) {
+        totals.hnLink = hn.topUrls[url]?.topUrl;
+      }
+      totals.reddit += reddit.scores[url] ?? 0;
+      if (!totals.redditLink) {
+        totals.redditLink = reddit.topUrls[url]?.topUrl;
+      }
     });
-    tr.children[2].innerText = totals.github || "";
-    tr.children[3].innerText = totals.hn || "";
-    tr.children[4].innerText = totals.reddit || "";
+
+    if (totals.githubLink && totals.github) {
+      const a = document.createElement("a");
+      a.href = totals.githubLink;
+      a.innerText = totals.github;
+      a.classList.add("ignore");
+      tr.children[2].append(a);
+    } else {
+      tr.children[2].innerText = totals.github || "";
+    }
+    if (totals.hnLink && totals.hn > 5) {
+      const a = document.createElement("a");
+      a.href = totals.hnLink;
+      a.innerText = totals.hn;
+      a.classList.add("ignore");
+      tr.children[3].append(a);
+    } else if (totals.hn > 5) {
+      tr.children[3].innerText = totals.hn || "";
+    }
+    if (totals.redditLink && totals.reddit > 5) {
+      const a = document.createElement("a");
+      a.href = totals.redditLink;
+      a.innerText = totals.reddit;
+      a.classList.add("ignore");
+      tr.children[4].append(a);
+    } else if (totals.reddit > 5) {
+      tr.children[4].innerText = totals.reddit || "";
+    }
   });
 }
 
