@@ -48,7 +48,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  margin-bottom: 2em;
+  margin: 2em 0;
 }
 
 tr {
@@ -60,11 +60,15 @@ tbody tr:hover {
 }
 
 th, td {
-  padding: 1em 0.5em;
+  padding: 1em 1em;
 }
 
 td:first-of-type {
   min-width: 30ch;
+}
+
+th {
+  white-space: nowrap;
 }
 
 th:not(:first-of-type) {
@@ -87,6 +91,18 @@ td p {
 .hidden {
   display: none;
 }
+
+.down::after, .up::after {
+  font-weight: bold;
+}
+
+.down::after {
+  content: "↓";
+}
+
+.up::after {
+  content: "↑";
+}
 </style>
 <h1 id="projects">Projects</h1>
 <p>Most of the time, I am working intermittently on at least one side project. I tend to work on projects that either make my life easier, or validate unconventional uses of existing technology.</p>
@@ -98,7 +114,7 @@ You do not have JavaScript enabled, so the table values may be outdated.
 <table>
 <thead>
 <tr>
-<th>
+<th class="down">
 Project
 </th>
 <th>
@@ -428,7 +444,11 @@ February 2020
     "September", "October", "November", "December",
   ];
 
-  function sortTable(table, columnIndex) {
+  function sortTable(table, columnIndex, reversed) {
+    Array.from(table.querySelectorAll("thead th, thead th")).forEach(th => {
+      th.classList.remove("up");
+      th.classList.remove("down");
+    });
     const rows = Array.from(table.querySelectorAll("tbody tr"));
     rows.forEach(row => row.remove());
     rows.sort((a, b) => {
@@ -447,15 +467,20 @@ February 2020
         return b - a;
       }
       return a.localeCompare(b);
-    })
+    });
+    if (reversed) {
+      rows.reverse();
+    }
     rows.forEach(row => table.querySelector("tbody").appendChild(row));
   }
 
   Array.from(document.querySelectorAll("th")).slice(1).forEach(th => {
     th.addEventListener("click", (e) => {
+      const reversed = e.target.classList.contains("down");
       const siblings = Array.from(e.target.parentElement.children);
       const columnIndex = siblings.indexOf(e.target);
-      sortTable(getTableParent(e.target), columnIndex);
+      sortTable(getTableParent(e.target), columnIndex, reversed);
+      e.target.classList.add(reversed ? "up" : "down");
     });
   });
 })();
@@ -572,17 +597,17 @@ async function getPoints(listPromise, url_key, count_key) {
 }
 
 async function updateTableValues(cache = "force-cache") {
-  Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
-    tr.children[2].innerText = "";
-    tr.children[3].innerText = "";
-    tr.children[4].innerText = "";
-  });
-
   const [github, reddit, hn] = await Promise.all([
     getPoints(getRepos(cache), "html_url", "stargazers_count"),
     getPoints(getRedditPosts(cache), "url", "score"),
     getPoints(getHnPosts(cache), "url", "points"),
   ]);
+
+  Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
+    tr.children[2].innerText = "";
+    tr.children[3].innerText = "";
+    tr.children[4].innerText = "";
+  });
 
   Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
     const totals = {
