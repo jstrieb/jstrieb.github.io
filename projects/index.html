@@ -69,6 +69,7 @@ td:first-of-type {
 
 th {
   white-space: nowrap;
+  position: relative;
 }
 
 th:not(:first-of-type) {
@@ -94,6 +95,10 @@ td p {
 
 .down::after, .up::after {
   font-weight: bold;
+  position: absolute;
+  margin-left: 0.5ch;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .down::after {
