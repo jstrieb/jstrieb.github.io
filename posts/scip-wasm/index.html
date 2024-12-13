@@ -25,12 +25,28 @@
 </div>
 <h1 id="cross-compiling-the-scip-solver-to-webassembly">Cross-compiling the SCIP Solver to WebAssembly</h1>
 <p>By <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
-<p>Published on <a href="/posts/scip-wasm/">December 12, 2024</a>.</p>
+<p>Published on <a href="/posts/scip-wasm/">December 13, 2024</a>.</p>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>In June 2024, I released <a href="https://github.com/jstrieb/poker-chipper">Poker Chipper</a>, a web application that uses <a href="https://en.wikipedia.org/wiki/Deterministic_global_optimization#Mixed-integer_linear_programming_problems_(MILP)">mixed-integer, nonlinear programming</a> to optimally select poker chip denominations for cash games. In that project, I used a very fast solver called <a href="https://www.scipopt.org/">SCIP</a> to power the constrained optimization.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>Poker chipper runs entirely client-side in the user’s browser, which means it does not talk to any back end server, except to load static files from <a href="https://pages.github.com/">GitHub Pages</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> As a result, in order to do optimization with SCIP (a C/C++ application designed to run natively), I had to get SCIP working in the browser, so I could call it from my JavaScript front end code. To run SCIP in the browser, I used the <a href="https://github.com/emscripten-core/emscripten/tree/3.1.56">Emscripten</a> compiler to cross-compile the <a href="https://github.com/scipopt/scip">core SCIP C and C++ code</a> to <a href="https://en.wikipedia.org/wiki/WebAssembly">WebAssembly</a> (WASM).</p>
+<p>In June 2024, I released <a href="https://github.com/jstrieb/poker-chipper">Poker Chipper</a>, a web application that uses <a href="https://en.wikipedia.org/wiki/Deterministic_global_optimization#Mixed-integer_non-linear_programming_problems_(MINLP)">mixed-integer, nonlinear programming</a> to optimally select poker chip denominations for cash games. In that project, I used a very fast solver called <a href="https://www.scipopt.org/">SCIP</a> to power the constrained optimization.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Poker chipper runs entirely client-side in the user’s browser, which means it does not talk to any back end server (except to load static files from <a href="https://pages.github.com/">GitHub Pages</a>).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> As a result, in order to do optimization with SCIP (a C/C++ application designed to run natively), I had to get it working in the browser, so I could call it from my JavaScript front end code. To run SCIP in the browser, I used the <a href="https://github.com/emscripten-core/emscripten/tree/3.1.56">Emscripten</a> compiler to cross-compile the optimizer’s <a href="https://github.com/scipopt/scip">core C and C++ code</a> to <a href="https://en.wikipedia.org/wiki/WebAssembly">WebAssembly</a> (WASM).</p>
 <h2 id="try-it">Try It</h2>
+<p>Input a constrained optimization problem formulation below, and SCIP will solve it. SCIP accepts <a href="https://www.scipopt.org/doc/html/WHATPROBLEMS.php">several different formats</a> as input, depending on the mathematical properties of the problem you are trying to optimize:</p>
+<ul>
+<li>The <a href="https://www.ibm.com/docs/en/icos/22.1.2?topic=cplex-lp-file-format-algebraic-representation">LP format</a> is very common and fairly easy to read, but not very expressive
+<ul>
+<li>The <a href="https://polip.zib.de/pipformat.php">POLIP format</a> seems to be an extension of the LP format</li>
+<li>The example constraint file below is in the LP format</li>
+</ul></li>
+<li>The <a href="https://lpsolve.sourceforge.net/5.5/mps-format.htm">MPS format</a> is “industry-standard” according to a lot of sources, but it’s <a href="https://en.wikipedia.org/wiki/MPS_%28format%29">quite old</a>, and hard to read</li>
+<li>The <a href="https://zimpl.zib.de/zimpl.pdf">ZIMPL format</a> is affiliated with SCIP, and seems very expressive, if a little verbose</li>
+<li>The <a href="https://www.scipopt.org/doc/html/reader__cip_8c_source.php">CIP format</a> is the most powerful, but the least documented
+<ul>
+<li>SCIP can be used to convert other problems to CIP format by using the <code>display problem</code> command and viewing the results in the “logs” area below</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
 <style>
 textarea, input[type="text"] {
     font-family: monospace, monospace;
@@ -85,6 +101,7 @@ button {
       document.querySelector("#logs").innerText = log;
       document.querySelector("#logdetails").style.display = "flex";
     } catch (e) {
+      document.querySelector("#solution").innerText = `Error: ${e}`;
       console.error(e);
       reloadModule();
     }
@@ -92,27 +109,26 @@ button {
 </script>
 <div class="try">
 <label>Filename <input type="text" id="filename" value="model.lp" /></label> <label>Constraints
-<textarea rows="12">Maximize
- obj: x1 + 2 x2 + 3 x3 + x4
+<textarea rows="12">
+\\ Example from Advent of Code (Day 13, 2024)
+
+Minimize
+ obj: a + b
 Subject To
- c1: - x1 + x2 + x3 + 10 x4 <= 20
- c2: x1 - 3 x2 + x3 <= 30
- c3: x2 - 3.5 x4 = 0
-Bounds
- 0 <= x1 <= 40
- 2 <= x4 <= 3
+ c1: 94 a + 22 b = 8400
+ c2: 34 a + 67 b = 5400
 General
- x4
-End</textarea>
+ a b
+End
+</textarea>
 </label> <label>Command <input type="text" id="command" value="read model.lp optimize write solution solution.txt quit" /></label>
 <div class="buttons">
 <button onclick="solve()">
 Solve
 </button>
 </div>
-<div>
-<!-- Spacer -->
-</div>
+<p><br />
+</p>
 <label style="display: none;" id="solutioncontainer">Solution
 <pre><code id="solution">No solution.</code></pre>
 <p></label></p>
@@ -122,8 +138,10 @@ Solve
 </label>
 </details>
 </div>
+<p><br />
+</p>
 <h2 id="use-it">Use It</h2>
-<p>If you want to use the WebAssembly port of SCIP, you can download the <a href="https://github.com/jstrieb/poker-chipper/tree/a978ea3d49b8c4c17e6a4865f03d6f215ca8456a/src/compiled">pre-compiled files</a> from the Poker Chipper repository, or you can hotlink the compiled code in a <code>&lt;script type="module"&gt;</code> tag on your site.</p>
+<p>If you want to use the WebAssembly port of SCIP to do optimization in your own web application, you can either download the <a href="https://github.com/jstrieb/poker-chipper/tree/a978ea3d49b8c4c17e6a4865f03d6f215ca8456a/src/compiled">pre-compiled files</a> from the Poker Chipper repository, or you can hotlink the compiled code in a <code>&lt;script type="module"&gt;</code> tag on your site.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> createSCIP <span class="im">from</span> <span class="st">&quot;https://jstrieb.github.io/poker-chipper/assets/scip.js&quot;</span><span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>createSCIP({ <span class="dt">arguments</span><span class="op">:</span> [<span class="st">&quot;-q&quot;</span><span class="op">,</span> <span class="st">&quot;-c&quot;</span><span class="op">,</span> <span class="st">&quot;quit&quot;</span>] })</span>
@@ -134,7 +152,7 @@ Solve
 <span id="cb1-8"><a href="#cb1-8"></a>    <span class="co">// Perform optimization and write results to the console</span></span>
 <span id="cb1-9"><a href="#cb1-9"></a>    main([<span class="st">&quot;-f&quot;</span><span class="op">,</span> <span class="st">&quot;model.lp&quot;</span>])<span class="op">;</span></span>
 <span id="cb1-10"><a href="#cb1-10"></a>  })<span class="op">;</span></span></code></pre></div>
-<p>See the <a href="#usage-notes">Usage Notes</a> section for additional guidance.</p>
+<p>See the <a href="#usage-notes">Usage Notes</a> section for additional guidance. Alternatively, view the source of this page for an example of usage.</p>
 <h2 id="cross-compiling">Cross-compiling</h2>
 <p>The remainder of the post contains information about how to cross-compile the WebAssembly version of SCIP yourself.</p>
 <p>At the time I was experimenting with cross-compiling SCIP, I did the builds in a Dockerfile, which is included below.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
@@ -183,9 +201,9 @@ Solve
 <span id="cb3-13"><a href="#cb3-13"></a>  <span class="ex">docker</span> cp <span class="st">&quot;scip:/scipoptsuite-8.1.0/build/bin/</span><span class="va">${f}</span><span class="st">&quot;</span> .</span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="kw">done</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="ex">docker</span> kill scip</span></code></pre></div>
-<p>In the Dockerfile, the <code>CXXFLAGS</code> and CMake arguments are of particular interest.</p>
-<p>Though some of the possible options for <code>CXXFLAGS</code> are enumerated in the <a href="https://emscripten.org/docs/tools_reference/settings_reference.html">Emscripten documentation</a>, at the time I originally compiled this code, many of them were only documented in <a href="https://github.com/emscripten-core/emscripten/blob/cf90417346b78455089e64eb909d71d091ecc055/src/settings.js">this <code>settings.js</code> file</a> in the Emscripten repository.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> I went through that file and decided for each option whether I would need to override the default when compiling SCIP for Poker Chipper. The final argument, <code>-sDISABLE_EXCEPTION_CATCHING=0</code> was particularly important for fixing cases where SCIP was silently and inexplicably failing.</p>
-<p>The two additional flags passed to the <code>cmake</code> call are very important to get SCIP to cross-compile successfully. Without them, the build system will try to build optional dependencies for SCIP that are, themselves, complicated to cross-compile for WebAssembly. By eliding them entirely, the compilation process is substantially simplified.</p>
+<p>The <code>CXXFLAGS</code> and CMake arguments used in the Dockerfile are of particular interest.</p>
+<p>Though some possible options for <code>CXXFLAGS</code> are enumerated in the <a href="https://emscripten.org/docs/tools_reference/settings_reference.html">Emscripten documentation</a>, at the time I originally compiled this code, many of them were only documented in a <a href="https://github.com/emscripten-core/emscripten/blob/cf90417346b78455089e64eb909d71d091ecc055/src/settings.js"><code>settings.js</code> file</a> in the Emscripten repository.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> For each option in that file, I decided whether to override the default value. The final argument <code>-sDISABLE_EXCEPTION_CATCHING=0</code> was particularly important for fixing cases where SCIP was silently and inexplicably failing in some cases.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>The two additional flags passed to the <code>cmake</code> call (<code>-DNO_EXTERNAL_CODE</code> and <code>-DBUILD_TESTING=off</code>) are very important to get SCIP to cross-compile successfully. Without them, the build system will try to build optional dependencies for SCIP that are, themselves, complicated to cross-compile for WebAssembly. By entirely eliding all additional dependencies, the compilation process is substantially simplified.</p>
 <p>The <code>NO_EXTERNAL_CODE</code> CMake argument does not seem to be documented anywhere I could find in the SCIP docs. It’s also not in the <code>CMakeLists.txt</code> file in the core SCIP repo. It is, however, included in the <code>CMakeLists.txt</code> file that comes with the source tarball downloaded directly from the SCIP project website. A relevant snippet of that file is included below.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">if</span>(<span class="ot">NOT</span> NO_EXTERNAL_CODE)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>   <span class="kw">option</span>(AUTOBUILD <span class="st">&quot;find and use dependencies on availability (ignores PAPILO, IPOPT, ZLIB, GMP, PAPILO, ZIMPL, READLINE, WORHP flags)&quot;</span> OFF)</span>
@@ -211,9 +229,9 @@ Solve
 <span id="cb4-22"><a href="#cb4-22"></a>   <span class="kw">set</span>(SYM none <span class="ot">CACHE</span> <span class="ot">STRING</span> <span class="st">&quot;options for symmetry computation&quot;</span>)</span>
 <span id="cb4-23"><a href="#cb4-23"></a><span class="kw">endif</span>()</span></code></pre></div>
 <h2 id="usage-notes">Usage Notes</h2>
-<p>To use SCIP effectively in a web application, it is a good idea to run it inside a web worker. Although including web workers may make the code more complex, it is worth it if the solver has long-running computations. When run inside a web worker, the solver will not block the main thread, and therefore freeze the user interface. If run outside of a web worker, there is a risk that the optimization will cause the interface to hang, which would be a bad user experience.</p>
-<p>If you run SCIP inside of a web worker, it is advisable to use a service worker to cache assets requested from the back end. For security reasons, web workers cannot use the normal HTTP cache.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> As a result, redownloading the multi-megabyte WASM and JavaScript files every time a worker starts up can negatively impact the user experience. This is especially true if users could have slow Internet or be on a limited data plan.</p>
-<p>The web worker has to periodically redownload the WASM files because the only way to stop a web worker’s computation is to fully cancel the worker, thereby destroying all of its state, including downloaded files. Thus a service worker that provides caching can greatly speed up web worker startup, and overall application responsiveness.</p>
+<p>To use SCIP effectively in a web application, I recommend running it inside a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">web worker</a>. Web workers are the closest thing the web has to subprocesses. They can make code more complex, but it is worth it if the solver has long-running computations. Outside a web worker, the solver will block the main thread, and therefore freeze the user interface.</p>
+<p>Like all solvers, SCIP can take a while to perform optimization. Users may want to abort a running solve to start a new one if input data changes. Unfortunately, there is no standard mechanism for sending the equivalent of Unix signals to WebAssembly programs. The only reliable way to stop the solver is to kill the web worker running it and start a new one.</p>
+<p>If you run SCIP inside of a web worker, I recommend using a service worker to cache assets from the back end. For security reasons, web workers cannot use the normal HTTP cache.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> As a result, they re-download the multi-megabyte WASM and JavaScript files every time a new worker starts up, which can negatively impact the perceived speed of the application. This is especially true if users have slow Internet or are on a limited data plan. A service worker that provides caching can greatly speed up web worker startup, and overall application responsiveness.</p>
 <p>For more information, and for a concrete implementation example, check out the architecture of Poker Chipper, which is <a href="https://github.com/jstrieb/poker-chipper/blob/dfc6782202748027badfb88d385b19c201ce731f/README.md#application-architecture">outlined in a diagram</a> in the project README file.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -222,7 +240,8 @@ Solve
 <li id="fn2" role="doc-endnote"><p>I try to build static websites whenever possible because the maintenance burden is much lower than for dynamic websites. I don’t trust myself to host infrastructure for longer than a few months – setting up a project to run without my continued attention is critical for its long-term availability.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p>The Dockerfile is also <a href="https://github.com/jstrieb/poker-chipper/blob/dfc6782202748027badfb88d385b19c201ce731f/experiments/Dockerfile">tracked in the Poker Chipper repository</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4" role="doc-endnote"><p>That may or may not still be true.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>For some reason, web workers are supposed to run in isolated contexts. If they used the HTTP cache, users outside the web worker context could leak information about what requests the worker is making based on a timing side-channel.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Based on <a href="https://emscripten.org/docs/tools_reference/settings_reference.html#disable-exception-catching">this Emscripten documentation</a>, it seems possible that compiling with <code>-fno-exceptions</code> might also have solved this. I can’t remember if I tried that.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>For some reason, web workers are supposed to run in isolated contexts. If they used the HTTP cache, users outside the web worker context could leak information about what requests the worker is making based on a cache timing side-channel.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>
