@@ -157,6 +157,10 @@ ul, ol {
   text-align: center;
 }
 
+textarea {
+  resize: vertical;
+}
+
 input, textarea {
   border: 1px solid var(--fg-color);
   padding: 0.25em 0.5em;
