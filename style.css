@@ -1,6 +1,7 @@
 :root {
-  --bg-color: #000808;
+  --bg-color: #040814;
   --fg-color: #68c868;
+  --text-color: #e0e0e0;
   --accent-color-1: #303840;
 }
 
@@ -39,10 +40,15 @@ body {
   background: none;
 }
 
+p, li, td {
+  color: var(--text-color);
+}
+
 a {
   overflow-wrap: break-word;
   text-decoration: underline;
   text-decoration-thickness: 1px;
+  text-decoration-color: var(--fg-color);
   cursor: pointer;
 }
 
@@ -90,7 +96,6 @@ pre code > span:not(:first-child:last-child) {
 
 pre code > span:not(:first-child:last-child):before {
   content: counter(line);
-  opacity: 0.8;
   text-align: right;
   display: inline-block;
   min-width: 2ch;
@@ -114,6 +119,7 @@ kbd {
   background: var(--accent-color-1);
   padding: 0 0.5ch;
   box-shadow: 2px 2px 0 0 var(--fg-color);
+  margin-right: 2px;
 }
 
 h1 {
@@ -164,6 +170,7 @@ textarea {
 input, textarea {
   border: 1px solid var(--fg-color);
   padding: 0.25em 0.5em;
+  color: var(--text-color);
 }
 
 input:focus, textarea:focus {
@@ -216,6 +223,14 @@ footer {
   gap: 2em;
 }
 
+footer p {
+  color: var(--fg-color);
+}
+
+footer a {
+  text-decoration-color: var(--text-color);
+}
+
 noscript {
   display: block;
   border: 1px solid var(--fg-color);
@@ -245,6 +260,7 @@ a.footnote-back {
 
 .menu li {
   display: inline-block;
+  color: var(--fg-color);
 }
 
 .menu a {
@@ -253,6 +269,7 @@ a.footnote-back {
 
 .menu a:hover {
   text-decoration: underline;
+  text-decoration-color: var(--text-color);
 }
 
 .footnotes {
@@ -267,11 +284,6 @@ a.footnote-back {
 }
 
 /* Pandoc syntax highlighting */
-
-code span {
-  /* Dim the overly bright colors */
-  opacity: 0.9;
-}
 
 code span.an { color: #3f8058; } /* Annotation */
 code span.at { color: #2980b9; } /* Attribute */
