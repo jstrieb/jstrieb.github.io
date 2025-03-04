@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #040814;
+  --bg-color: #0c0c14;
   --fg-color: #68c868;
   --text-color: #e0e0e0;
   --accent-color-1: #303840;
@@ -179,6 +179,7 @@ input:focus, textarea:focus {
 
 button, .button {
   border: 1px solid var(--fg-color);
+  color: var(--text-color);
   padding: 0.5em;
   cursor: pointer;
   text-decoration: none;
