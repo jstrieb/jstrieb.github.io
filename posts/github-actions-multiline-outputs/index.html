@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="author" content="Jacob Strieb" />
+  <meta name="date" content="2025-05-28" />
+  <meta name="dcterms.date" content="2025-05-28" />
+  <meta name="description" content="How to get GitHub Actions workflow steps to reliably output multiline strings" />
+  <title>Reliable Multiline String Outputs from GitHub Actions Steps</title>
+  <link rel="stylesheet" href="/style.css" type="text/css" />
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/projects/">Projects</a></li>
+<li><a href="/posts/">Posts</a></li>
+</ul>
+<hr />
+</div>
+<h1 id="reliable-multiline-string-outputs-from-github-actions-steps">Reliable Multiline String Outputs from GitHub Actions Steps</h1>
+<p>By <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+<p>Published on <a href="/posts/github-actions-multiline-outputs/">May 28, 2025</a>.</p>
+<hr />
+<p><a href="https://github.com/features/actions">GitHub Actions</a> workflows are separated into steps. Each step may “output” strings that can be used in expressions elsewhere in the workflow. By default, it is not possible to have arbitrary multiline string outputs.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>We can achieve reliable multiline outputs by serializing output strings to JSON in the workflow step, and deserializing them in the expression that uses them. Jump to the end for an example of the solution, or continue on for an explanation.</p>
+<p>An Actions workflow step sets an output by appending strings of the form <code>name=value</code> to the file whose path is stored in the environment variable <code>GITHUB_OUTPUT</code>. That file is newline-delimited. In practice, setting and using outputs looks like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">job-name</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> make-output</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>          echo &quot;out_name=out_value&quot; &gt;&gt; &quot;${GITHUB_OUTPUT}&quot;</span>
+<span id="cb1-11"><a href="#cb1-11"></a>          echo &quot;other_output=value2&quot; &gt;&gt; &quot;${GITHUB_OUTPUT}&quot;</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="kw">      - </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="ch">|</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>          echo &quot;${{ steps.make-output.outputs.out_name }}&quot;</span>
+<span id="cb1-14"><a href="#cb1-14"></a>          echo &quot;${{ steps.make-output.outputs.other_output }}&quot;</span></code></pre></div>
+<p>Since the <code>GITHUB_OUTPUT</code> file is newline-delimited, multiline outputs like the following do not work correctly. In the best case, the workflow terminates early with an error. In the worst case, the truncated output is used, and there is a hard-to-debug issue far downstream from the source of the problem.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">  </span><span class="fu">error-job</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> make-output</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>          # Causes an error</span>
+<span id="cb2-11"><a href="#cb2-11"></a>          echo &quot;multiline=$(</span>
+<span id="cb2-12"><a href="#cb2-12"></a>            printf &#39;%s\n%s\n%s\n&#39; one two three</span>
+<span id="cb2-13"><a href="#cb2-13"></a>          )&quot; &gt;&gt; &quot;${GITHUB_OUTPUT}&quot;</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="kw">      - </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="ch">|</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>          echo &quot;${{ steps.make-output.outputs.multiline }}&quot;</span></code></pre></div>
+<p>Instead of trying to output a multiline string literal, we can instead output a single-line, serialized JSON string by piping to <code>jq</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="at">  </span><span class="fu">job</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> make-output</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>          # Serialize using jq; no error</span>
+<span id="cb3-11"><a href="#cb3-11"></a>          echo &quot;multiline=$(</span>
+<span id="cb3-12"><a href="#cb3-12"></a>            printf &#39;%s\n%s\n%s\n&#39; one two three \</span>
+<span id="cb3-13"><a href="#cb3-13"></a>              | jq --raw-input --compact-output --slurp</span>
+<span id="cb3-14"><a href="#cb3-14"></a>          )&quot; &gt;&gt; &quot;${GITHUB_OUTPUT}&quot;</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">      - </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="ch">|</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>          # Deserialize using jq</span>
+<span id="cb3-17"><a href="#cb3-17"></a>          jq --raw-output &lt;&lt;&quot;EOF&quot;</span>
+<span id="cb3-18"><a href="#cb3-18"></a>          ${{ steps.make-output.outputs.multiline }}</span>
+<span id="cb3-19"><a href="#cb3-19"></a>          EOF</span></code></pre></div>
+<ul>
+<li>The <code>--raw-input</code> flag instructs <code>jq</code> to turn the raw string into a JSON serialized string</li>
+<li>The <code>--compact-output</code> flag ensures <code>jq</code> outputs only a single line</li>
+<li>The <code>--slurp</code> flag ensures that <code>jq</code> reads the entire input as one string instead of one string per line</li>
+</ul>
+<p>Despite being illustrative, the previous example is a bit silly. If we wanted to transfer multiline strings between steps, we would just write them to a file, since the filesystem is shared across steps within the same job.</p>
+<p>On the other hand, multiline outputs are actually required when the output of a job step must be used as input for another job step in the Actions workflow YAML, via an expression. For example, the <a href="https://github.com/actions/cache?tab=readme-ov-file#inputs"><code>actions/cache</code> workflow takes a <code>path</code> input</a> that is a newline-delimited list of globbing patterns and paths to cache. If we want the list of paths to be set by a previous job step, then the step <em>must</em> be able to output multiline strings.</p>
+<p>To deserialize the multiline string in an Actions workflow expression, we use the <a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/evaluate-expressions-in-workflows-and-actions#fromjson"><code>fromJSON</code> function</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">  </span><span class="fu">job</span><span class="kw">:</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> make-output</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>          # In real life this would determine which paths to cache, rather than</span>
+<span id="cb4-11"><a href="#cb4-11"></a>          # being static</span>
+<span id="cb4-12"><a href="#cb4-12"></a>          echo &quot;multiline=$(</span>
+<span id="cb4-13"><a href="#cb4-13"></a>            printf &#39;%s\n&#39; file1.txt file2.txt file3.txt \</span>
+<span id="cb4-14"><a href="#cb4-14"></a>              | jq --raw-input --compact-output --slurp</span>
+<span id="cb4-15"><a href="#cb4-15"></a>          )&quot; &gt;&gt; &quot;${GITHUB_OUTPUT}&quot;</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> cache</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/cache@v4</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> key4</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="fu">          path</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>            ${{ fromJSON(steps.make-output.outputs.multiline) }}</span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="kw">      - </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="ch">|</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>          if [ &#39;${{ steps.cache.outputs.cache-hit }}&#39; = &#39;true&#39; ]; then</span>
+<span id="cb4-24"><a href="#cb4-24"></a>            cat file1.txt file2.txt file3.txt </span>
+<span id="cb4-25"><a href="#cb4-25"></a>          else</span>
+<span id="cb4-26"><a href="#cb4-26"></a>            date | tee file1.txt</span>
+<span id="cb4-27"><a href="#cb4-27"></a>            sleep 1</span>
+<span id="cb4-28"><a href="#cb4-28"></a>            date | tee file2.txt</span>
+<span id="cb4-29"><a href="#cb4-29"></a>            sleep 1</span>
+<span id="cb4-30"><a href="#cb4-30"></a>            date | tee file3.txt</span>
+<span id="cb4-31"><a href="#cb4-31"></a>          fi</span></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Technically, it is possible to output multiline strings using (officially sanctioned) nasty hacks such as <a href="https://github.com/github/docs/issues/21529">writing a heredoc to the <code>GITHUB_OUTPUT</code> file</a>, or <a href="https://github.com/actions/toolkit/blob/cee7d92d1d02e3107c9b1387b9690b89096b67be/packages/core/src/command.ts#L92-L105">doing sketchy string replacement</a>. Both of these will be buggy in rare cases, such as when user input contains either the heredoc delimiter or the string literals used for escaping.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>There will be an error and early termination unless the input being stored contains only <code>name=value</code> pairs separated by newlines.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<footer>
+<hr />
+<p>Copyright &copy; 2025 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
+</footer>
+</body>
+</html>
