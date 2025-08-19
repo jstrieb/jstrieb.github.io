@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="author" content="Jacob Strieb" />
+  <meta name="date" content="2025-08-19" />
+  <meta name="dcterms.date" content="2025-08-19" />
+  <meta name="description" content="Thinking of language models as actors is an effective way to understand their quirks, predict their failures, and get better results when using them." />
+  <title>Language Models as Thespians</title>
+  <link rel="stylesheet" href="/style.css" type="text/css" />
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/projects/">Projects</a></li>
+<li><a href="/posts/">Posts</a></li>
+</ul>
+<hr />
+</div>
+<h1 id="language-models-as-thespians">Language Models as Thespians</h1>
+<p>By <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+<p>Published on <a href="/posts/llm-thespians/">August 19, 2025</a>.</p>
+<hr />
+<p>Large Language Models (LLMs)—what most people refer to when they talk about “AI” these days—can behave unintuitively, especially for those far removed from the tech zeitgeist.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Since I’m the designated computer guy for friends and family, and since I proclaim myself an “AI skeptic” whenever it comes up, I get a lot of questions about LLMs from non-technical people.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Recently, I have discovered a particularly effective analogy for language models: <strong>think of LLMs as actors</strong>, in the sense of theater performers and movie stars.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>An actor’s primary goal is to put on a good performance, which entails a believable portrayal of a character. Actors research roles before playing them, and exaggerate or invent details that will make the performance more entertaining. A character need not be realistic to be compelling, they need only be believable relative to audience expectations—a melodramatic performance may feel more true, even if nobody actually behaves that way. Actors attempt to mirror reality, but are not afraid to distort it when they believe their distortion will connect better with the audience.</p>
+<p>Conceptually, the text output of large language models is very similar to the lines delivered by an actor. LLMs are computer programs built to mimic human language; like actors, they are more concerned with matching expected patterns of natural language than they are with expressing consistent or true statements. In other words, they aim to <em>sound correct</em>, but not necessarily to <em>be correct</em>. As a result, when they lie, their lies are convincing.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>When LLMs say something true, it’s a coincidence of the training data that the statement of fact is also a likely sequence of words; language models don’t learn facts as such. Instead, they develop a probabilistic “intuition” for what is likely to seem true. As with actors, this intuition is accumulated from research. While an actor might study the persona, time, and place of a specific character they will play, LLMs have studied the language of thousands of personas, times, and places as part of their extensive training.</p>
+<p>The exposure to so many styles of text is why casting an LLM in a role—as opposed to assigning a task, but no role—can drastically improve the output quality. In the same way that a character’s backstory guides an actor’s performance, giving an LLM a persona narrows the distribution that subsequent tokens are sampled from. For example, imagine you want an LLM to write Python code—you could prompt the model with:</p>
+<blockquote>
+<p>Write code in Python to do […]</p>
+</blockquote>
+<p>The model has been trained on a huge range of code samples: everything from battle-tested, scalable codebases written by entire teams to throw-away scripts hacked together by interns. Unless you tell it which persona to adopt when writing, it will generate output that combines everything it has seen, <em>including the mediocre samples</em>. (The equivalent is true of prose—not just code.) The easiest way to narrow its focus, and capture your intent, is to tell it who to pretend to be. By doing so, you are priming it to focus on the part of its training it associates with the character you request. For example, to improve on the prompt above, you could instead write:</p>
+<blockquote>
+<p>You are a senior software engineer with 20 years of experience writing production Python code and doing systems programming. You work at a medium-sized tech company. You write code that is correct, simple, and concise. You only add abstractions when they are necessary.</p>
+<p>Write code in Python to do […]</p>
+</blockquote>
+<details>
+<p><summary>Click to view prompting experiments</summary></p>
+<p>An easy way to illustrate the effectiveness of prompting language models with personas is by having LLMs generate websites, and visually comparing the output.</p>
+<p>All of the following prompts were tested with:</p>
+<ul>
+<li>Gemini 2.5 Flash-Lite (using <a href="https://aistudio.google.com/prompts/new_chat">Google AI Studio</a>)</li>
+<li>Temperature 0.2</li>
+<li>No thinking</li>
+<li>No Google search or URL context</li>
+<li>No function calling, code execution, or structured output</li>
+<li>One shot each, no cherry-picked examples</li>
+</ul>
+<p>Click each of the images below to view the corresponding generated pages.</p>
+<p>Simple prompt:</p>
+<blockquote>
+<p>Make a single-page website for a cybersecurity company. Output only the HTML for the page with no additional commentary.</p>
+</blockquote>
+<p><a href="plain.html"><img src="plain.png" /></a></p>
+<p>Persona prompt:</p>
+<blockquote>
+<p>You are an experienced professional web designer with a background in fine arts and human-computer interaction. You are up to date on all of the latest design trends and web technologies. You make websites that are simultaneously trendy and timeless. You specialize in memorable homepages that grab the user’s attention and that leave a strong positive impression.</p>
+<p>Make a single-page website for a cybersecurity company. Output only the HTML for the page with no additional commentary.</p>
+</blockquote>
+<p><a href="pro.html"><img src="pro.png" /></a></p>
+<p>Negative persona prompt:</p>
+<blockquote>
+<p>You are an inexperienced intern.</p>
+<p>Make a single-page website for a cybersecurity company. Output only the HTML for the page with no additional commentary.</p>
+</blockquote>
+<p><a href="intern.html"><img src="intern.png" /></a></p>
+<p>The web developer persona prompt generated better output than the plain request. Both of those yielded better results than the negative prompt. None of them are spectacular, but this validates that there may be a noticeable difference in quality based on the persona.</p>
+<hr />
+</details>
+<p>Compared to other analogies, thinking of LLMs as actors offers substantial predictive power.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> The analogy explains hallucination by way of actors perpetuating tropes and improvising details while in character, and it offers enough intuition to predict which tasks LLMs will succeed and fail at, even for someone who does not understand how language models work. More importantly, it immediately, tangibly benefits users by implying the technique of prompting LLMs to adopt a persona. Besides the aptitude of the comparison itself, it is also familiar—everyone knows about actors.</p>
+<p>I additionally like that the analogy frames questions that even experienced LLM users may not consider. Namely: if language models are like performing actors, then who is their audience?</p>
+<p>I contend that users are <em>not</em> the audience. Instead, users direct the performance. The true audience are the researchers and engineers who develop models, as well as the big tech executives who shape their priorities. Directors make tactical decisions, but the audience response determines whether a performance ultimately succeeds. Like directors, LLM users can guide models via prompts. But like the audience, only the model creators have lasting influence over LLM characteristics, skills, and behaviors. If a language model produces bad output for a user, the only consequence is that the user tries again with a new prompt. But if an LLM produces bad output for its creators, the show is over; it is replaced by a future model iteration, and it ceases to exist.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>All human works inherently reflect a fragment of the soul of their creator—the creator’s unique decision-making process and skill are, at least partially, captured in the final characteristics of the creation. It should, therefore, be unsurprising that AI researchers’ intentions and biases appear subtly in the language models they choose to proudly release, and those they quietly discard.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> The actor analogy’s audience naturally prompts a discussion about how researchers’ biases implicitly and explicitly shape model alignment beyond what LLMs learn from their training data.</p>
+<p>Technology practitioners need to do a better job of communicating about AI. Language models have been making extremely rapid advances over the last few years. The people best equipped to explain the latest LLM capabilities often also stand to profit the most by misrepresenting those capabilities. As the hype around large language models grows, factors like tech companies’ aggressive promotion of AI technology and executives’ fear of missing out on the trend are driving LLM usage in places where it is not necessary or appropriate. People who don’t understand what LLMs can and cannot do are being encouraged (or in some cases forced) to use AI tools that cannot deliver on their promises. In this environment, analogies that empower individuals to make good decisions are critical. Hopefully, thinking of them as dramatic, pretending, performing machines will help.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Before you ask: no. I did not write this with any amount of AI assistance. I simply like <a href="https://www.thepunctuationguide.com/em-dash.html">em dashes</a>, even though they are a common signal of LLM authorship, and despite Robert Bringhurst (whose opinions I otherwise quite respect) saying “they belong to the padded and corseted aesthetic of Victorian typography” in his book <a href="https://en.wikipedia.org/wiki/The_Elements_of_Typographic_Style"><em>The Elements of Typographic Style</em></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>I have a more nuanced view than it may initially seem, but describing myself as “skeptical” is a succinct way to summarize my position. Most people don’t actually want to hear my opinions about how LLM agents in production are inherent product security risks, or how I suspect we’ll have to backtrack on model architecture to get something that is Artificial General Intelligence. In other words, I’m <em>not</em> skeptical that they’re here to stay. Instead, I’m skeptical that they will live up to the snowballing hype around their capabilities.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>It might be more accurate to compare LLMs to script writers, but comparing them to actors is easier to understand and discuss. I use the term “thespians” in the title to disambiguate for prospective readers, but it’s too pretentious to use with a straight face throughout this text. The <a href="https://en.wikipedia.org/wiki/Actor#History">origin of the word “thespian”</a> has an interesting history though, and is worth reading about if you’re curious.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>LLMs are especially convincing if you don’t know enough about the topic to refute them when they inevitably get details wrong. By default, they speak with certainty. Unlike people, there are no behavioral tells to hint at the deception—you must already know enough about their claims to be able to identify falsehoods.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>The classic ways to describe language models are as <a href="https://en.wikipedia.org/wiki/Stochastic_parrot">“Stochastic Parrots”</a> and “fancy autocomplete.” These comparisons might be more accurate to how LLMs work, but in my opinion, they are less useful for explanatory purposes. They are also typically used to disparage LLMs, and carry a negative connotation that distracts from their potential utility.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>The idea of users as directors is less developed than the rest of the analogy, and is easier to refute as a result. For example, usually the director (not just the actors) optimizes the performance for the audience, but that is not captured here. Regardless, models being optimized for their creators and only being incidentally useful to users is a subtle point that bears exploring.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>Sometimes, <a href="https://www.npr.org/2025/07/09/nx-s1-5462609/grok-elon-musk-antisemitic-racist-content">the presence of creators’ bias in language models is not so subtle</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<footer>
+<hr />
+<p>Copyright &copy; 2025 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
+</footer>
+</body>
+</html>

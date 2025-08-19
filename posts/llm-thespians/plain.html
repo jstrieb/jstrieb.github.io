@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureGuard Solutions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+        nav {
+            text-align: center;
+            background-color: #004080;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #cceeff;
+        }
+        section {
+            padding: 40px 0;
+            text-align: center;
+        }
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+        .hero {
+            background-color: #e6f2ff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #003366;
+        }
+        .hero p {
+            font-size: 1.5em;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .service-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .service-item h3 {
+            color: #003366;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .service-item p {
+            color: #666;
+        }
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: left;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .contact-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #cceeff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>SecureGuard Solutions</h1>
+            <p>Your Trusted Partner in Digital Security</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#services">Services</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Fortify Your Digital Frontier</h2>
+            <p>Protect your business from evolving cyber threats with our comprehensive security solutions.</p>
+            <a href="#contact" class="cta-button">Get a Free Consultation</a>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <h3>Network Security</h3>
+                <p>Robust protection for your network infrastructure, preventing unauthorized access and data breaches.</p>
+            </div>
+            <div class="service-item">
+                <h3>Endpoint Protection</h3>
+                <p>Secure all your devices, from desktops to mobile, against malware and advanced persistent threats.</p>
+            </div>
+            <div class="service-item">
+                <h3>Cloud Security</h3>
+                <p>Safeguard your cloud data and applications with expert configuration and continuous monitoring.</p>
+            </div>
+            <div class="service-item">
+                <h3>Vulnerability Assessment</h3>
+                <p>Identify and remediate weaknesses in your systems before they can be exploited.</p>
+            </div>
+            <div class="service-item">
+                <h3>Incident Response</h3>
+                <p>Rapid and effective handling of security incidents to minimize damage and downtime.</p>
+            </div>
+            <div class="service-item">
+                <h3>Security Awareness Training</h3>
+                <p>Empower your employees with the knowledge to recognize and avoid cyber threats.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2>About SecureGuard Solutions</h2>
+        <p>At SecureGuard Solutions, we are dedicated to providing cutting-edge cybersecurity services tailored to the unique needs of your organization. Our team of experienced professionals leverages the latest technologies and methodologies to deliver proactive and reactive security measures. We believe in building strong partnerships with our clients, ensuring their digital assets are protected and their operations remain uninterrupted.</p>
+    </section>
+
+    <section id="contact" class="container">
+        <h2>Get In Touch</h2>
+        <div class="contact-form">
+            <form action="#" method="post">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 SecureGuard Solutions. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

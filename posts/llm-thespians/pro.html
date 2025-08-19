@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Digital Security</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00f0ff; /* Electric Cyan */
+            --secondary-color: #1a1a1a; /* Deep Charcoal */
+            --accent-color: #ff4500; /* Orange Red */
+            --text-color: #e0e0e0; /* Light Gray */
+            --background-color: #0d0d0d; /* Near Black */
+            --hover-color: #00c0cc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--background-color) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: var(--text-color);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 192, 204, 0.5);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-item {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-item i {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-item h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .service-item p {
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            font-size: 1.2em;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-color);
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--secondary-color);
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            header {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 15px;
+            }
+
+            .hero h1 {
+                font-size: 3em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            h2 {
+                font-size: 2.5em;
+                margin-bottom: 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image {
+                margin-top: 30px;
+            }
+
+            .contact-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.8em;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+                font-size: 0.9em;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .service-item {
+                padding: 20px;
+            }
+
+            .service-item h3 {
+                font-size: 1.5em;
+            }
+
+            .about-text p {
+                font-size: 1em;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 1em;
+                padding: 10px;
+            }
+
+            .contact-form button {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">AEGIS</div>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Fortify Your Digital Frontier</h1>
+            <p>Uncompromising cybersecurity solutions for a world under constant threat. We protect your assets, your data, and your peace of mind.</p>
+            <a href="#contact" class="cta-button">Secure Your Future</a>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <h2>Our Core Defenses</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Threat Detection & Response</h3>
+                <p>Proactive monitoring and rapid incident response to neutralize emerging cyber threats before they impact your operations.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-lock"></i>
+                <h3>Data Encryption & Protection</h3>
+                <p>State-of-the-art encryption protocols and robust data management to safeguard your sensitive information.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-network-wired"></i>
+                <h3>Network Security Audits</h3>
+                <p>Comprehensive assessments of your network infrastructure to identify vulnerabilities and fortify your defenses.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-user-secret"></i>
+                <h3>Vulnerability Management</h3>
+                <p>Continuous scanning and remediation of system weaknesses to prevent exploitation by malicious actors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Guardians of the Digital Realm</h2>
+                <p>At Aegis Digital Security, we are more than just a cybersecurity firm. We are a collective of seasoned experts, ethical hackers, and strategic thinkers dedicated to building resilient digital ecosystems. Our mission is to empower businesses with the confidence to innovate and grow, knowing their digital assets are protected by the best.</p>
+                <p>Leveraging cutting-edge technology and a deep understanding of the evolving threat landscape, we provide tailored solutions that adapt to your unique needs. Trust Aegis to be your unwavering shield in the digital age.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://via.placeholder.com/500x400/00f0ff/0d0d0d?text=Aegis+Team" alt="Aegis Digital Security Team">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h2>Let's Build Your Defense</h2>
+        <div class="contact-form">
+            <form action="#" method="post">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Request a Consultation</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Aegis Digital Security. All rights reserved. | Crafted with <i class="fas fa-heart" style="color: var(--accent-color);"></i> and <i class="fas fa-code" style="color: var(--primary-color);"></i></p>
+    </footer>
+
+</body>
+</html>

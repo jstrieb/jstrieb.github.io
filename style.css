@@ -154,7 +154,7 @@ details > *:not(summary) {
   margin: 1em 0;
 }
 
-ul, ol {
+ul, ol, details > ul, details > ol {
   margin-left: 1em;
 }
 
@@ -214,6 +214,11 @@ form, label {
 
 form {
   gap: 1em;
+}
+
+iframe {
+  width: 100%;
+  height: 25em;
 }
 
 footer {
