@@ -29,6 +29,16 @@ html {
   line-height: 1.35;
 }
 
+@media print, (monochrome) {
+  html {
+    filter: invert(1) grayscale(1) brightness(0.75) contrast(3);
+  }
+
+  img {
+    filter: invert(1);
+  }
+}
+
 body {
   max-width: 70ch;
   margin: auto;
@@ -42,6 +52,7 @@ body {
 
 p, li, td {
   color: var(--text-color);
+  hyphens: auto;
 }
 
 a {
@@ -64,7 +75,16 @@ img, video, svg {
   margin: auto;
 }
 
+figure {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 figcaption {
+  margin: 0.5em auto;
   text-align: center;
 }
 
@@ -136,6 +156,7 @@ h3 {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 1rem 0;
+  hyphens: auto;
 }
 
 sub, sup {
@@ -161,6 +182,8 @@ ul, ol, details > ul, details > ol {
 .math.display {
   display: block;
   text-align: center;
+  overflow-x: auto;
+  white-space: pre;
 }
 
 textarea {
