@@ -639,12 +639,6 @@ async function updateTableValues(cache = "force-cache") {
   ]);
 
   Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
-    tr.children[2].innerText = "";
-    tr.children[3].innerText = "";
-    tr.children[4].innerText = "";
-  });
-
-  Array.from(document.querySelectorAll("tbody tr")).forEach(tr => {
     const totals = {
       github: 0,
       hn: 0,
@@ -671,6 +665,7 @@ async function updateTableValues(cache = "force-cache") {
       a.href = totals.githubLink;
       a.innerText = totals.github;
       a.classList.add("ignore");
+      tr.children[2].innerText = "";
       tr.children[2].append(a);
     } else {
       tr.children[2].innerText = totals.github || "";
@@ -680,6 +675,7 @@ async function updateTableValues(cache = "force-cache") {
       a.href = totals.hnLink;
       a.innerText = totals.hn;
       a.classList.add("ignore");
+      tr.children[3].innerText = "";
       tr.children[3].append(a);
     } else if (totals.hn > 5) {
       tr.children[3].innerText = totals.hn || "";
@@ -689,6 +685,7 @@ async function updateTableValues(cache = "force-cache") {
       a.href = totals.redditLink;
       a.innerText = totals.reddit;
       a.classList.add("ignore");
+      tr.children[4].innerText = "";
       tr.children[4].append(a);
     } else if (totals.reddit > 5) {
       tr.children[4].innerText = totals.reddit || "";
