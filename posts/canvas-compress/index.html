@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="author" content="Jacob Strieb" />
+  <meta name="date" content="2026-01-03" />
+  <meta name="dcterms.date" content="2026-01-03" />
+  <meta name="description" content="Old browsers don’t have JavaScript compression APIs, so we store data in pixel color channels and export to PNG to compress data." />
+  <title>Using the Browser’s &lt;canvas&gt; for Data Compression</title>
+  <link rel="stylesheet" href="/style.css" type="text/css" />
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/projects/">Projects</a></li>
+<li><a href="/posts/">Posts</a></li>
+</ul>
+<hr />
+</div>
+<h1 id="using-the-browsers-canvas-for-data-compression">Using the Browser’s <code>&lt;canvas&gt;</code> for Data Compression</h1>
+<p>By <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+<p>Published on <a href="/posts/canvas-compress/">January 3, 2026</a>.</p>
+<hr />
+<p>Modern web browsers typically include optimized data compression libraries because they compress and decompress HTTP requests and images, among other data types.<span style="white-space: nowrap"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><span class="math inline"><sup>,</sup></span> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></span> Yet, until recently, despite pervasive use throughout browser internals, data compression APIs have not been accessible from websites’ JavaScript front ends. (Some browsers have implemented the Compression Streams API, but there is poor support in browser versions from before May 2023.)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>When building static websites and Single-Page applications (SPAs), we sometimes need to perform functionality in JavaScript front ends—such as compression—that is usually performed on the back end instead.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> For example, to store SPA state in the URL (such as in the hash – the part after the <code>#</code>, also known as the URL fragment), we want the serialized data to be as small as possible.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> In such cases, we would benefit from accessing browsers’ compression implementations.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>But how do we use compression functionality that is not exposed? It turns out that it is not <em>directly</em> exposed, but is <em>indirectly</em> exposed: if we can put data into a format that is compressed by the browser, and then get the resulting file, then that file will contain a compressed version of our data. Specifically, we can compress arbitrary data by leveraging browsers’ ability to losslessly compress pixel data into a PNG. Even accounting for headers, checksums, and overhead from the PNG format, the resulting file is usually smaller than the uncompressed data.</p>
+<h2 id="compress">Compress</h2>
+<p>Compress a <code>Uint8Array</code> into a base64 string.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">compress</span>(data) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  data <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(data)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Last pixel can have 1-3 data bytes. Store</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// that number in the first byte</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  data<span class="op">.</span><span class="fu">unshift</span>(data<span class="op">.</span><span class="at">length</span> <span class="op">%</span> <span class="dv">3</span>)<span class="op">;</span>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;canvas&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> numPixels <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">ceil</span>(data<span class="op">.</span><span class="at">length</span> <span class="op">/</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  c<span class="op">.</span><span class="at">width</span> <span class="op">=</span> numPixels<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  c<span class="op">.</span><span class="at">height</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> context <span class="op">=</span> c<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&quot;2d&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">fillStyle</span> <span class="op">=</span> <span class="st">&quot;white&quot;</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">fillRect</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> c<span class="op">.</span><span class="at">width</span><span class="op">,</span> c<span class="op">.</span><span class="at">height</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> image <span class="op">=</span> context<span class="op">.</span><span class="fu">getImageData</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> c<span class="op">.</span><span class="at">width</span><span class="op">,</span> c<span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> b <span class="kw">of</span> data) {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The alpha channel must be fully opaque or</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// there will be cross-browser inconsistencies</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// when encoding and decoding pixel data</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (offset <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>) {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      image<span class="op">.</span><span class="at">data</span>[offset<span class="op">++</span>] <span class="op">=</span> <span class="dv">255</span><span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    image<span class="op">.</span><span class="at">data</span>[offset<span class="op">++</span>] <span class="op">=</span> b<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">putImageData</span>(image<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> url <span class="op">=</span> c<span class="op">.</span><span class="fu">toDataURL</span>(<span class="st">&quot;image/png&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> url<span class="op">.</span><span class="fu">match</span>(<span class="ss">/,</span><span class="sc">(</span><span class="ss">.</span><span class="sc">*)</span><span class="ss">/</span>)[<span class="dv">1</span>]<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="decompress">Decompress</h2>
+<p>Decompress a base64 string into a <code>Uint8Array</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">decompress</span>(base64) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Decompression must be async. There is a race</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// if we don&#39;t wait for the image to load before</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// using its pixels</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">new</span> <span class="bu">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> img <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;img&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    img<span class="op">.</span><span class="at">onerror</span> <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">reject</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">&quot;Could not extract image data&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    img<span class="op">.</span><span class="at">onload</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="cf">try</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> c <span class="op">=</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>          <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;canvas&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        c<span class="op">.</span><span class="at">width</span> <span class="op">=</span> img<span class="op">.</span><span class="at">naturalWidth</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        c<span class="op">.</span><span class="at">height</span> <span class="op">=</span> img<span class="op">.</span><span class="at">naturalHeight</span><span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> context <span class="op">=</span> c<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&quot;2d&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        context<span class="op">.</span><span class="fu">drawImage</span>(img<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> raw <span class="op">=</span> context<span class="op">.</span><span class="fu">getImageData</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>          <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> c<span class="op">.</span><span class="at">width</span><span class="op">,</span> c<span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        )<span class="op">.</span><span class="at">data</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Filter out the alpha channel</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> r <span class="op">=</span> raw<span class="op">.</span><span class="fu">filter</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> i<span class="op">%</span><span class="dv">4</span> <span class="op">!=</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">resolve</span>(<span class="kw">new</span> <span class="bu">Uint8Array</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>          r<span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span><span class="op">,</span> r<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">+</span> r[<span class="dv">0</span>] <span class="op">+</span> <span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        ))<span class="op">;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">catch</span> (e) { <span class="fu">reject</span>(e)<span class="op">;</span> }</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    img<span class="op">.</span><span class="at">src</span> <span class="op">=</span> <span class="vs">`data:image/png;base64,</span><span class="sc">${</span>base64<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<hr />
+<p>This post was submitted to <a href="https://pagedout.institute/">Paged Out! Magazine</a> in December 2025 for the upcoming 2026 issue. It is brief, since it had to fit into a single page for the publication. It is reproduced here with minimal modification.</p>
+<p><a href="test.html">There is a test file</a> to validate that the compression and decompression code works. The test harness is the only part of this work that was written (in-part) with the use of Large Language Models (LLMs, commonly referred to as “AI”). All errors and omissions in the contents of this post are entirely my own.</p>
+<p>Thanks to Logan Snow for early discussions about the canvas compression idea, and for reading an early version of the article. Thanks to AJ Liu for her love and support.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression" class="uri">https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Encoding" class="uri">https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Encoding</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API" class="uri">https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Another example is base64-encoding arbitrary byte sequences. JavaScript has <code>btoa</code> and <code>atob</code> for converting strings to and from base64 encoding, but those functions fail for byte sequences that are not valid UTF-16 strings. In other words, they don’t work on all <code>Uint8Array</code>s and therefore cannot encode or decode truly arbitrary byte sequences.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Browsers have varying length limits, but it is ideal to keep URLs under a few thousand characters.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>It is also possible to reimplement compression in JavaScript or port libraries to WASM. But browsers have good implementations; we might as well use them!<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<footer>
+<hr />
+<p>Copyright &copy; 2017-2026 <a href="/about">Jacob Strieb</a>. All rights reserved.</p>
+</footer>
+</body>
+</html>

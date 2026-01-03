@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas Compression - Verbatim with Debug Output</title>
+    <style>
+      body {
+        font-family: "EB Garamond", serif;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+      }
+      section {
+        background: white;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .output-block {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border: 1px solid #eee;
+        background: #fff;
+        overflow-x: auto;
+      }
+      img {
+        border: 1px solid #000;
+        display: block;
+        margin: 10px 0;
+        min-width: 150px;
+        height: 30px;
+        image-rendering: pixelated;
+      }
+      code {
+        background: #f0f0f0;
+        padding: 2px 4px;
+        word-break: break-all;
+        font-family: monospace;
+      }
+      .status {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .success {
+        color: #28a745;
+      }
+      .failure {
+        color: #d73a49;
+        border: 2px solid #d73a49;
+        padding: 10px;
+        background: #fff5f5;
+      }
+      .diff-box {
+        margin-top: 10px;
+        font-size: 0.9em;
+      }
+      h1 {
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>Browser &lt;canvas&gt; Data Compression</h1>
+      <p>
+        Using the verbatim implementation from the paper. Results are validated
+        below.
+      </p>
+
+      <div id="display"></div>
+    </section>
+
+    <script>
+      // Uint8Array -> compressed base64 string
+      function compress(data) {
+        data = Array.from(data);
+        // Last pixel can have 1-3 data bytes. Store
+        // that number in the first byte
+        data.unshift(data.length % 3);
+        const c = document.createElement("canvas");
+        const numPixels = Math.ceil(data.length / 3);
+        c.width = numPixels;
+        c.height = 1;
+        const context = c.getContext("2d");
+        context.fillStyle = "white";
+        context.fillRect(0, 0, c.width, c.height);
+        const image = context.getImageData(0, 0, c.width, c.height);
+        let offset = 0;
+        for (const b of data) {
+          // The alpha channel must be fully opaque or
+          // there will be cross-browser inconsistencies
+          // when encoding and decoding pixel data
+          if (offset % 4 == 3) {
+            image.data[offset++] = 255;
+          }
+          image.data[offset++] = b;
+        }
+        context.putImageData(image, 0, 0);
+        const url = c.toDataURL("image/png");
+        return url.match(/,(.*)/)[1];
+      }
+
+      // compressed base64 string -> original Uint8Array
+      function decompress(base64) {
+        // Decompression must be async. There is a race
+        // if we don't wait for the image to load before
+        // using its pixels
+        return new Promise((resolve, reject) => {
+          const img = document.createElement("img");
+          img.onerror = () => reject(new Error("Could not extract image data"));
+          img.onload = () => {
+            try {
+              const c = document.createElement("canvas");
+              c.width = img.naturalWidth;
+              c.height = img.naturalHeight;
+              const context = c.getContext("2d");
+              context.drawImage(img, 0, 0);
+              const raw = context.getImageData(0, 0, c.width, c.height).data;
+              // Filter out the alpha channel
+              const r = raw.filter((_, i) => i % 4 != 3);
+              resolve(new Uint8Array(r.slice(1, r.length - 3 + r[0] + 1)));
+            } catch (e) {
+              reject(e);
+            }
+          };
+          img.src = `data:image/png;base64,${base64}`;
+        });
+      }
+
+      async function runTest(testString, label) {
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
+
+        const inputBytes = encoder.encode(testString);
+        const b64 = compress(inputBytes);
+        const outputBytes = await decompress(b64);
+        const resultString = decoder.decode(outputBytes);
+
+        const isMatch = testString === resultString;
+        const container = document.getElementById("display");
+        const div = document.createElement("div");
+        div.className = isMatch ? "output-block" : "output-block failure";
+
+        let htmlContent = `
+                      <div class="status">${isMatch ? '<span class="success">✓ PASS: ' + label + "</span>" : '<span class="failure">✗ FAIL: ' + label + "</span>"}</div>
+                      <strong>PNG:</strong>
+                      <img src="data:image/png;base64,${b64}">
+                  `;
+
+        if (!isMatch) {
+          htmlContent += `
+                          <div class="diff-box">
+                              <strong>Expected:</strong> <code>${testString}</code><br>
+                              <strong>Actual:</strong> <code>${resultString}</code>
+                          </div>
+                      `;
+          console.error(`Mismatch in ${label}:`, {
+            expected: testString,
+            actual: resultString,
+          });
+        } else {
+          htmlContent += `<code>${testString.substring(0, 60)}${testString.length > 60 ? "..." : ""}</code>`;
+        }
+
+        div.innerHTML = htmlContent;
+        container.appendChild(div);
+      }
+
+      (async () => {
+        await runTest(
+          "The quick brown fox jumps over the lazy dog.",
+          "Sentence Test",
+        );
+        await runTest("ABC".repeat(20), "Repetitive Pattern");
+        await runTest(
+          "This should fail if it ends with ÿ",
+          "Padding Edge Case",
+        );
+        // 1-5: Length Boundary Tests
+        await runTest("", "Empty String");
+        await runTest("A", "Single Byte");
+        await runTest("AB", "Exactly 2 Bytes (1 Pixel Total)");
+        await runTest("ABC", "Exactly 3 Bytes (Overflow to 2nd Pixel)");
+        await runTest("ABCD", "Exactly 4 Bytes");
+
+        // 6-10: Pixel Alignment & Remainder Logic
+        await runTest("ABCDE", "5 Bytes");
+        await runTest("ABCDEF", "6 Bytes (Exact Pixel Fit)");
+        await runTest("ABCDEFG", "7 Bytes");
+        await runTest("A".repeat(1024), "Large Power of 2");
+        await runTest("A".repeat(1023), "Off-by-one Power of 2");
+
+        // 11-15: Byte Value Stress (High/Low/Control)
+        await runTest("\0\0\0", "Null Bytes");
+        await runTest("\xff\xff\xff", "Max Byte Values (255)");
+        await runTest("\0\xff\0\xff", "High Contrast Alternating");
+        await runTest("    ", "Whitespace Only");
+        await runTest("\n\r\t", "Control Characters");
+
+        // 16-20: Encoding & Multi-byte UTF-8
+        await runTest("ÿ", "Latin-1 High Byte");
+        await runTest("🚀", "4-byte Emoji");
+        await runTest("你好", "Multi-byte CJK");
+        await runTest("A\0B\0C", "Interspersed Nulls");
+        await runTest(
+          "Data with 10% more context!",
+          "Special Symbols & Numbers",
+        );
+
+        // 21-25: Browser Rendering & Buffer Logic
+        await runTest("A".repeat(300), "Long Repetitive String");
+        await runTest(
+          Array.from({ length: 256 }, (_, i) => String.fromCharCode(i)).join(
+            "",
+          ),
+          "Full 0-255 Byte Range",
+        );
+        await runTest("Testing trailing ÿ", "High-byte at End of String");
+        await runTest(
+          "Check for transparency issues: \x80\x80\x80",
+          "Mid-range values (Potential Alpha Premultiplication)",
+        );
+        await runTest("Final Boundary Test!!!", "Odd Length with Punctuation");
+      })();
+
+      async function runByteTest(inputBytes, label) {
+        // Compression and Decompression
+        const b64 = compress(inputBytes);
+        const outputBytes = await decompress(b64);
+
+        // Validation logic for Uint8Arrays
+        const isMatch =
+          inputBytes.length === outputBytes.length &&
+          inputBytes.every((v, i) => v === outputBytes[i]);
+
+        // Page update logic (matching your original style)
+        const container = document.getElementById("display");
+        const div = document.createElement("div");
+        div.className = isMatch ? "output-block" : "output-block failure";
+
+        // Helper to format bytes for display
+        const formatBytes = (bytes) => {
+          const hex = Array.from(bytes.slice(0, 30))
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join(" ");
+          return `[${hex}${bytes.length > 30 ? "..." : ""}] (len: ${bytes.length})`;
+        };
+
+        let htmlContent = `
+          <div class="status">${isMatch ? '<span class="success">✓ PASS: ' + label + "</span>" : '<span class="failure">✗ FAIL: ' + label + "</span>"}</div>
+          <strong>PNG (Compressed):</strong>
+          <img src="data:image/png;base64,${b64}">
+        `;
+
+        if (!isMatch) {
+          htmlContent += `
+            <div class="diff-box">
+                <strong>Expected Bytes:</strong> <code>${formatBytes(inputBytes)}</code><br>
+                <strong>Actual Bytes:</strong> <code>${formatBytes(outputBytes)}</code>
+            </div>
+          `;
+        } else {
+          htmlContent += `<code>${formatBytes(inputBytes)}</code>`;
+        }
+
+        div.innerHTML = htmlContent;
+        container.appendChild(div);
+      }
+
+      // Execute 25 Byte-level Test Cases
+      (async () => {
+        // 1-5: Length Boundaries
+        await runByteTest(new Uint8Array([]), "Empty Buffer");
+        await runByteTest(new Uint8Array([255]), "Single Max Byte");
+        await runByteTest(
+          new Uint8Array([0, 0]),
+          "Two Null Bytes (1 Pixel Fit)",
+        );
+        await runByteTest(
+          new Uint8Array([1, 2, 3]),
+          "Three Bytes (Start 2nd Pixel)",
+        );
+        await runByteTest(new Uint8Array([1, 2, 3, 4]), "Four Bytes");
+
+        // 6-10: Color/Alpha Interference
+        await runByteTest(new Uint8Array(12).fill(255), "All White Pixels");
+        await runByteTest(new Uint8Array(12).fill(0), "All Black Pixels");
+        await runByteTest(
+          new Uint8Array([128, 128, 128, 128]),
+          "Mid-Gray Tones",
+        );
+        await runByteTest(
+          new Uint8Array([0, 255, 0, 255, 0]),
+          "High Contrast Ramp",
+        );
+        await runByteTest(
+          new Uint8Array([1, 1, 1, 1, 1]),
+          "Near-Black (Alpha Sensitivity)",
+        );
+
+        // 11-15: Alignment & Math
+        await runByteTest(new Uint8Array(2), "Remainder 2 (%3)");
+        await runByteTest(new Uint8Array(3), "Remainder 0 (%3)");
+        await runByteTest(new Uint8Array(4), "Remainder 1 (%3)");
+        await runByteTest(
+          new Uint8Array(512).map(() => Math.random() * 256),
+          "Large Random 512b",
+        );
+        await runByteTest(new Uint8Array(1024).fill(42), "Large 1KB Block");
+
+        // 16-20: Specific Value Patterns
+        await runByteTest(
+          new Uint8Array([0x00, 0x01, 0x02, 0x03]),
+          "Incremental Low Values",
+        );
+        await runByteTest(
+          new Uint8Array([0xfe, 0xff, 0xfe, 0xff]),
+          "High Value Edge",
+        );
+        await runByteTest(
+          new Uint8Array([10, 20, 30, 40, 50, 60]),
+          "Step Pattern",
+        );
+        await runByteTest(
+          new Uint8Array(Array.from({ length: 256 }, (_, i) => i)),
+          "Full 0-255 Ramp",
+        );
+        await runByteTest(
+          new Uint8Array([255, 0, 0, 0, 255, 0, 0, 0, 255]),
+          "RGB Primary Pattern",
+        );
+
+        // 21-25: Structural Stress
+        await runByteTest(new Uint8Array(33), "33 Bytes (Prime Length)");
+        await runByteTest(new Uint8Array(63), "63 Bytes (Multiple of 3)");
+        await runByteTest(new Uint8Array(64), "64 Bytes (Power of 2)");
+        await runByteTest(
+          new Uint8Array([255, 128, 0, 255, 128, 0]),
+          "Half-Tone Pattern",
+        );
+        await runByteTest(
+          crypto.getRandomValues(new Uint8Array(20)),
+          "Final Random Noise",
+        );
+      })();
+    </script>
+  </body>
+</html>
