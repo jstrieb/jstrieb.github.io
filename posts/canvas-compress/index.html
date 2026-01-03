@@ -93,6 +93,66 @@
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    img<span class="op">.</span><span class="at">src</span> <span class="op">=</span> <span class="vs">`data:image/png;base64,</span><span class="sc">${</span>base64<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="demo">Demo</h2>
+<noscript>
+The demo will not work with JavaScript disabled, since it runs client-side in the browser.
+</noscript>
+<textarea rows="8"></textarea>
+<div style="display: flex; justify-content: flex-end; align-items: center;">
+<button onclick="doCompress()">
+Compress
+</button>
+</div>
+<p id="stats">
+</p>
+<pre style="display: none;" id="output"></pre>
+<div style="overflow-x: auto;">
+<p><img style="display: none; height: 50px; max-width: unset; image-rendering: pixelated;" /></p>
+</div>
+<script>
+function compress(data) {
+  data = Array.from(data);
+  // Last pixel can have 1-3 data bytes. Store
+  // that number in the first byte
+  data.unshift(data.length % 3);  
+  const c = document.createElement("canvas");
+  const numPixels = Math.ceil(data.length / 3);
+  c.width = numPixels;
+  c.height = 1;
+  const context = c.getContext("2d");
+  context.fillStyle = "white";
+  context.fillRect(0, 0, c.width, c.height);
+  const image = context.getImageData(
+    0, 0, c.width, c.height,
+  );
+  let offset = 0;
+  for (const b of data) {
+    // The alpha channel must be fully opaque or
+    // there will be cross-browser inconsistencies
+    // when encoding and decoding pixel data
+    if (offset % 4 == 3) {
+      image.data[offset++] = 255;
+    }
+    image.data[offset++] = b;
+  }
+  context.putImageData(image, 0, 0);
+  const url = c.toDataURL("image/png");
+  return url.match(/,(.*)/)[1];
+}
+
+const encoder = new TextEncoder();
+function doCompress() {
+  const data = document.querySelector("textarea").value;
+  const img = document.querySelector("img");
+  const output = compress(encoder.encode(data));
+  img.src = `data:image/png;base64,${output}`;
+  const pre = document.querySelector("pre#output");
+  pre.innerText = img.src;
+  pre.style.display = "block";
+  img.style.display = "block";
+  document.querySelector("p#stats").innerText = `Compressed ${data.length} characters to ${output.length} base64 characters (${(output.length / data.length * 100).toFixed(2)}%).`;
+}
+</script>
 <hr />
 <p>This post was submitted to <a href="https://pagedout.institute/">Paged Out! Magazine</a> in December 2025 for the upcoming 2026 issue. It is brief, since it had to fit into a single page for the publication. It is reproduced here with minimal modification.</p>
 <p><a href="test.html">There is a test file</a> to validate that the compression and decompression code works. The test harness is the only part of this work that was written (in-part) with the use of Large Language Models (LLMs, commonly referred to as “AI”). All errors and omissions in the contents of this post are entirely my own.</p>

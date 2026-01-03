@@ -207,7 +207,7 @@ button, .button {
   cursor: pointer;
   text-decoration: none;
   text-align: center;
-  white-space: pre;
+  white-space: nowrap;
 }
 
 button:hover, .button:hover {
