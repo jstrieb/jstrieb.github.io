@@ -21,42 +21,45 @@
 = Using the Browser's `<canvas>` for Data Compression
 ]
 
-#v(1em)
+#v(2em)
 
 #columns(2, gutter: 15pt)[
-  
-Modern web browsers typically include optimized data compression
-libraries because they compress and decompress HTTP requests and images,
-among other data types.#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression");];#super[,]#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Encoding");]
-Yet, until recently, despite pervasive use throughout browser internals,
-data compression APIs have not been accessible from websites' JavaScript
-front ends. (Some browsers have implemented the Compression Streams API,
-but there is poor support in browser versions from before May
-2023.)#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API");]
 
-When building static websites and Single-Page applications (SPAs), we
-sometimes need to perform functionality in JavaScript front ends---such
-as compression---that is usually performed on the back end
-instead.#footnote[#" "Another example is base64-encoding arbitrary byte
-sequences. JavaScript has `btoa` and `atob` for converting strings to
-and from base64 encoding, but those functions fail for byte sequences
-that are not valid UTF-16 strings. In other words they don't work on all
-`Uint8Array`s and therefore cannot encode or decode truly arbitrary byte
-sequences.] For example, to store SPA state in the URL (such as in the
-hash -- the part after the `#`, also known as the URL fragment), we want
-the serialized#colbreak() data to be as small as possible.#footnote[#" "Browsers have
-varying length limits, but it is ideal to keep URLs under a few thousand
-characters.] In such cases, we would benefit from accessing browsers'
-compression implementations.#footnote[#" "It is also possible to reimplement compression in JavaScript or port libraries to WASM. But browsers have good implementations; we might as well use them!]
+When building static websites and Single-Page Applications (SPAs), we sometimes
+need functionality in JavaScript front ends---such as compression---that is
+usually handled on the back end instead.#footnote[#" "Another example is
+base64-encoding arbitrary byte sequences. JavaScript has `btoa` and `atob` for
+converting strings to and from base64 encoding, but those functions fail for
+byte sequences that are not valid UTF-16 strings. In other words, they don't
+work on all `Uint8Array`s and, therefore, cannot encode or decode truly
+arbitrary byte sequences.] For example, to store SPA state in the URL hash (the
+part after the `#`, also known as the fragment), we want the serialized data to
+be as small as possible.#footnote[#" "Browsers have varying length limits, but
+it is ideal to keep URLs under a few thousand characters.] In such cases, we
+would benefit from accessing browsers' compression 
+implementations.#footnote[#" "It's also possible to port compression libraries
+to JavaScript or WASM. But browsers have good implementations; we might as well
+use them!]
 
-But how do we use compression functionality that is not exposed? It
-turns out that it is not #emph[directly] exposed, but is
+Web browsers typically include optimized data compression libraries because they
+compress and decompress HTTP requests and images, among other data 
+types.#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression");];#super[,]#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Encoding");]  
+Yet data compression APIs were not widely accessible from websites' JavaScript
+front ends until May 
+2023.#footnote[#" "#link("https://caniuse.com/mdn-api_compressionstream");];
+#colbreak() 
+
+Most modern browsers have implemented the Compression Streams API, thereby
+supporting compression directly from 
+JavaScript.#footnote[#" "#link("https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API");]
+But how do we use compression functionality in old browsers where it is not
+exposed? It turns out that it is not #emph[directly] exposed, but is
 #emph[indirectly] exposed: if we can put data into a format that is
-compressed by the browser, and then get the resulting file, then that
-file will contain a compressed version of our data. Specifically, we can
-compress arbitrary data by leveraging browsers' ability to losslessly compress pixel data into a PNG. Even accounting for headers, checksums, and
-overhead from the PNG format, the resulting file is usually smaller than
-the uncompressed data.
+compressed by the browser, and then get the resulting file, then that file will
+contain a compressed version of our data. Specifically, we can compress
+arbitrary data by leveraging browsers' ability to losslessly compress pixel data
+into a PNG. Even accounting for headers, checksums, and overhead from the PNG
+format, the resulting file is usually smaller than the uncompressed data.
 
 ]
 
@@ -104,7 +107,7 @@ function compress(data) {
 
 ],
 
-line(angle: 90deg, length: 51.2%, stroke: 0.25pt + gray),
+line(angle: 90deg, length: 51%, stroke: 0.25pt + gray),
 
 [
 
